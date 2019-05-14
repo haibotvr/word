@@ -35,5 +35,6 @@ mvnw.*
 mvnw
 
 # Java
-*/target
+target
 .DS_Store
+src/main/resources/mybatis/mybatis-generator.xml
