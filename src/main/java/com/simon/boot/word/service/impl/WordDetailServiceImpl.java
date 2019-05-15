@@ -27,6 +27,7 @@ public class WordDetailServiceImpl implements WordDetailService {
     @Override
     public ReturnValue add(WordDetail record) throws BusinessException {
         record.setCreateTime(new Date());
+        record.seteStatus(DetailStatus.AVAILABLE.getValue());
         return ReturnValue.success(mapper.insertSelective(record));
     }
 

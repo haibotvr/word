@@ -27,6 +27,7 @@ public class WordSchoolServiceImpl implements WordSchoolService {
     @Override
     public ReturnValue add(WordSchool record) throws BusinessException {
         record.setCreateTime(new Date());
+        record.seteStatus(SchoolStatus.AVAILABLE.getValue());
         return ReturnValue.success(mapper.insertSelective(record));
     }
 
