@@ -1,9 +1,9 @@
 package com.simon.boot.word.controller;
 
-import com.simon.boot.word.entity.WordSchool;
+import com.simon.boot.word.entity.WordChapter;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.qc.PageQC;
-import com.simon.boot.word.service.WordSchoolService;
+import com.simon.boot.word.service.WordChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.*;
  * @author simon.wei
  */
 @RestController
-@RequestMapping("school")
-public class WordSchoolController {
+@RequestMapping("chapter")
+public class WordChapterController {
 
     @Autowired
-    private WordSchoolService service;
+    private WordChapterService service;
 
     @PostMapping("add")
-    public ReturnValue add(@RequestBody WordSchool record){
+    public ReturnValue add(@RequestBody WordChapter record){
         return service.add(record);
     }
 
     @PostMapping("edit")
-    public ReturnValue edit(@RequestBody WordSchool record){
+    public ReturnValue edit(@RequestBody WordChapter record){
         return service.edit(record);
     }
 
