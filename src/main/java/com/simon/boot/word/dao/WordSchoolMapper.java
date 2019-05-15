@@ -1,7 +1,7 @@
 package com.simon.boot.word.dao;
 
-import com.simon.boot.word.entity.WordSchool;
-import com.simon.boot.word.entity.WordSchoolExample;
+import com.simon.boot.word.pojo.WordSchool;
+import com.simon.boot.word.pojo.WordSchoolExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;

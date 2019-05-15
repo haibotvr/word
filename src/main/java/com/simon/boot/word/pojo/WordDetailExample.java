@@ -1,4 +1,4 @@
-package com.simon.boot.word.entity;
+package com.simon.boot.word.pojo;
 
 import java.util.ArrayList;
 import java.util.Date;

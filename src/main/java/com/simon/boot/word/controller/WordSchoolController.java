@@ -1,6 +1,6 @@
 package com.simon.boot.word.controller;
 
-import com.simon.boot.word.entity.WordSchool;
+import com.simon.boot.word.pojo.WordSchool;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.qc.PageQC;
 import com.simon.boot.word.service.WordSchoolService;

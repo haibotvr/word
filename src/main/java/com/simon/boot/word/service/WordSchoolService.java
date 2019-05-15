@@ -1,6 +1,6 @@
 package com.simon.boot.word.service;
 
-import com.simon.boot.word.entity.WordSchool;
+import com.simon.boot.word.pojo.WordSchool;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.qc.PageQC;

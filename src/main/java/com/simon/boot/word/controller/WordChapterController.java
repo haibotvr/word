@@ -1,6 +1,6 @@
 package com.simon.boot.word.controller;
 
-import com.simon.boot.word.entity.WordChapter;
+import com.simon.boot.word.pojo.WordChapter;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.qc.PageQC;
 import com.simon.boot.word.service.WordChapterService;
