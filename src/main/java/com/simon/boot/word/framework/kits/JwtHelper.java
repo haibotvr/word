@@ -1,7 +1,9 @@
 package com.simon.boot.word.framework.kits;
 
+import com.simon.boot.word.eumn.BusinessExceptionMessage;
 import com.simon.boot.word.framework.abstracts.AbstractUser;
 import com.simon.boot.word.framework.exception.AuthenticationException;
+import com.simon.boot.word.framework.exception.BusinessException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -28,7 +30,7 @@ public class JwtHelper {
                     .parseClaimsJws(jsonWebToken).getBody();
             return claims;
         } catch (Exception e) {
-            throw new AuthenticationException(1000, "认证失败");
+            throw new AuthenticationException(BusinessExceptionMessage.AUTHENTICATION_FAILED.getValue(), BusinessExceptionMessage.AUTHENTICATION_FAILED.getName());
         }
     }
 
