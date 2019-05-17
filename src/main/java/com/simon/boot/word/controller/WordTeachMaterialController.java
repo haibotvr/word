@@ -3,6 +3,7 @@ package com.simon.boot.word.controller;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordTeachMaterial;
 import com.simon.boot.word.qc.PageQC;
+import com.simon.boot.word.qc.TeachMaterialQC;
 import com.simon.boot.word.service.WordTeachMaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class WordTeachMaterialController {
     }
 
     @PostMapping("findByPage")
-    public ReturnValue findByPage(@RequestBody PageQC qc){
+    public ReturnValue findByPage(@RequestBody TeachMaterialQC qc){
         return service.findByPage(qc);
     }
 

@@ -9,7 +9,9 @@ import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordTeachMaterial;
 import com.simon.boot.word.pojo.WordTeachMaterialExample;
 import com.simon.boot.word.qc.PageQC;
+import com.simon.boot.word.qc.TeachMaterialQC;
 import com.simon.boot.word.service.WordTeachMaterialService;
+import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,11 +48,13 @@ public class WordTeachMaterialServiceImpl implements WordTeachMaterialService {
     }
 
     @Override
-    public ReturnValue findByPage(PageQC qc) throws BusinessException {
+    public ReturnValue findByPage(TeachMaterialQC qc) throws BusinessException {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         WordTeachMaterialExample example = new WordTeachMaterialExample();
-        WordTeachMaterialExample.Criteria criteria = example.createCriteria();
-        criteria.andEStatusEqualTo(TeachMaterialStatus.AVAILABLE.getValue());
+        if(StringUtils.isNotBlank(qc.getTmName())){
+            WordTeachMaterialExample.Criteria criteria = example.createCriteria();
+            criteria.andTmNameLike(qc.getTmName());
+        }
         PageInfo<WordTeachMaterial> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
     }
