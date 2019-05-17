@@ -1,5 +1,7 @@
 package com.simon.boot.word.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class WordTeachMaterial {
@@ -28,6 +30,7 @@ public class WordTeachMaterial {
      *
      * @mbg.generated Wed May 15 15:29:18 CST 2019
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date createTime;
 
     /**
