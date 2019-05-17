@@ -94,4 +94,9 @@ public class WordUserServiceImpl implements WordUserService {
     public ReturnValue info(String token) throws BusinessException {
         return ReturnValue.success().setData(JwtHelper.parseJWT(token));
     }
+
+    @Override
+    public ReturnValue logout() throws BusinessException {
+        return ReturnValue.success().setMessage("登出成功");
+    }
 }

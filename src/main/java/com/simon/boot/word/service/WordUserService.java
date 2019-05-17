@@ -22,4 +22,6 @@ public interface WordUserService {
     ReturnValue login(LoginVO vo) throws BusinessException;
 
     ReturnValue info(String token) throws BusinessException;
+
+    ReturnValue logout() throws BusinessException;
 }

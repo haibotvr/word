@@ -48,4 +48,9 @@ public class WordUserController {
         return service.info(token);
     }
 
+    @PostMapping("logout")
+    public ReturnValue logout(){
+        return service.logout();
+    }
+
 }
