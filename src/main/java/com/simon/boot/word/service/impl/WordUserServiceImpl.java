@@ -89,4 +89,9 @@ public class WordUserServiceImpl implements WordUserService {
         dto.setToken(JwtHelper.createJWT(users.get(0)));
         return ReturnValue.success().setData(dto).setMessage("登录成功");
     }
+
+    @Override
+    public ReturnValue info(String token) throws BusinessException {
+        return ReturnValue.success().setData(JwtHelper.parseJWT(token));
+    }
 }

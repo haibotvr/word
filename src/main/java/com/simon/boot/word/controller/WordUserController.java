@@ -43,4 +43,9 @@ public class WordUserController {
         return service.login(vo);
     }
 
+    @GetMapping("info")
+    public ReturnValue info(String token){
+        return service.info(token);
+    }
+
 }

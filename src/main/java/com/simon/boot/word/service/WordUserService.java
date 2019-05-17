@@ -20,4 +20,6 @@ public interface WordUserService {
     ReturnValue findByPage(PageQC qc) throws BusinessException;
 
     ReturnValue login(LoginVO vo) throws BusinessException;
+
+    ReturnValue info(String token) throws BusinessException;
 }
