@@ -43,8 +43,8 @@ public class WordUserController {
         return service.login(vo);
     }
 
-    @GetMapping("info/{token}")
-    public ReturnValue info(@PathVariable String token){
+    @PostMapping("info")
+    public ReturnValue info(String token){
         return service.info(token);
     }
 
