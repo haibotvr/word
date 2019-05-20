@@ -27,7 +27,7 @@ public class WordChapterServiceImpl implements WordChapterService {
     @Override
     public ReturnValue add(WordChapter record) throws BusinessException {
         record.setCreateTime(new Date());
-        record.seteStatus(ChapterStatus.AVAILABLE.getValue());
+        record.setEwStatus(ChapterStatus.AVAILABLE.getValue());
         return ReturnValue.success(mapper.insertSelective(record));
     }
 
@@ -41,7 +41,7 @@ public class WordChapterServiceImpl implements WordChapterService {
     public ReturnValue del(Long id) throws BusinessException {
         WordChapter record = new WordChapter();
         record.setId(id);
-        record.seteStatus(ChapterStatus.UNAVAILABLE.getValue());
+        record.setEwStatus(ChapterStatus.UNAVAILABLE.getValue());
         return ReturnValue.success(mapper.updateByPrimaryKeySelective(record));
     }
 
@@ -50,7 +50,7 @@ public class WordChapterServiceImpl implements WordChapterService {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         WordChapterExample example = new WordChapterExample();
         WordChapterExample.Criteria criteria = example.createCriteria();
-        criteria.andEStatusEqualTo(ChapterStatus.AVAILABLE.getValue());
+        criteria.andEwStatusEqualTo(ChapterStatus.AVAILABLE.getValue());
         PageInfo<WordChapter> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
     }

@@ -27,7 +27,7 @@ public class WordSchoolServiceImpl implements WordSchoolService {
     @Override
     public ReturnValue add(WordSchool record) throws BusinessException {
         record.setCreateTime(new Date());
-        record.seteStatus(SchoolStatus.AVAILABLE.getValue());
+        record.setEwStatus(SchoolStatus.AVAILABLE.getValue());
         return ReturnValue.success(mapper.insertSelective(record));
     }
 
@@ -41,7 +41,7 @@ public class WordSchoolServiceImpl implements WordSchoolService {
     public ReturnValue del(Long id) throws BusinessException {
         WordSchool record = new WordSchool();
         record.setId(id);
-        record.seteStatus(SchoolStatus.UNAVAILABLE.getValue());
+        record.setEwStatus(SchoolStatus.UNAVAILABLE.getValue());
         return ReturnValue.success(mapper.updateByPrimaryKeySelective(record));
     }
 
@@ -50,7 +50,7 @@ public class WordSchoolServiceImpl implements WordSchoolService {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         WordSchoolExample example = new WordSchoolExample();
         WordSchoolExample.Criteria criteria = example.createCriteria();
-        criteria.andEStatusEqualTo(SchoolStatus.AVAILABLE.getValue());
+        criteria.andEwStatusEqualTo(SchoolStatus.AVAILABLE.getValue());
         PageInfo<WordSchool> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
     }

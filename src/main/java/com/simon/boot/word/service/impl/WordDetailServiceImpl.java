@@ -27,7 +27,7 @@ public class WordDetailServiceImpl implements WordDetailService {
     @Override
     public ReturnValue add(WordDetail record) throws BusinessException {
         record.setCreateTime(new Date());
-        record.seteStatus(DetailStatus.AVAILABLE.getValue());
+        record.setEwStatus(DetailStatus.AVAILABLE.getValue());
         return ReturnValue.success(mapper.insertSelective(record));
     }
 
@@ -41,7 +41,7 @@ public class WordDetailServiceImpl implements WordDetailService {
     public ReturnValue del(Long id) throws BusinessException {
         WordDetail record = new WordDetail();
         record.setId(id);
-        record.seteStatus(DetailStatus.UNAVAILABLE.getValue());
+        record.setEwStatus(DetailStatus.UNAVAILABLE.getValue());
         return ReturnValue.success(mapper.updateByPrimaryKeySelective(record));
     }
 
@@ -50,7 +50,7 @@ public class WordDetailServiceImpl implements WordDetailService {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         WordDetailExample example = new WordDetailExample();
         WordDetailExample.Criteria criteria = example.createCriteria();
-        criteria.andEStatusEqualTo(DetailStatus.AVAILABLE.getValue());
+        criteria.andEwStatusEqualTo(DetailStatus.AVAILABLE.getValue());
         PageInfo<WordDetail> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
     }

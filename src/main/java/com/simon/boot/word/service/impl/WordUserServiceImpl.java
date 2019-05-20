@@ -40,7 +40,7 @@ public class WordUserServiceImpl implements WordUserService {
     public ReturnValue add(WordUser record) throws BusinessException {
         record.setCreateTime(new Date());
         record.setLoginPassword(passwordEncoder.encode(record.getLoginPassword()));
-        record.seteStatus(UserStatus.AVAILABLE.getValue());
+        record.setEwStatus(UserStatus.AVAILABLE.getValue());
         return ReturnValue.success(mapper.insertSelective(record));
     }
 
@@ -54,7 +54,7 @@ public class WordUserServiceImpl implements WordUserService {
     public ReturnValue del(Long id) throws BusinessException {
         WordUser record = new WordUser();
         record.setId(id);
-        record.seteStatus(UserStatus.UNAVAILABLE.getValue());
+        record.setEwStatus(UserStatus.UNAVAILABLE.getValue());
         return ReturnValue.success(mapper.updateByPrimaryKeySelective(record));
     }
 
@@ -63,7 +63,7 @@ public class WordUserServiceImpl implements WordUserService {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         WordUserExample example = new WordUserExample();
         WordUserExample.Criteria criteria = example.createCriteria();
-        criteria.andEStatusEqualTo(UserStatus.AVAILABLE.getValue());
+        criteria.andEwStatusEqualTo(UserStatus.AVAILABLE.getValue());
         PageInfo<WordUser> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
     }
@@ -82,7 +82,7 @@ public class WordUserServiceImpl implements WordUserService {
         if(!passwordEncoder.matches(vo.getPassword(), users.get(0).getLoginPassword())){
             throw new BusinessException(BusinessExceptionMessage.LOGIN_NAME_OR_PASSWORD_FAULT.getValue(), BusinessExceptionMessage.LOGIN_NAME_OR_PASSWORD_FAULT.getName());
         }
-        if(users.get(0).geteStatus().equals(UserStatus.UNAVAILABLE.getValue())){
+        if(users.get(0).getEwStatus().equals(UserStatus.UNAVAILABLE.getValue())){
             throw new BusinessException(BusinessExceptionMessage.ADMIN_USER_IS_NOT_USE.getValue(), BusinessExceptionMessage.ADMIN_USER_IS_NOT_USE.getName());
         }
         UserLoginDTO dto = new UserLoginDTO();

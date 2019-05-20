@@ -20,6 +20,7 @@
 		<mybatis-generator.version>1.3.5</mybatis-generator.version>
 		<jjwt.version>0.9.0</jjwt.version>
 		<pagehelper.version>1.2.10</pagehelper.version>
+		<druid.version>1.1.16</druid.version>
 	</properties>
 
 	<dependencies>
@@ -90,6 +91,11 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -99,6 +105,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
 	</dependencies>
 
 	<!--<dependencyManagement>-->
@@ -118,6 +129,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<proc>none</proc>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

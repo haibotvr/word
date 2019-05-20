@@ -29,7 +29,7 @@ public class WordTeachMaterialServiceImpl implements WordTeachMaterialService {
     @Override
     public ReturnValue add(WordTeachMaterial record) throws BusinessException {
         record.setCreateTime(new Date());
-        record.seteStatus(TeachMaterialStatus.AVAILABLE.getValue());
+        record.setEwStatus(TeachMaterialStatus.AVAILABLE.getValue());
         return ReturnValue.success(mapper.insertSelective(record));
     }
 
@@ -43,7 +43,7 @@ public class WordTeachMaterialServiceImpl implements WordTeachMaterialService {
     public ReturnValue del(Long id) throws BusinessException {
         WordTeachMaterial record = new WordTeachMaterial();
         record.setId(id);
-        record.seteStatus(TeachMaterialStatus.UNAVAILABLE.getValue());
+        record.setEwStatus(TeachMaterialStatus.UNAVAILABLE.getValue());
         return ReturnValue.success(mapper.updateByPrimaryKeySelective(record));
     }
 
@@ -51,9 +51,10 @@ public class WordTeachMaterialServiceImpl implements WordTeachMaterialService {
     public ReturnValue findByPage(TeachMaterialQC qc) throws BusinessException {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         WordTeachMaterialExample example = new WordTeachMaterialExample();
+        example.setOrderByClause("create_time desc");
         if(StringUtils.isNotBlank(qc.getTmName())){
             WordTeachMaterialExample.Criteria criteria = example.createCriteria();
-            criteria.andTmNameLike(qc.getTmName());
+            criteria.andTmNameLike("%" + qc.getTmName() + "%");
         }
         PageInfo<WordTeachMaterial> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
