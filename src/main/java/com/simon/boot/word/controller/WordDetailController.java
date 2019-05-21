@@ -1,8 +1,8 @@
 package com.simon.boot.word.controller;
 
-import com.simon.boot.word.pojo.WordDetail;
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.qc.PageQC;
+import com.simon.boot.word.pojo.WordDetail;
+import com.simon.boot.word.qc.DetailQC;
 import com.simon.boot.word.service.WordDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +33,7 @@ public class WordDetailController {
     }
 
     @PostMapping("findByPage")
-    public ReturnValue findByPage(@RequestBody PageQC qc){
+    public ReturnValue findByPage(@RequestBody DetailQC qc){
         return service.findByPage(qc);
     }
 

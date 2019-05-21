@@ -3,13 +3,14 @@ package com.simon.boot.word.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.WordSchoolMapper;
-import com.simon.boot.word.pojo.WordSchool;
-import com.simon.boot.word.pojo.WordSchoolExample;
 import com.simon.boot.word.eumn.SchoolStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.qc.PageQC;
+import com.simon.boot.word.pojo.WordSchool;
+import com.simon.boot.word.pojo.WordSchoolExample;
+import com.simon.boot.word.qc.SchoolQC;
 import com.simon.boot.word.service.WordSchoolService;
+import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,11 +47,14 @@ public class WordSchoolServiceImpl implements WordSchoolService {
     }
 
     @Override
-    public ReturnValue findByPage(PageQC qc) throws BusinessException {
+    public ReturnValue findByPage(SchoolQC qc) throws BusinessException {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         WordSchoolExample example = new WordSchoolExample();
-        WordSchoolExample.Criteria criteria = example.createCriteria();
-        criteria.andEwStatusEqualTo(SchoolStatus.AVAILABLE.getValue());
+        example.setOrderByClause("create_time desc");
+        if(StringUtils.isNotBlank(qc.getSchoolName())){
+            WordSchoolExample.Criteria criteria = example.createCriteria();
+            criteria.andSchoolNameLike("%" + qc.getSchoolName() + "%");
+        }
         PageInfo<WordSchool> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
     }

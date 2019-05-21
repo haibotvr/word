@@ -3,13 +3,14 @@ package com.simon.boot.word.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.WordDetailMapper;
-import com.simon.boot.word.pojo.WordDetail;
-import com.simon.boot.word.pojo.WordDetailExample;
 import com.simon.boot.word.eumn.DetailStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.qc.PageQC;
+import com.simon.boot.word.pojo.WordDetail;
+import com.simon.boot.word.pojo.WordDetailExample;
+import com.simon.boot.word.qc.DetailQC;
 import com.simon.boot.word.service.WordDetailService;
+import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,11 +47,15 @@ public class WordDetailServiceImpl implements WordDetailService {
     }
 
     @Override
-    public ReturnValue findByPage(PageQC qc) throws BusinessException {
+    public ReturnValue findByPage(DetailQC qc) throws BusinessException {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         WordDetailExample example = new WordDetailExample();
         WordDetailExample.Criteria criteria = example.createCriteria();
+        criteria.andChapterIdEqualTo(qc.getChapterId());
         criteria.andEwStatusEqualTo(DetailStatus.AVAILABLE.getValue());
+        if(StringUtils.isNotBlank(qc.getWordEn())){
+            criteria.andWordEnLike("%" + qc.getWordEn() + "%");
+        }
         PageInfo<WordDetail> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
     }
