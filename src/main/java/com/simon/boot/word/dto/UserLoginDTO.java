@@ -1,13 +1,17 @@
 package com.simon.boot.word.dto;
 
-import lombok.Data;
-
 /**
  * @author simon.wei
  */
-@Data
 public class UserLoginDTO {
 
     private String token;
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

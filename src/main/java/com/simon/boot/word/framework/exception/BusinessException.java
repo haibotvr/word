@@ -1,11 +1,8 @@
 package com.simon.boot.word.framework.exception;
 
-import lombok.Data;
-
 /**
  * @author simon.wei
  */
-@Data
 public class BusinessException extends RuntimeException {
 
     private Integer code;
@@ -16,4 +13,20 @@ public class BusinessException extends RuntimeException {
         this.message = message;
     }
 
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

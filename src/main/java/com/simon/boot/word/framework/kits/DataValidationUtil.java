@@ -1,7 +1,8 @@
 package com.simon.boot.word.framework.kits;
 
 import com.simon.boot.word.framework.exception.ValidException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;
@@ -10,7 +11,6 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Set;
 
-@Slf4j
 public class DataValidationUtil {
 
     public static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -28,11 +28,9 @@ public class DataValidationUtil {
                 }
             }
         } catch (Exception e) {
-            log.error("数据校验发生异常", e.getMessage());
             throw new ValidException(sb.toString());
         }
         if(!StringUtils.isEmpty(sb.toString())){
-            sb.append("数据校验发生异常，请检查!");
             throw new ValidException(sb.toString());
         }
     }

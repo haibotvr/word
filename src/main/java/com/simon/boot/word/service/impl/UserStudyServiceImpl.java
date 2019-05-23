@@ -3,9 +3,7 @@ package com.simon.boot.word.service.impl;
 import com.simon.boot.word.dao.UserStudyLogMapper;
 import com.simon.boot.word.dao.WordChapterMapper;
 import com.simon.boot.word.dao.WordDetailMapper;
-import com.simon.boot.word.dao.WordSchoolMapper;
 import com.simon.boot.word.eumn.ChapterStatus;
-import com.simon.boot.word.eumn.SchoolStatus;
 import com.simon.boot.word.eumn.StudyLogStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
@@ -14,7 +12,6 @@ import com.simon.boot.word.service.UserStudyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import sun.reflect.generics.tree.ReturnType;
 
 import java.util.Date;
 import java.util.List;
