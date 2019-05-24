@@ -1,8 +1,6 @@
 package com.simon.boot.word.framework.kits;
 
 import com.simon.boot.word.framework.exception.ValidException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintViolation;

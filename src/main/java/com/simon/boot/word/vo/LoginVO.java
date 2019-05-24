@@ -1,7 +1,5 @@
 package com.simon.boot.word.vo;
 
-import lombok.Data;
-
 import javax.validation.constraints.NotBlank;
 
 /**

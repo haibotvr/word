@@ -24,14 +24,19 @@ public class UserStudyController extends BaseController {
     private UserStudyService service;
 
     @PostMapping("add")
-    public ReturnValue add(@RequestBody UserStudyLog record){
+    public ReturnValue add(@RequestBody UserStudyLog record) {
         record.setUserId(getSessionUser().getId());
         return service.add(record);
     }
 
     @GetMapping("findWords/{id}")
-    public ReturnValue findWords(@PathVariable Long id){
+    public ReturnValue findWords(@PathVariable Long id) {
         return service.findWords(id, getSessionUser().getId());
+    }
+
+    @GetMapping("reStudy/{id}")
+    public ReturnValue reStudy(@PathVariable Long id) {
+        return service.reStudy(id, getSessionUser().getId());
     }
 
 }

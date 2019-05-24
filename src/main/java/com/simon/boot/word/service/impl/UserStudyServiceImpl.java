@@ -32,6 +32,15 @@ public class UserStudyServiceImpl implements UserStudyService {
     WordDetailMapper wordDetailMapper;
 
     @Override
+    public ReturnValue reStudy(Long id, Long userId) throws BusinessException {
+        UserStudyLogExample example = new UserStudyLogExample();
+        UserStudyLogExample.Criteria criteria = example.createCriteria();
+        criteria.andTmIdEqualTo(id);
+        criteria.andUserIdEqualTo(userId);
+        return ReturnValue.success(userStudyLogMapper.deleteByExample(example)).setMessage("删除成功");
+    }
+
+    @Override
     public ReturnValue add(UserStudyLog record) throws BusinessException {
         record.setCreateTime(new Date());
         record.setEwStatus(StudyLogStatus.AVAILABLE.getValue());

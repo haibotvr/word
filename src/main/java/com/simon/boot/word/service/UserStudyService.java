@@ -13,4 +13,5 @@ public interface UserStudyService {
 
     ReturnValue findWords(Long id, Long userId) throws BusinessException;
 
+    ReturnValue reStudy(Long id, Long userId) throws BusinessException;
 }
