@@ -26,6 +26,10 @@ public class SecurityFilter extends OncePerRequestFilter {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;
         }
+        if("/word/user/logout".equals(uri)){
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            return;
+        }
         //获取请求中header参数
         Claims claims = JwtHelper.parseJWT(httpServletRequest.getHeader(LeafConstant.HTTP_TOKEN));
         httpServletRequest.getSession().setAttribute(LeafConstant.SESSION_USER,

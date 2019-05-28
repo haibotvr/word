@@ -3,7 +3,6 @@ package com.simon.boot.word.framework.kits;
 import com.simon.boot.word.eumn.BusinessExceptionMessage;
 import com.simon.boot.word.framework.abstracts.AbstractUser;
 import com.simon.boot.word.framework.exception.AuthenticationException;
-import com.simon.boot.word.framework.exception.BusinessException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
