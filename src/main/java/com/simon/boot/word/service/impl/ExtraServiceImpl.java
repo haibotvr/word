@@ -1,9 +1,6 @@
 package com.simon.boot.word.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.OaUserMapper;
-import com.simon.boot.word.dao.WordUserMapper;
 import com.simon.boot.word.dto.UserLoginDTO;
 import com.simon.boot.word.eumn.BusinessExceptionMessage;
 import com.simon.boot.word.eumn.UserStatus;
@@ -13,18 +10,13 @@ import com.simon.boot.word.framework.kits.JwtHelper;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.OaUser;
 import com.simon.boot.word.pojo.OaUserExample;
-import com.simon.boot.word.pojo.WordUser;
-import com.simon.boot.word.pojo.WordUserExample;
-import com.simon.boot.word.qc.PageQC;
 import com.simon.boot.word.service.ExtraService;
-import com.simon.boot.word.service.WordUserService;
 import com.simon.boot.word.vo.LoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Date;
 import java.util.List;
 
 /**

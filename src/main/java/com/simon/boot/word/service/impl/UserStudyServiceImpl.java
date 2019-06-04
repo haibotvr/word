@@ -61,6 +61,9 @@ public class UserStudyServiceImpl implements UserStudyService {
         if(CollectionUtils.isEmpty(logs)){
             //查询最开始一章
             List<WordChapter> wordChapters = selectWordChapter(id, "ASC");
+            if(CollectionUtils.isEmpty(wordChapters)){
+                return ReturnValue.error().setMessage("没有章节信息");
+            }
             chapterId = wordChapters.get(0).getId();
         }else{
             //查询本教材章节最大的ID，如果相等说明教材已学完，返回空值，如果不等，说明还有章节未学习
