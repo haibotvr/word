@@ -6,12 +6,15 @@ import com.simon.boot.word.eumn.BusinessExceptionMessage;
 import com.simon.boot.word.eumn.UserStatus;
 import com.simon.boot.word.framework.annotation.BeanValid;
 import com.simon.boot.word.framework.exception.BusinessException;
+import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.kits.JwtHelper;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.OaUser;
 import com.simon.boot.word.pojo.OaUserExample;
 import com.simon.boot.word.service.ExtraService;
 import com.simon.boot.word.vo.LoginVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,8 @@ import java.util.List;
 @Service
 public class ExtraServiceImpl implements ExtraService {
 
+    private static Logger log = LoggerFactory.getLogger(ExtraServiceImpl.class);
+
     @Autowired
     OaUserMapper mapper;
 
@@ -34,6 +39,9 @@ public class ExtraServiceImpl implements ExtraService {
     @Override
     @BeanValid
     public ReturnValue login(LoginVO vo) throws BusinessException {
+
+        log.info("请求参数:{}", JsonUtil.toString(vo));
+
         OaUserExample example = new OaUserExample();
         OaUserExample.Criteria criteria = example.createCriteria();
         criteria.andLoginNameEqualTo(vo.getUsername());
@@ -50,6 +58,9 @@ public class ExtraServiceImpl implements ExtraService {
         }
         UserLoginDTO dto = new UserLoginDTO();
         dto.setToken(JwtHelper.createJWT(users.get(0)));
+
+        log.info("返回数据:{}", JsonUtil.toString(dto));
+
         return ReturnValue.success().setData(dto).setMessage("登录成功");
     }
 
