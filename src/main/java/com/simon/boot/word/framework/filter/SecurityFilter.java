@@ -32,7 +32,7 @@ public class SecurityFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest)servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse)servletResponse;
         String requestURI = this.getRequestURI(httpServletRequest);
-        if (this.isExclusion(requestURI)) {
+        if (this.isExclusion(requestURI, httpServletRequest)) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         }else {
             //获取请求中header参数
@@ -49,7 +49,6 @@ public class SecurityFilter implements Filter {
         if (StringUtils.isNotBlank(param)) {
             this.excludesPattern = new HashSet(Arrays.asList(param.split("\\s*,\\s*")));
         }
-
     }
 
     @Override
@@ -57,22 +56,17 @@ public class SecurityFilter implements Filter {
 
     }
 
-    public boolean isExclusion(String requestURI) {
-
-        if (this.excludesPattern == null) {
-            return false;
-        } else {
-            if (this.contextPath != null && requestURI.startsWith(this.contextPath)) {
+    public boolean isExclusion(String requestURI, HttpServletRequest request) {
+        this.setContextPath(request.getContextPath());
+        if (this.excludesPattern != null) {
+            if (requestURI.startsWith(this.contextPath)) {
                 requestURI = requestURI.substring(this.contextPath.length());
                 if (!requestURI.startsWith("/")) {
                     requestURI = "/" + requestURI;
                 }
             }
-
             Iterator iterator = this.excludesPattern.iterator();
-
             String pattern;
-
             while (true) {
                 if (iterator.hasNext()){
                     pattern = (String) iterator.next();
@@ -83,6 +77,8 @@ public class SecurityFilter implements Filter {
                     return false;
                 }
             }
+        } else {
+            return false;
         }
     }
 

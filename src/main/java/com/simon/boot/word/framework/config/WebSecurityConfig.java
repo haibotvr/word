@@ -25,10 +25,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public FilterRegistrationBean securityFilter(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("/user/login,");
+        builder.append("/user/logout,");
+        builder.append("/extra/login,");
+        builder.append("*.png,");
+        builder.append("*.jpg,");
+        builder.append("*.jpeg,");
+        builder.append("*.js,");
+        builder.append("*.css,");
+        builder.append("*.html");
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new SecurityFilter());
         registrationBean.setUrlPatterns(Arrays.asList("/*"));
-        registrationBean.addInitParameter("exclusions", "/word/user/login,/word/user/logout,/word/extra/login,*.png,*.jpg,*.jpeg,*.js,*.css,*.html");
+        registrationBean.addInitParameter("exclusions", builder.toString());
         return registrationBean;
     }
 
