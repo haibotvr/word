@@ -11,6 +11,11 @@ public class EmailVO {
     private Long id;
 
     /**
+     * 邮件ids字符串
+     */
+    private String ids;
+
+    /**
      * 收件人ids字符串
      */
     private String recipientIds;
@@ -95,5 +100,13 @@ public class EmailVO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
     }
 }

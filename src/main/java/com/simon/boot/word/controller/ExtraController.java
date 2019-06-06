@@ -4,6 +4,7 @@ import com.simon.boot.word.framework.abstracts.BaseController;
 import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.OaEmail;
+import com.simon.boot.word.qc.EmailQC;
 import com.simon.boot.word.service.ExtraService;
 import com.simon.boot.word.service.impl.ExtraServiceImpl;
 import com.simon.boot.word.vo.EmailVO;
@@ -50,10 +51,16 @@ public class ExtraController extends BaseController{
         return service.sendEmail(getOaUser(), vo);
     }
 
+    @PostMapping("saveDraft")
+    public ReturnValue saveDraft(@RequestBody EmailVO vo){
+        log.info("extra-save-draft-保存草稿:{}", JsonUtil.toString(vo));
+        return service.saveDraft(getOaUser(), vo);
+    }
+
     @PostMapping("delEmail")
-    public ReturnValue delEmail(@RequestBody OaEmail record){
-        log.info("extra-del-email-删除邮件:{}", JsonUtil.toString(record));
-        return service.delEmail(getOaUser(), record);
+    public ReturnValue delEmail(@RequestBody EmailVO vo){
+        log.info("extra-del-email-删除邮件:{}", JsonUtil.toString(vo));
+        return service.delEmail(getOaUser(), vo);
     }
 
     @PostMapping("findEmail")
@@ -63,9 +70,9 @@ public class ExtraController extends BaseController{
     }
 
     @PostMapping("findEmailByPage")
-    public ReturnValue findEmailByPage(@RequestBody OaEmail record){
-        log.info("extra-find-email-by-page-查找邮件:{}", JsonUtil.toString(record));
-        return service.findEmailByPage(getOaUser(), record);
+    public ReturnValue findEmailByPage(@RequestBody EmailQC qc){
+        log.info("extra-find-email-by-page-查找邮件:{}", JsonUtil.toString(qc));
+        return service.findEmailByPage(getOaUser(), qc);
     }
 
 }

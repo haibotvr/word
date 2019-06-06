@@ -3,15 +3,15 @@ package com.simon.boot.word.eumn;
 /**
  * @author simon.wei
  */
-public enum CheckStatus {
+public enum DraftStatus {
 
-    YES("已查看", 1),
-    NO("未查看", 0);
+    YES("草稿", 1),
+    NO("非草稿", 0);
 
     private String name;
     private Integer value;
 
-    CheckStatus(String name, Integer value){
+    DraftStatus(String name, Integer value){
         this.name = name;
         this.value = value;
     }

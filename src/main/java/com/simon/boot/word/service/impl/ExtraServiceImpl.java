@@ -1,21 +1,22 @@
 package com.simon.boot.word.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.OaEmailMapper;
 import com.simon.boot.word.dao.OaUserMapper;
 import com.simon.boot.word.dto.UserLoginDTO;
-import com.simon.boot.word.eumn.BusinessExceptionMessage;
-import com.simon.boot.word.eumn.CheckStatus;
-import com.simon.boot.word.eumn.EmailStatus;
-import com.simon.boot.word.eumn.UserStatus;
+import com.simon.boot.word.eumn.*;
 import com.simon.boot.word.framework.annotation.BeanValid;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.kits.JwtHelper;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.*;
+import com.simon.boot.word.qc.EmailQC;
 import com.simon.boot.word.service.ExtraService;
 import com.simon.boot.word.vo.EmailVO;
 import com.simon.boot.word.vo.LoginVO;
+import io.micrometer.core.instrument.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,10 @@ public class ExtraServiceImpl implements ExtraService {
 
         log.info("请求参数:{}", JsonUtil.toString(vo));
 
+        if(StringUtils.isBlank(vo.getRecipientIds())){
+            return ReturnValue.error().setMessage("请填写收件人");
+        }
+
         if(vo.getRecipientIds().endsWith(",")){
             vo.setRecipientIds(vo.getRecipientIds() + oaUser.getId());
         }else{
@@ -89,6 +94,7 @@ public class ExtraServiceImpl implements ExtraService {
             OaEmail email = new OaEmail();
             email.setCreateTime(new Date());
             email.setIsCheck(CheckStatus.NO.getValue());
+            email.setIsDraft(DraftStatus.NO.getValue());
             email.setOaStatus(EmailStatus.USE.getValue());
             email.setMailContent(vo.getMailContent());
             email.setMailTitle(vo.getMailTitle());
@@ -105,13 +111,42 @@ public class ExtraServiceImpl implements ExtraService {
     }
 
     @Override
-    public ReturnValue delEmail(OaUser oaUser, OaEmail record) throws BusinessException {
+    public ReturnValue saveDraft(OaUser oaUser, EmailVO vo) throws BusinessException {
 
-        log.info("请求参数:{}", JsonUtil.toString(record));
+        log.info("请求参数:{}", JsonUtil.toString(vo));
 
-        record.setOaStatus(EmailStatus.DELETE.getValue());
+        OaEmail email = new OaEmail();
+        email.setCreateTime(new Date());
+        email.setIsCheck(CheckStatus.NO.getValue());
+        email.setIsDraft(DraftStatus.YES.getValue());
+        email.setOaStatus(EmailStatus.USE.getValue());
+        email.setMailContent(vo.getMailContent());
+        email.setMailTitle(vo.getMailTitle());
+        email.setSenderId(oaUser.getId());
+        email.setRecipientId(null);
+        email.setSenderName(oaUser.getRealName());
+        email.setRecipientIds(vo.getRecipientIds());
 
-        oaEmailMapper.updateByPrimaryKeySelective(record);
+        oaEmailMapper.insertSelective(email);
+        return ReturnValue.success().setMessage("保存成功");
+    }
+
+    @Override
+    public ReturnValue delEmail(OaUser oaUser, EmailVO vo) throws BusinessException {
+
+        log.info("请求参数:{}", JsonUtil.toString(vo));
+
+        String[] ids = vo.getIds().split(",");
+
+        for (String id : ids) {
+
+            OaEmail email = new OaEmail();
+            email.setId(Long.valueOf(id));
+            email.setOaStatus(EmailStatus.DELETE.getValue());
+
+            oaEmailMapper.updateByPrimaryKeySelective(email);
+        }
+
 
         return ReturnValue.success().setMessage("删除成功");
 
@@ -122,21 +157,62 @@ public class ExtraServiceImpl implements ExtraService {
 
         log.info("请求参数:{}", JsonUtil.toString(record));
 
-        OaEmailExample example = new OaEmailExample();
-        OaEmailExample.Criteria criteria = example.createCriteria();
-        criteria.andOaStatusEqualTo(record.getOaStatus());
-        if(record.getId() != null){
-            criteria.andIdEqualTo(record.getId());
-        }
-
-        return ReturnValue.success().setData(oaEmailMapper.selectByExample(example));
+        return ReturnValue.success().setData(oaEmailMapper.selectByPrimaryKey(record.getId()));
     }
 
     @Override
-    public ReturnValue findEmailByPage(OaUser oaUser, OaEmail record) throws BusinessException {
+    public ReturnValue findEmailByPage(OaUser oaUser, EmailQC qc) throws BusinessException {
 
-        log.info("请求参数:{}", JsonUtil.toString(record));
+        log.info("请求参数:{}", JsonUtil.toString(qc));
 
-        return null;
+        if(qc.getEmailType() == null){
+            return ReturnValue.error().setMessage("分类错误");
+        }
+        if(qc.getPageNum() == null || qc.getPageSize() == null){
+            return ReturnValue.error().setMessage("分类参数错误");
+        }
+        PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
+        OaEmailExample example = new OaEmailExample();
+        example.setOrderByClause("create_time desc");
+        OaEmailExample.Criteria criteria = example.createCriteria();
+        // 分类 1：收件箱 2：已发送 3：草稿箱 4：已删除
+        if(qc.getEmailType().equals(1)){
+            criteria.andRecipientIdEqualTo(oaUser.getId());
+            criteria.andSenderIdNotEqualTo(oaUser.getId());
+            criteria.andIsDraftEqualTo(DraftStatus.NO.getValue());
+            criteria.andOaStatusEqualTo(EmailStatus.USE.getValue());
+        }else if(qc.getEmailType().equals(2)){
+            criteria.andRecipientIdEqualTo(oaUser.getId());
+            criteria.andSenderIdEqualTo(oaUser.getId());
+            criteria.andIsDraftEqualTo(DraftStatus.NO.getValue());
+            criteria.andOaStatusEqualTo(EmailStatus.USE.getValue());
+        }else if(qc.getEmailType().equals(3)){
+            criteria.andRecipientIdIsNull();
+            criteria.andSenderIdEqualTo(oaUser.getId());
+            criteria.andIsDraftEqualTo(DraftStatus.YES.getValue());
+            criteria.andOaStatusEqualTo(EmailStatus.USE.getValue());
+        }else if(qc.getEmailType().equals(4)){
+            //收件箱已删除
+            criteria.andRecipientIdEqualTo(oaUser.getId());
+            criteria.andSenderIdNotEqualTo(oaUser.getId());
+            criteria.andIsDraftEqualTo(DraftStatus.NO.getValue());
+            criteria.andOaStatusEqualTo(EmailStatus.DELETE.getValue());
+            //已发送已删除
+            OaEmailExample.Criteria criteria2 = example.createCriteria();
+            criteria2.andRecipientIdEqualTo(oaUser.getId());
+            criteria2.andSenderIdEqualTo(oaUser.getId());
+            criteria2.andIsDraftEqualTo(DraftStatus.NO.getValue());
+            criteria2.andOaStatusEqualTo(EmailStatus.DELETE.getValue());
+            //草稿箱已删除
+            OaEmailExample.Criteria criteria3 = example.createCriteria();
+            criteria3.andRecipientIdIsNull();
+            criteria3.andSenderIdEqualTo(oaUser.getId());
+            criteria3.andIsDraftEqualTo(DraftStatus.YES.getValue());
+            criteria3.andOaStatusEqualTo(EmailStatus.DELETE.getValue());
+        }else{
+            return ReturnValue.error().setMessage("分类错误");
+        }
+        PageInfo<OaEmail> info = new PageInfo<>(oaEmailMapper.selectByExample(example));
+        return ReturnValue.success().setData(info);
     }
 }
