@@ -3,16 +3,15 @@ package com.simon.boot.word.controller;
 import com.simon.boot.word.framework.abstracts.BaseController;
 import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.web.ReturnValue;
+import com.simon.boot.word.pojo.OaEmail;
 import com.simon.boot.word.service.ExtraService;
 import com.simon.boot.word.service.impl.ExtraServiceImpl;
+import com.simon.boot.word.vo.EmailVO;
 import com.simon.boot.word.vo.LoginVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +40,32 @@ public class ExtraController extends BaseController{
         map.put("部门", "开发部");
         map.put("职位", "开发工程师");
         map.put("级别", "高级");
-        log.info("获取个人信息:{}", JsonUtil.toString(map));
+        log.info("extra-info-获取个人信息:{}", JsonUtil.toString(map));
         return ReturnValue.success().setData(map);
     }
+
+    @PostMapping("sendEmail")
+    public ReturnValue sendEmail(@RequestBody EmailVO vo){
+        log.info("extra-send-email-发送邮件:{}", JsonUtil.toString(vo));
+        return service.sendEmail(getOaUser(), vo);
+    }
+
+    @PostMapping("delEmail")
+    public ReturnValue delEmail(@RequestBody OaEmail record){
+        log.info("extra-del-email-删除邮件:{}", JsonUtil.toString(record));
+        return service.delEmail(getOaUser(), record);
+    }
+
+    @PostMapping("findEmail")
+    public ReturnValue findEmail(@RequestBody OaEmail record){
+        log.info("extra-find-email-查找邮件:{}", JsonUtil.toString(record));
+        return service.findEmail(getOaUser(), record);
+    }
+
+    @PostMapping("findEmailByPage")
+    public ReturnValue findEmailByPage(@RequestBody OaEmail record){
+        log.info("extra-find-email-by-page-查找邮件:{}", JsonUtil.toString(record));
+        return service.findEmailByPage(getOaUser(), record);
+    }
+
 }

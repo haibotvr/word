@@ -1,17 +1,20 @@
 package com.simon.boot.word.service.impl;
 
+import com.simon.boot.word.dao.OaEmailMapper;
 import com.simon.boot.word.dao.OaUserMapper;
 import com.simon.boot.word.dto.UserLoginDTO;
 import com.simon.boot.word.eumn.BusinessExceptionMessage;
+import com.simon.boot.word.eumn.CheckStatus;
+import com.simon.boot.word.eumn.EmailStatus;
 import com.simon.boot.word.eumn.UserStatus;
 import com.simon.boot.word.framework.annotation.BeanValid;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.kits.JwtHelper;
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.OaUser;
-import com.simon.boot.word.pojo.OaUserExample;
+import com.simon.boot.word.pojo.*;
 import com.simon.boot.word.service.ExtraService;
+import com.simon.boot.word.vo.EmailVO;
 import com.simon.boot.word.vo.LoginVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +36,9 @@ public class ExtraServiceImpl implements ExtraService {
 
     @Autowired
     OaUserMapper mapper;
+
+    @Autowired
+    OaEmailMapper oaEmailMapper;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -64,4 +71,72 @@ public class ExtraServiceImpl implements ExtraService {
         return ReturnValue.success().setData(dto).setMessage("登录成功");
     }
 
+    @Override
+    public ReturnValue sendEmail(OaUser oaUser, EmailVO vo) throws BusinessException {
+
+        log.info("请求参数:{}", JsonUtil.toString(vo));
+
+        if(vo.getRecipientIds().endsWith(",")){
+            vo.setRecipientIds(vo.getRecipientIds() + oaUser.getId());
+        }else{
+            vo.setRecipientIds(vo.getRecipientIds() + "," + oaUser.getId());
+        }
+
+        String[] recipientIds = vo.getRecipientIds().split(",");
+
+        for (String recipientId : recipientIds) {
+
+            OaEmail email = new OaEmail();
+            email.setCreateTime(new Date());
+            email.setIsCheck(CheckStatus.NO.getValue());
+            email.setOaStatus(EmailStatus.USE.getValue());
+            email.setMailContent(vo.getMailContent());
+            email.setMailTitle(vo.getMailTitle());
+            email.setSenderId(oaUser.getId());
+            email.setRecipientId(Long.valueOf(recipientId));
+            email.setSenderName(oaUser.getRealName());
+
+            oaEmailMapper.insertSelective(email);
+
+        }
+
+        return ReturnValue.success().setMessage("发送成功");
+
+    }
+
+    @Override
+    public ReturnValue delEmail(OaUser oaUser, OaEmail record) throws BusinessException {
+
+        log.info("请求参数:{}", JsonUtil.toString(record));
+
+        record.setOaStatus(EmailStatus.DELETE.getValue());
+
+        oaEmailMapper.updateByPrimaryKeySelective(record);
+
+        return ReturnValue.success().setMessage("删除成功");
+
+    }
+
+    @Override
+    public ReturnValue findEmail(OaUser oaUser, OaEmail record) throws BusinessException {
+
+        log.info("请求参数:{}", JsonUtil.toString(record));
+
+        OaEmailExample example = new OaEmailExample();
+        OaEmailExample.Criteria criteria = example.createCriteria();
+        criteria.andOaStatusEqualTo(record.getOaStatus());
+        if(record.getId() != null){
+            criteria.andIdEqualTo(record.getId());
+        }
+
+        return ReturnValue.success().setData(oaEmailMapper.selectByExample(example));
+    }
+
+    @Override
+    public ReturnValue findEmailByPage(OaUser oaUser, OaEmail record) throws BusinessException {
+
+        log.info("请求参数:{}", JsonUtil.toString(record));
+
+        return null;
+    }
 }

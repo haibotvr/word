@@ -2,6 +2,7 @@ package com.simon.boot.word.framework.abstracts;
 
 import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.kits.LeafConstant;
+import com.simon.boot.word.pojo.OaUser;
 import com.simon.boot.word.pojo.WordUser;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -39,5 +40,14 @@ public class BaseController {
     public WordUser getSessionUser(){
         String session = (String)request.getSession().getAttribute(LeafConstant.SESSION_USER);
         return StringUtils.isBlank(session) ? null : JsonUtil.toBean(session, WordUser.class);
+    }
+
+    /**
+     * 获取OA用户
+     * @return
+     */
+    public OaUser getOaUser(){
+        String session = (String)request.getSession().getAttribute(LeafConstant.SESSION_USER);
+        return StringUtils.isBlank(session) ? null : JsonUtil.toBean(session, OaUser.class);
     }
 }
