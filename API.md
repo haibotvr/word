@@ -1,6 +1,8 @@
 # 接口文档
 ## 一、后台相关
 
+### 说明：所有非登录接口,请求headers中需要添加token
+
 ### 1、邮件
 #### 1)、发送邮件
 请求模拟：curl -i -X POST -H 'Content-type':'application/json' -d '{"recipientIds":"1","mailTitle":"邮件","mailContent":"内容"}' http://localhost:9001/word/extra/sendEmail -v
@@ -157,5 +159,37 @@ mailContent 邮件内容
     },
     "error": false,
     "success": true
+}
+```
+#### 6)、查询用户
+请求模拟：curl -H 'token':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoxLCJsb2dpbk5hbWUiOiJsaXdlbnhpbiIsImxvZ2luUGFzc3dvcmQiOiIxMjM0NTYiLCJhdmF0YXIiOiJodHRwOi8vMjExLjE0OS4xNDMuNTg6OTAwMS93b3JkLzAyLmpwZyIsIm9hU3RhdHVzIjoxLCJjcmVhdGVUaW1lIjoxNTU5NjQ0NDExMDAwLCJ1cGRhdGVUaW1lIjoxNTU5NjQ0NDE2MDAwLCJyZWFsTmFtZSI6IuadjuaWh-asoyJ9LCJleHAiOjE1NTk5NjQxNDEsIm5iZiI6MTU1OTk1Njk0MX0.QXQaFjbtIZBI0fStRVDFCrAP0uiUHGpH2nnjvu7WZu0' http://localhost:9001/word/extra/findUsers -v
+
+请求方式：GET
+
+返回参数：
+id 用户id
+realName 用户姓名
+
+返回结果：
+```json
+{
+    "code":200,
+    "message":"成功",
+    "data":[
+        {
+            "id":1,
+            "realName":"李文欣"
+        },
+        {
+            "id":2,
+            "realName":"管理员"
+        },
+        {
+            "id":3,
+            "realName":"测试用户"
+        }
+    ],
+    "error":false,
+    "success":true
 }
 ```

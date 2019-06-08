@@ -45,6 +45,11 @@ public class ExtraController extends BaseController{
         return ReturnValue.success().setData(map);
     }
 
+    @GetMapping("findUsers")
+    public ReturnValue findUsers() {
+        return service.findUsers(getOaUser());
+    }
+
     @PostMapping("sendEmail")
     public ReturnValue sendEmail(@RequestBody EmailVO vo){
         log.info("extra-send-email-发送邮件:{}", JsonUtil.toString(vo));

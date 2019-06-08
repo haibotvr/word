@@ -26,4 +26,6 @@ public interface ExtraService {
     ReturnValue findEmailByPage(OaUser oaUser, EmailQC qc) throws BusinessException;
 
     ReturnValue saveDraft(OaUser oaUser, EmailVO vo) throws BusinessException;
+
+    ReturnValue findUsers(OaUser oaUser) throws BusinessException;
 }

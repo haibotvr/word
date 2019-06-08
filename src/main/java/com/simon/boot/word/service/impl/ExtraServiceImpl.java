@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.OaEmailMapper;
 import com.simon.boot.word.dao.OaUserMapper;
+import com.simon.boot.word.dto.OaUserDTO;
 import com.simon.boot.word.dto.UserLoginDTO;
 import com.simon.boot.word.eumn.*;
 import com.simon.boot.word.framework.annotation.BeanValid;
@@ -24,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -212,7 +214,22 @@ public class ExtraServiceImpl implements ExtraService {
         }else{
             return ReturnValue.error().setMessage("分类错误");
         }
-        PageInfo<OaEmail> info = new PageInfo<>(oaEmailMapper.selectByExample(example));
+        PageInfo<OaEmail> info = new PageInfo<>(oaEmailMapper.selectByExampleWithBLOBs(example));
         return ReturnValue.success().setData(info);
+    }
+
+    @Override
+    public ReturnValue findUsers(OaUser oaUser) {
+        OaUserExample example = new OaUserExample();
+        OaUserExample.Criteria criteria = example.createCriteria();
+        criteria.andOaStatusEqualTo(UserStatus.AVAILABLE.getValue());
+        List<OaUserDTO> dtos = new ArrayList<>();
+        for (OaUser user : mapper.selectByExample(example)) {
+            OaUserDTO dto = new OaUserDTO();
+            dto.setId(user.getId());
+            dto.setRealName(user.getRealName());
+            dtos.add(dto);
+        }
+        return ReturnValue.success().setData(dtos);
     }
 }
