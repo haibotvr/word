@@ -211,8 +211,8 @@ ids 邮件ids字符串（逗号拼接)
     "success": true
 }
 ```
-#### 7)、发送草稿
-请求模拟：curl -i -X POST -H 'Content-type':'application/json' -d '{"ids":"1"}' http://localhost:9001/word/extra/sendDraft -v
+#### 8)、发送草稿
+请求模拟：curl -i -X POST -H 'Content-type':'application/json' -d '{"id":"1"}' http://localhost:9001/word/extra/sendDraft -v
 
 请求方式：POST
 
