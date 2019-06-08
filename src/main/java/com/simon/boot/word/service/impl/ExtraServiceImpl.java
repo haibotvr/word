@@ -205,12 +205,14 @@ public class ExtraServiceImpl implements ExtraService {
             criteria2.andSenderIdEqualTo(oaUser.getId());
             criteria2.andIsDraftEqualTo(DraftStatus.NO.getValue());
             criteria2.andOaStatusEqualTo(EmailStatus.DELETE.getValue());
+            example.or(criteria2);
             //草稿箱已删除
             OaEmailExample.Criteria criteria3 = example.createCriteria();
             criteria3.andRecipientIdIsNull();
             criteria3.andSenderIdEqualTo(oaUser.getId());
             criteria3.andIsDraftEqualTo(DraftStatus.YES.getValue());
             criteria3.andOaStatusEqualTo(EmailStatus.DELETE.getValue());
+            example.or(criteria3);
         }else{
             return ReturnValue.error().setMessage("分类错误");
         }
