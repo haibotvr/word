@@ -1,4 +1,4 @@
-package com.simon.boot.word.controller;
+package com.simon.boot.word.controller.oa;
 
 import com.simon.boot.word.framework.abstracts.BaseController;
 import com.simon.boot.word.framework.kits.JsonUtil;
@@ -6,7 +6,6 @@ import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.OaEmail;
 import com.simon.boot.word.qc.EmailQC;
 import com.simon.boot.word.service.ExtraService;
-import com.simon.boot.word.service.impl.ExtraServiceImpl;
 import com.simon.boot.word.vo.EmailVO;
 import com.simon.boot.word.vo.LoginVO;
 import org.slf4j.Logger;
@@ -36,13 +35,8 @@ public class ExtraController extends BaseController{
 
     @GetMapping("info")
     public ReturnValue info() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("员工号", "A071");
-        map.put("部门", "开发部");
-        map.put("职位", "开发工程师");
-        map.put("级别", "高级");
-        log.info("extra-info-获取个人信息:{}", JsonUtil.toString(map));
-        return ReturnValue.success().setData(map);
+        log.info("extra-info-获取个人信息:{}", JsonUtil.toString(getOaUser()));
+        return ReturnValue.success().setData(getOaUser());
     }
 
     @GetMapping("findUsers")
@@ -62,10 +56,22 @@ public class ExtraController extends BaseController{
         return service.saveDraft(getOaUser(), vo);
     }
 
+    @PostMapping("sendDraft")
+    public ReturnValue sendDraft(@RequestBody EmailVO vo){
+        log.info("extra-send-draft-发送草稿:{}", JsonUtil.toString(vo));
+        return service.sendDraft(getOaUser(), vo);
+    }
+
     @PostMapping("delEmail")
     public ReturnValue delEmail(@RequestBody EmailVO vo){
         log.info("extra-del-email-删除邮件:{}", JsonUtil.toString(vo));
         return service.delEmail(getOaUser(), vo);
+    }
+
+    @PostMapping("radicalDelEmail")
+    public ReturnValue radicalDelEmail(@RequestBody EmailVO vo){
+        log.info("extra-radical-del-email-永久删除邮件:{}", JsonUtil.toString(vo));
+        return service.radicalDelEmail(getOaUser(), vo);
     }
 
     @PostMapping("findEmail")

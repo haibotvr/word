@@ -232,4 +232,54 @@ public class ExtraServiceImpl implements ExtraService {
         }
         return ReturnValue.success().setData(dtos);
     }
+
+    @Override
+    public ReturnValue radicalDelEmail(OaUser oaUser, EmailVO vo) throws BusinessException {
+        log.info("请求参数:{}", JsonUtil.toString(vo));
+
+        String[] ids = vo.getIds().split(",");
+
+        for (String id : ids) {
+            oaEmailMapper.deleteByPrimaryKey(Long.valueOf(id));
+        }
+
+
+        return ReturnValue.success().setMessage("删除成功");
+    }
+
+    @Override
+    public ReturnValue sendDraft(OaUser oaUser, EmailVO vo) throws BusinessException {
+
+        log.info("请求参数:{}", JsonUtil.toString(vo));
+
+        OaEmail record = oaEmailMapper.selectByPrimaryKey(vo.getId());
+
+        if(StringUtils.isBlank(record.getRecipientIds())){
+            return ReturnValue.error().setMessage("没有收件人");
+        }
+
+        String[] recipientIds = vo.getRecipientIds().split(",");
+
+        for (String recipientId : recipientIds) {
+
+            OaEmail email = new OaEmail();
+            email.setCreateTime(new Date());
+            email.setIsCheck(CheckStatus.NO.getValue());
+            email.setIsDraft(DraftStatus.NO.getValue());
+            email.setOaStatus(EmailStatus.USE.getValue());
+            email.setMailContent(vo.getMailContent());
+            email.setMailTitle(vo.getMailTitle());
+            email.setSenderId(oaUser.getId());
+            email.setRecipientId(Long.valueOf(recipientId));
+            email.setSenderName(oaUser.getRealName());
+
+            oaEmailMapper.insertSelective(email);
+
+        }
+
+        record.setOaStatus(EmailStatus.DELETE.getValue());
+        oaEmailMapper.updateByPrimaryKeySelective(record);
+
+        return ReturnValue.success().setMessage("发送成功");
+    }
 }

@@ -1,4 +1,4 @@
-package com.simon.boot.word.controller;
+package com.simon.boot.word.controller.word;
 
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordSchool;

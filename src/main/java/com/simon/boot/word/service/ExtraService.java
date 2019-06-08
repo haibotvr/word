@@ -28,4 +28,8 @@ public interface ExtraService {
     ReturnValue saveDraft(OaUser oaUser, EmailVO vo) throws BusinessException;
 
     ReturnValue findUsers(OaUser oaUser) throws BusinessException;
+
+    ReturnValue radicalDelEmail(OaUser oaUser, EmailVO vo) throws BusinessException;
+
+    ReturnValue sendDraft(OaUser oaUser, EmailVO vo) throws BusinessException;
 }

@@ -193,3 +193,39 @@ realName 用户姓名
     "success":true
 }
 ```
+#### 7)、永久删除邮件
+请求模拟：curl -i -X POST -H 'Content-type':'application/json' -d '{"ids":"1"}' http://localhost:9001/word/extra/radicalDelEmail -v
+
+请求方式：POST
+
+请求参数：
+ids 邮件ids字符串（逗号拼接)
+
+返回结果：
+```json
+{
+    "code": 200,
+    "message": "删除成功",
+    "data": null,
+    "error": false,
+    "success": true
+}
+```
+#### 7)、发送草稿
+请求模拟：curl -i -X POST -H 'Content-type':'application/json' -d '{"ids":"1"}' http://localhost:9001/word/extra/sendDraft -v
+
+请求方式：POST
+
+请求参数：
+id 邮件id
+
+返回结果：
+```json
+{
+    "code": 200,
+    "message": "发送成功",
+    "data": null,
+    "error": false,
+    "success": true
+}
+```

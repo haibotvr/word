@@ -1,9 +1,9 @@
-package com.simon.boot.word.controller;
+package com.simon.boot.word.controller.word;
 
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.WordChapter;
-import com.simon.boot.word.qc.ChapterQC;
-import com.simon.boot.word.service.WordChapterService;
+import com.simon.boot.word.pojo.WordDetail;
+import com.simon.boot.word.qc.DetailQC;
+import com.simon.boot.word.service.WordDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.*;
  * @author simon.wei
  */
 @RestController
-@RequestMapping("chapter")
-public class WordChapterController {
+@RequestMapping("detail")
+public class WordDetailController {
 
     @Autowired
-    private WordChapterService service;
+    private WordDetailService service;
 
     @PostMapping("add")
-    public ReturnValue add(@RequestBody WordChapter record){
+    public ReturnValue add(@RequestBody WordDetail record){
         return service.add(record);
     }
 
     @PostMapping("edit")
-    public ReturnValue edit(@RequestBody WordChapter record){
+    public ReturnValue edit(@RequestBody WordDetail record){
         return service.edit(record);
     }
 
@@ -33,7 +33,7 @@ public class WordChapterController {
     }
 
     @PostMapping("findByPage")
-    public ReturnValue findByPage(@RequestBody ChapterQC qc){
+    public ReturnValue findByPage(@RequestBody DetailQC qc){
         return service.findByPage(qc);
     }
 

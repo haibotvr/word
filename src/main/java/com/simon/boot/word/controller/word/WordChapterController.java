@@ -1,10 +1,9 @@
-package com.simon.boot.word.controller;
+package com.simon.boot.word.controller.word;
 
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.WordTeachMaterial;
-import com.simon.boot.word.qc.PageQC;
-import com.simon.boot.word.qc.TeachMaterialQC;
-import com.simon.boot.word.service.WordTeachMaterialService;
+import com.simon.boot.word.pojo.WordChapter;
+import com.simon.boot.word.qc.ChapterQC;
+import com.simon.boot.word.service.WordChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,19 +11,19 @@ import org.springframework.web.bind.annotation.*;
  * @author simon.wei
  */
 @RestController
-@RequestMapping("teachMaterial")
-public class WordTeachMaterialController {
+@RequestMapping("chapter")
+public class WordChapterController {
 
     @Autowired
-    private WordTeachMaterialService service;
+    private WordChapterService service;
 
     @PostMapping("add")
-    public ReturnValue add(@RequestBody WordTeachMaterial record){
+    public ReturnValue add(@RequestBody WordChapter record){
         return service.add(record);
     }
 
     @PostMapping("edit")
-    public ReturnValue edit(@RequestBody WordTeachMaterial record){
+    public ReturnValue edit(@RequestBody WordChapter record){
         return service.edit(record);
     }
 
@@ -34,7 +33,7 @@ public class WordTeachMaterialController {
     }
 
     @PostMapping("findByPage")
-    public ReturnValue findByPage(@RequestBody TeachMaterialQC qc){
+    public ReturnValue findByPage(@RequestBody ChapterQC qc){
         return service.findByPage(qc);
     }
 
