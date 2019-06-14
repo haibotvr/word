@@ -5,6 +5,7 @@ import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.UserStudyLog;
 import com.simon.boot.word.pojo.WordSchool;
 import com.simon.boot.word.pojo.WordUser;
+import com.simon.boot.word.pojo.WordUserStudy;
 import com.simon.boot.word.qc.SchoolQC;
 import com.simon.boot.word.service.UserStudyService;
 import com.simon.boot.word.service.WordSchoolService;
@@ -24,7 +25,7 @@ public class UserStudyController extends BaseController {
     private UserStudyService service;
 
     @PostMapping("add")
-    public ReturnValue add(@RequestBody UserStudyLog record) {
+    public ReturnValue add(@RequestBody WordUserStudy record) {
         record.setUserId(getSessionUser().getId());
         return service.add(record);
     }

@@ -1,10 +1,9 @@
 package com.simon.boot.word.service.impl;
 
-import com.simon.boot.word.dao.UserStudyLogMapper;
-import com.simon.boot.word.dao.WordChapterMapper;
-import com.simon.boot.word.dao.WordDetailMapper;
+import com.simon.boot.word.dao.*;
 import com.simon.boot.word.eumn.ChapterStatus;
-import com.simon.boot.word.eumn.StudyLogStatus;
+import com.simon.boot.word.eumn.DetailStatus;
+import com.simon.boot.word.eumn.StudyStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.*;
@@ -23,7 +22,10 @@ import java.util.List;
 public class UserStudyServiceImpl implements UserStudyService {
 
     @Autowired
-    UserStudyLogMapper userStudyLogMapper;
+    WordUserStudyMapper wordUserStudyMapper;
+
+    @Autowired
+    WordUserStudyLogMapper wordUserStudyLogMapper;
 
     @Autowired
     WordChapterMapper wordChapterMapper;
@@ -33,32 +35,32 @@ public class UserStudyServiceImpl implements UserStudyService {
 
     @Override
     public ReturnValue reStudy(Long id, Long userId) throws BusinessException {
-        UserStudyLogExample example = new UserStudyLogExample();
-        UserStudyLogExample.Criteria criteria = example.createCriteria();
+        WordUserStudyExample example = new WordUserStudyExample();
+        WordUserStudyExample.Criteria criteria = example.createCriteria();
         criteria.andTmIdEqualTo(id);
         criteria.andUserIdEqualTo(userId);
-        return ReturnValue.success(userStudyLogMapper.deleteByExample(example)).setMessage("删除成功");
+        return ReturnValue.success(wordUserStudyMapper.deleteByExample(example)).setMessage("删除成功");
     }
 
     @Override
-    public ReturnValue add(UserStudyLog record) throws BusinessException {
+    public ReturnValue add(WordUserStudy record) throws BusinessException {
         record.setCreateTime(new Date());
-        record.setEwStatus(StudyLogStatus.AVAILABLE.getValue());
-        return ReturnValue.success(userStudyLogMapper.insertSelective(record));
+        record.setEwStatus(StudyStatus.AVAILABLE.getValue());
+        return ReturnValue.success(wordUserStudyMapper.insertSelective(record));
     }
 
     @Override
     public ReturnValue findWords(Long id, Long userId) throws BusinessException {
         //id 为教材ID，userId为用户ID，chapterId为章节ID
         //查询本教材已学习的最大章节ID，如果是空，说明还未学习
-        UserStudyLogExample logExample = new UserStudyLogExample();
-        logExample.setOrderByClause("chapter_id desc");
-        UserStudyLogExample.Criteria logCriteria = logExample.createCriteria();
+        WordUserStudyExample example = new WordUserStudyExample();
+        example.setOrderByClause("chapter_id desc");
+        WordUserStudyExample.Criteria logCriteria = example.createCriteria();
         logCriteria.andUserIdEqualTo(userId);
         logCriteria.andTmIdEqualTo(id);
-        List<UserStudyLog> logs = userStudyLogMapper.selectByExample(logExample);
+        List<WordUserStudy> studies = wordUserStudyMapper.selectByExample(example);
         Long chapterId = null;
-        if(CollectionUtils.isEmpty(logs)){
+        if(CollectionUtils.isEmpty(studies)){
             //查询最开始一章
             List<WordChapter> wordChapters = selectWordChapter(id, "ASC");
             if(CollectionUtils.isEmpty(wordChapters)){
@@ -67,7 +69,7 @@ public class UserStudyServiceImpl implements UserStudyService {
             chapterId = wordChapters.get(0).getId();
         }else{
             //查询本教材章节最大的ID，如果相等说明教材已学完，返回空值，如果不等，说明还有章节未学习
-            Long logChapterId = logs.get(0).getChapterId();
+            Long logChapterId = studies.get(0).getChapterId();
             List<WordChapter> wordChapters = selectWordChapter(id, "DESC");
             //相等
             if(wordChapters.get(0).getId().equals(logChapterId)){
@@ -85,7 +87,7 @@ public class UserStudyServiceImpl implements UserStudyService {
             }
         }
         //查询章节单词
-        return  ReturnValue.success().setData(selectWordDetail(chapterId));
+        return ReturnValue.success().setData(selectWordDetail(chapterId));
     }
 
     private List<WordChapter> selectWordChapter(Long tmId, String orderBy){
@@ -102,7 +104,7 @@ public class UserStudyServiceImpl implements UserStudyService {
         example.setOrderByClause("id asc");
         WordDetailExample.Criteria criteria = example.createCriteria();
         criteria.andChapterIdEqualTo(chapterId);
-        criteria.andEwStatusEqualTo(ChapterStatus.AVAILABLE.getValue());
+        criteria.andEwStatusEqualTo(DetailStatus.AVAILABLE.getValue());
         return wordDetailMapper.selectByExample(example);
     }
 
