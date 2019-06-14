@@ -3,6 +3,7 @@ package com.simon.boot.word.service.impl;
 import com.simon.boot.word.dao.*;
 import com.simon.boot.word.eumn.ChapterStatus;
 import com.simon.boot.word.eumn.DetailStatus;
+import com.simon.boot.word.eumn.StudyLogStatus;
 import com.simon.boot.word.eumn.StudyStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
@@ -47,6 +48,13 @@ public class UserStudyServiceImpl implements UserStudyService {
         record.setCreateTime(new Date());
         record.setEwStatus(StudyStatus.AVAILABLE.getValue());
         return ReturnValue.success(wordUserStudyMapper.insertSelective(record));
+    }
+
+    @Override
+    public ReturnValue addLog(WordUserStudyLog record) throws BusinessException {
+        record.setCreateTime(new Date());
+        record.setEwStatus(StudyLogStatus.AVAILABLE.getValue());
+        return ReturnValue.success(wordUserStudyLogMapper.insertSelective(record));
     }
 
     @Override
