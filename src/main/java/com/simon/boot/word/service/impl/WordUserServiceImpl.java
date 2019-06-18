@@ -38,6 +38,13 @@ public class WordUserServiceImpl implements WordUserService {
 
     @Override
     public ReturnValue add(WordUser record) throws BusinessException {
+        WordUserExample example = new WordUserExample();
+        WordUserExample.Criteria criteria = example.createCriteria();
+        criteria.andLoginNameEqualTo(record.getLoginName());
+        List<WordUser> wordUsers = mapper.selectByExample(example);
+        if(!CollectionUtils.isEmpty(wordUsers)){
+            return ReturnValue.error().setMessage("用户名已存在");
+        }
         record.setCreateTime(new Date());
         record.setLoginPassword(passwordEncoder.encode(record.getLoginPassword()));
         record.setEwStatus(UserStatus.AVAILABLE.getValue());

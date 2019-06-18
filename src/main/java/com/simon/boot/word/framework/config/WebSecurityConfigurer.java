@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Bean
     protected BCryptPasswordEncoder passwordEncoder() {

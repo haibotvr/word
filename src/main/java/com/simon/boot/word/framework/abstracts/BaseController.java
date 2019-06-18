@@ -6,8 +6,6 @@ import com.simon.boot.word.pojo.OaUser;
 import com.simon.boot.word.pojo.WordUser;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +35,7 @@ public class BaseController {
      * 获取登录用户
      * @return
      */
-    public WordUser getSessionUser(){
+    public WordUser getWordUser(){
         String session = (String)request.getSession().getAttribute(LeafConstant.SESSION_USER);
         return StringUtils.isBlank(session) ? null : JsonUtil.toBean(session, WordUser.class);
     }

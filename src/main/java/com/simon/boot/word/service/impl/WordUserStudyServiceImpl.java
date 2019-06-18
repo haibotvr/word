@@ -8,7 +8,7 @@ import com.simon.boot.word.eumn.StudyStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.*;
-import com.simon.boot.word.service.UserStudyService;
+import com.simon.boot.word.service.WordUserStudyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author simon.wei
  */
 @Service
-public class UserStudyServiceImpl implements UserStudyService {
+public class WordUserStudyServiceImpl implements WordUserStudyService {
 
     @Autowired
     WordUserStudyMapper wordUserStudyMapper;

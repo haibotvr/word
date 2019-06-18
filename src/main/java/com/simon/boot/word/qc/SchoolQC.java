@@ -5,13 +5,13 @@ package com.simon.boot.word.qc;
  */
 public class SchoolQC extends PageQC {
 
-    private String SchoolName;
+    private String schoolName;
 
     public String getSchoolName() {
-        return SchoolName;
+        return schoolName;
     }
 
     public void setSchoolName(String schoolName) {
-        SchoolName = schoolName;
+        schoolName = schoolName;
     }
 }

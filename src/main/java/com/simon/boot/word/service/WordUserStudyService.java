@@ -2,14 +2,13 @@ package com.simon.boot.word.service;
 
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.UserStudyLog;
 import com.simon.boot.word.pojo.WordUserStudy;
 import com.simon.boot.word.pojo.WordUserStudyLog;
 
 /**
  * @author simon.wei
  */
-public interface UserStudyService {
+public interface WordUserStudyService {
 
     ReturnValue add(WordUserStudy record) throws BusinessException;
 

@@ -50,9 +50,10 @@ public class WordSchoolServiceImpl implements WordSchoolService {
     public ReturnValue findByPage(SchoolQC qc) throws BusinessException {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         WordSchoolExample example = new WordSchoolExample();
+        WordSchoolExample.Criteria criteria = example.createCriteria();
+        criteria.andEwStatusEqualTo(SchoolStatus.AVAILABLE.getValue());
         example.setOrderByClause("create_time desc");
         if(StringUtils.isNotBlank(qc.getSchoolName())){
-            WordSchoolExample.Criteria criteria = example.createCriteria();
             criteria.andSchoolNameLike("%" + qc.getSchoolName() + "%");
         }
         PageInfo<WordSchool> info = new PageInfo<>(mapper.selectByExample(example));
