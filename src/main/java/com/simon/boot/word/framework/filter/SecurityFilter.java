@@ -1,6 +1,8 @@
 package com.simon.boot.word.framework.filter;
 
+import com.simon.boot.word.framework.exception.AuthenticationException;
 import com.simon.boot.word.framework.kits.*;
+import com.simon.boot.word.framework.web.ReturnValue;
 import io.jsonwebtoken.Claims;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +38,14 @@ public class SecurityFilter implements Filter {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         }else {
             //获取请求中header参数
-            Claims claims = JwtHelper.parseJWT(httpServletRequest.getHeader(LeafConstant.HTTP_TOKEN));
+            Claims claims;
+            try {
+                claims = JwtHelper.parseJWT(httpServletRequest.getHeader(LeafConstant.HTTP_TOKEN));
+            } catch (AuthenticationException e) {
+                httpServletResponse.setCharacterEncoding("UTF-8");
+                JsonUtil.mapper.writeValue(httpServletResponse.getWriter(), ReturnValue.error().setCode(e.getCode().intValue()).setMessage(e.getMessage()));
+                return;
+            }
             httpServletRequest.getSession().setAttribute(LeafConstant.SESSION_USER,
                     JsonUtil.toString(claims.get(LeafConstant.SESSION_USER, LinkedHashMap.class)));
             filterChain.doFilter(httpServletRequest, httpServletResponse);

@@ -1,8 +1,10 @@
 package com.simon.boot.word.controller.word;
 
+import com.simon.boot.word.framework.abstracts.BaseController;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordUser;
 import com.simon.boot.word.qc.PageQC;
+import com.simon.boot.word.qc.UserQC;
 import com.simon.boot.word.service.WordUserService;
 import com.simon.boot.word.vo.LoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("user")
-public class WordUserController {
+public class WordUserController extends BaseController {
 
     @Autowired
     private WordUserService service;
@@ -34,8 +36,8 @@ public class WordUserController {
     }
 
     @PostMapping("findByPage")
-    public ReturnValue findByPage(@RequestBody PageQC qc){
-        return service.findByPage(qc);
+    public ReturnValue findByPage(@RequestBody UserQC qc){
+        return service.findByPage(qc, getWordUser());
     }
 
     @PostMapping("login")

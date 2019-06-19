@@ -13,14 +13,15 @@ import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordUser;
 import com.simon.boot.word.pojo.WordUserExample;
 import com.simon.boot.word.qc.PageQC;
+import com.simon.boot.word.qc.UserQC;
 import com.simon.boot.word.service.WordUserService;
 import com.simon.boot.word.vo.LoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +38,11 @@ public class WordUserServiceImpl implements WordUserService {
     PasswordEncoder passwordEncoder;
 
     @Override
+    @BeanValid
     public ReturnValue add(WordUser record) throws BusinessException {
+        if(StringUtils.isEmpty(record.getLoginPassword())){
+            return ReturnValue.error().setMessage("密码不能为空");
+        }
         WordUserExample example = new WordUserExample();
         WordUserExample.Criteria criteria = example.createCriteria();
         criteria.andLoginNameEqualTo(record.getLoginName());
@@ -66,11 +71,15 @@ public class WordUserServiceImpl implements WordUserService {
     }
 
     @Override
-    public ReturnValue findByPage(PageQC qc) throws BusinessException {
+    public ReturnValue findByPage(UserQC qc, WordUser user) throws BusinessException {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         WordUserExample example = new WordUserExample();
         WordUserExample.Criteria criteria = example.createCriteria();
         criteria.andEwStatusEqualTo(UserStatus.AVAILABLE.getValue());
+        criteria.andSchoolIdEqualTo(qc.getSchoolId());
+        if(!StringUtils.isEmpty(qc.getRealName())){
+            criteria.andRealNameLike("%" + qc.getRealName() + "%");
+        }
         PageInfo<WordUser> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
     }
