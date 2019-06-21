@@ -1,5 +1,6 @@
 package com.simon.boot.word.framework.kits;
 
+import com.simon.boot.word.eumn.BusinessExceptionMessage;
 import com.simon.boot.word.framework.exception.ValidException;
 import org.springframework.util.StringUtils;
 
@@ -18,7 +19,7 @@ public class DataValidationUtil {
         StringBuffer sb = new StringBuffer();
         try {
             if(null == bean){
-                sb.append("校验的对象不能为null");
+                sb.append("校验的对象不能为NULL");
             } else {
                 Set<ConstraintViolation<T>> constraintViolations = validator.validate(bean);
                 for (ConstraintViolation<T> violation : constraintViolations) {
@@ -26,10 +27,10 @@ public class DataValidationUtil {
                 }
             }
         } catch (Exception e) {
-            throw new ValidException(sb.toString());
+            throw new ValidException(BusinessExceptionMessage.VALIDATION_FAIL.getValue(), BusinessExceptionMessage.VALIDATION_FAIL.getName() + ":" + sb.toString());
         }
         if(!StringUtils.isEmpty(sb.toString())){
-            throw new ValidException(sb.toString());
+            throw new ValidException(BusinessExceptionMessage.VALIDATION_FAIL.getValue(), BusinessExceptionMessage.VALIDATION_FAIL.getName() + ":" + sb.toString());
         }
     }
 
