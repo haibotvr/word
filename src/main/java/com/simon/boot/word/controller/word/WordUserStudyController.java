@@ -34,6 +34,11 @@ public class WordUserStudyController extends BaseController {
         return service.findWords(id, getWordUser().getId());
     }
 
+    @GetMapping("findWordDetail/{id}")
+    public ReturnValue findWordDetail(@PathVariable Long id) {
+        return service.findWordDetail(id);
+    }
+
     @GetMapping("reStudy/{id}")
     public ReturnValue reStudy(@PathVariable Long id) {
         return service.reStudy(id, getWordUser().getId());

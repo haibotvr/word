@@ -17,4 +17,6 @@ public interface WordUserStudyService {
     ReturnValue reStudy(Long id, Long userId) throws BusinessException;
 
     ReturnValue addLog(WordUserStudyLog record) throws BusinessException;
+
+    ReturnValue findWordDetail(Long id) throws BusinessException;
 }

@@ -32,6 +32,9 @@ public class WordUserStudyServiceImpl implements WordUserStudyService {
     WordChapterMapper wordChapterMapper;
 
     @Autowired
+    WordTeachMaterialMapper wordTeachMaterialMapper;
+
+    @Autowired
     WordDetailMapper wordDetailMapper;
 
     @Override
@@ -54,6 +57,18 @@ public class WordUserStudyServiceImpl implements WordUserStudyService {
     public ReturnValue addLog(WordUserStudyLog record) throws BusinessException {
         record.setCreateTime(new Date());
         record.setEwStatus(StudyLogStatus.AVAILABLE.getValue());
+        if(record.getTmId() != null){
+            WordTeachMaterial teachMaterial = this.selectWordTeachMaterial(record.getTmId());
+            if(teachMaterial != null){
+                record.setTmName(teachMaterial.getTmName());
+            }
+        }
+        if(record.getChapterId() != null){
+            WordChapter chapter = this.selectWordChapter(record.getChapterId());
+            if(chapter != null){
+                record.setChapterName(chapter.getChapterName());
+            }
+        }
         return ReturnValue.success(wordUserStudyLogMapper.insertSelective(record));
     }
 
@@ -98,6 +113,11 @@ public class WordUserStudyServiceImpl implements WordUserStudyService {
         return ReturnValue.success().setData(selectWordDetail(chapterId));
     }
 
+    @Override
+    public ReturnValue findWordDetail(Long id) throws BusinessException {
+        return ReturnValue.success(this.selectWordDetail(id));
+    }
+
     private List<WordChapter> selectWordChapter(Long tmId, String orderBy){
         WordChapterExample example = new WordChapterExample();
         example.setOrderByClause("id " + orderBy);
@@ -114,6 +134,14 @@ public class WordUserStudyServiceImpl implements WordUserStudyService {
         criteria.andChapterIdEqualTo(chapterId);
         criteria.andEwStatusEqualTo(DetailStatus.AVAILABLE.getValue());
         return wordDetailMapper.selectByExample(example);
+    }
+
+    private WordTeachMaterial selectWordTeachMaterial(Long tmId){
+        return wordTeachMaterialMapper.selectByPrimaryKey(tmId);
+    }
+
+    private WordChapter selectWordChapter(Long chapterId){
+        return wordChapterMapper.selectByPrimaryKey(chapterId);
     }
 
 }
