@@ -1,5 +1,7 @@
 package com.simon.boot.word.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.*;
 import com.simon.boot.word.eumn.ChapterStatus;
 import com.simon.boot.word.eumn.DetailStatus;
@@ -8,6 +10,7 @@ import com.simon.boot.word.eumn.StudyStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.*;
+import com.simon.boot.word.qc.StudyQC;
 import com.simon.boot.word.service.WordUserStudyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +53,18 @@ public class WordUserStudyServiceImpl implements WordUserStudyService {
     public ReturnValue add(WordUserStudy record) throws BusinessException {
         record.setCreateTime(new Date());
         record.setEwStatus(StudyStatus.AVAILABLE.getValue());
+        if(record.getTmId() != null){
+            WordTeachMaterial teachMaterial = wordTeachMaterialMapper.selectByPrimaryKey(record.getTmId());
+            if(teachMaterial != null){
+                record.setTmName(teachMaterial.getTmName());
+            }
+        }
+        if(record.getChapterId() != null){
+            WordChapter chapter = wordChapterMapper.selectByPrimaryKey(record.getChapterId());
+            if(chapter != null){
+                record.setChapterName(chapter.getChapterName());
+            }
+        }
         return ReturnValue.success(wordUserStudyMapper.insertSelective(record));
     }
 
@@ -116,6 +131,17 @@ public class WordUserStudyServiceImpl implements WordUserStudyService {
     @Override
     public ReturnValue findWordDetail(Long id) throws BusinessException {
         return ReturnValue.success(this.selectWordDetail(id));
+    }
+
+    @Override
+    public ReturnValue findByPage(StudyQC qc, WordUser user) throws BusinessException {
+        PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
+        WordUserStudyExample example = new WordUserStudyExample();
+        WordUserStudyExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(user.getId());
+        example.setOrderByClause("create_time desc");
+        PageInfo<WordUserStudy> info = new PageInfo<>(wordUserStudyMapper.selectByExample(example));
+        return ReturnValue.success().setData(info);
     }
 
     private List<WordChapter> selectWordChapter(Long tmId, String orderBy){

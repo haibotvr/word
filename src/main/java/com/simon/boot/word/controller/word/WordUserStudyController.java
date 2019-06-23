@@ -2,7 +2,9 @@ package com.simon.boot.word.controller.word;
 
 import com.simon.boot.word.framework.abstracts.BaseController;
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.*;
+import com.simon.boot.word.pojo.WordUserStudy;
+import com.simon.boot.word.pojo.WordUserStudyLog;
+import com.simon.boot.word.qc.StudyQC;
 import com.simon.boot.word.service.WordUserStudyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +44,11 @@ public class WordUserStudyController extends BaseController {
     @GetMapping("reStudy/{id}")
     public ReturnValue reStudy(@PathVariable Long id) {
         return service.reStudy(id, getWordUser().getId());
+    }
+
+    @PostMapping("findByPage")
+    public ReturnValue findByPage(@RequestBody StudyQC qc){
+        return service.findByPage(qc, getWordUser());
     }
 
 }

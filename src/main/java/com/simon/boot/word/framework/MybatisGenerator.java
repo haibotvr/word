@@ -14,7 +14,7 @@ public class MybatisGenerator {
     public static void main(String[] args) throws Exception {
         List<String> warnings = new ArrayList<>();
         boolean overwrite = true;
-        File configFile = new File("/Users/weihaibo/Downloads/git-project/word/src/main/resources/mybatis/mybatis-generator.xml");
+        File configFile = new File("D:\\dev\\gitpro\\word\\src\\main\\resources\\mybatis\\mybatis-generator.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);

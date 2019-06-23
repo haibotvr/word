@@ -2,8 +2,10 @@ package com.simon.boot.word.service;
 
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
+import com.simon.boot.word.pojo.WordUser;
 import com.simon.boot.word.pojo.WordUserStudy;
 import com.simon.boot.word.pojo.WordUserStudyLog;
+import com.simon.boot.word.qc.StudyQC;
 
 /**
  * @author simon.wei
@@ -19,4 +21,6 @@ public interface WordUserStudyService {
     ReturnValue addLog(WordUserStudyLog record) throws BusinessException;
 
     ReturnValue findWordDetail(Long id) throws BusinessException;
+
+    ReturnValue findByPage(StudyQC qc, WordUser wordUser) throws BusinessException;
 }
