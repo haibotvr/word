@@ -32,4 +32,14 @@ public class WordUserStudyLogServiceImpl implements WordUserStudyLogService {
         PageInfo<WordUserStudyLog> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
     }
+
+    @Override
+    public ReturnValue findByChapter(Long id, WordUser user) throws BusinessException {
+        WordUserStudyLogExample example = new WordUserStudyLogExample();
+        WordUserStudyLogExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(user.getId());
+        criteria.andChapterIdEqualTo(id);
+        example.setOrderByClause("create_time asc");
+        return ReturnValue.success().setData(mapper.selectByExample(example));
+    }
 }

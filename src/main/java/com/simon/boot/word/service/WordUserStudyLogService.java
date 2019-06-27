@@ -9,4 +9,5 @@ public interface WordUserStudyLogService {
 
     ReturnValue findByPage(StudyLogQC qc, WordUser user) throws BusinessException;
 
+    ReturnValue findByChapter(Long id, WordUser user) throws BusinessException;
 }

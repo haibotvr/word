@@ -5,10 +5,7 @@ import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.qc.StudyLogQC;
 import com.simon.boot.word.service.WordUserStudyLogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author simon.wei
@@ -23,6 +20,11 @@ public class WordUserStudyLogController extends BaseController {
     @PostMapping("findByPage")
     public ReturnValue findByPage(@RequestBody StudyLogQC qc){
         return service.findByPage(qc, getWordUser());
+    }
+
+    @GetMapping("findByChapter/{id}")
+    public ReturnValue findByChapter(@PathVariable Long id){
+        return service.findByChapter(id, getWordUser());
     }
 
 }
