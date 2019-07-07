@@ -29,6 +29,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
         builder.append("/user/login,");
         builder.append("/user/logout,");
         builder.append("/extra/login,");
+        builder.append("/swagger-resources*,");
+        builder.append("/v2/api-docs,");
         builder.append("*.png,");
         builder.append("*.jpg,");
         builder.append("*.jpeg,");

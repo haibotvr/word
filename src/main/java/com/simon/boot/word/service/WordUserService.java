@@ -25,4 +25,6 @@ public interface WordUserService {
     ReturnValue info(String token) throws BusinessException;
 
     ReturnValue logout() throws BusinessException;
+
+    ReturnValue getPermissions(Long id) throws BusinessException;
 }

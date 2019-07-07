@@ -13,6 +13,8 @@ import com.simon.boot.word.service.WordUserStudyLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author simon.wei
  */
@@ -40,6 +42,8 @@ public class WordUserStudyLogServiceImpl implements WordUserStudyLogService {
         criteria.andUserIdEqualTo(user.getId());
         criteria.andChapterIdEqualTo(id);
         example.setOrderByClause("create_time asc");
-        return ReturnValue.success().setData(mapper.selectByExample(example));
+        List<WordUserStudyLog> logs = mapper.selectByExample(example);
+        logs.forEach(log -> log.setStudyDetail(null));
+        return ReturnValue.success().setData(logs);
     }
 }

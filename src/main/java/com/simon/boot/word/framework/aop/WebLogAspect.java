@@ -1,8 +1,10 @@
 package com.simon.boot.word.framework.aop;
 
+import cn.hutool.Hutool;
 import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.web.WebLog;
 import io.micrometer.core.instrument.util.StringUtils;
+import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -13,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -62,7 +63,10 @@ public class WebLogAspect {
         String urlStr = request.getRequestURL().toString();
         String uriStr = request.getRequestURI().toString();
         String methodPackage = method.getDeclaringClass() + "." + method.getName();
-        webLog.setDescription("");
+        if(method.isAnnotationPresent(ApiOperation.class)){
+            ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+            webLog.setDescription(apiOperation.value());
+        }
         webLog.setBasePath(urlStr.replace(uriStr, ""));
         webLog.setIp(request.getRemoteAddr());
         webLog.setMethod(request.getMethod());
