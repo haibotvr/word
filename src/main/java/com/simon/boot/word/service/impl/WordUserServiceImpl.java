@@ -124,7 +124,6 @@ public class WordUserServiceImpl implements WordUserService {
 
     @Override
     public ReturnValue getPermissions(Long id) throws BusinessException {
-
-        return null;
+        return ReturnValue.success().setData(userRoleRelationDao.getPermissions(id));
     }
 }
