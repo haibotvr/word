@@ -1,12 +1,12 @@
 package com.simon.boot.word.framework.config;
 
-import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -38,8 +38,8 @@ public class Swagger2Config {
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
                 .title("SwaggerUI")
-                .description("word")
-                .contact("simon")
+                .description("爱酷酷英语教学")
+                .contact(new Contact("simon", "#", "554040883@qq.com"))
                 .version("1.0")
                 .build();
 
