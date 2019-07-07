@@ -2,6 +2,7 @@ package com.simon.boot.word.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.simon.boot.word.dao.WordPermissionMapper;
 import com.simon.boot.word.dao.WordUserMapper;
 import com.simon.boot.word.dto.UserLoginDTO;
 import com.simon.boot.word.eumn.BusinessExceptionMessage;
@@ -10,6 +11,7 @@ import com.simon.boot.word.framework.annotation.BeanValid;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.kits.JwtHelper;
 import com.simon.boot.word.framework.web.ReturnValue;
+import com.simon.boot.word.pojo.WordPermissionExample;
 import com.simon.boot.word.pojo.WordUser;
 import com.simon.boot.word.pojo.WordUserExample;
 import com.simon.boot.word.qc.PageQC;
@@ -33,6 +35,9 @@ public class WordUserServiceImpl implements WordUserService {
 
     @Autowired
     WordUserMapper mapper;
+
+    @Autowired
+    WordPermissionMapper permissionMapper;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -114,5 +119,11 @@ public class WordUserServiceImpl implements WordUserService {
     @Override
     public ReturnValue logout() throws BusinessException {
         return ReturnValue.success().setMessage("登出成功");
+    }
+
+    @Override
+    public ReturnValue getPermissions(Long id) throws BusinessException {
+
+        return null;
     }
 }

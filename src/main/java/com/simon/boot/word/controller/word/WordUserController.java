@@ -64,4 +64,10 @@ public class WordUserController extends BaseController {
         return service.logout();
     }
 
+    @ApiOperation("获取用户所有权限（包括+-权限）")
+    @GetMapping("/permission/{id}")
+    public ReturnValue getPermissions(@PathVariable Long id ){
+        return service.getPermissions(id);
+    }
+
 }

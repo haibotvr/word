@@ -1,6 +1,7 @@
 package com.simon.boot.word.framework.kits;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -33,5 +34,14 @@ public class JsonUtil<T> {
         }
     }
 
+    //反序列化复杂对象
+    public static <T> T toBean(String json, TypeReference<T> reference){
+        try {
+            return mapper.readValue(json, reference);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }
