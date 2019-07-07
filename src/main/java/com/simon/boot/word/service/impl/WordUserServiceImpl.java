@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.WordPermissionMapper;
 import com.simon.boot.word.dao.WordUserMapper;
+import com.simon.boot.word.dao.manual.WordUserRoleRelationDao;
 import com.simon.boot.word.dto.UserLoginDTO;
 import com.simon.boot.word.eumn.BusinessExceptionMessage;
 import com.simon.boot.word.eumn.UserStatus;
@@ -37,7 +38,7 @@ public class WordUserServiceImpl implements WordUserService {
     WordUserMapper mapper;
 
     @Autowired
-    WordPermissionMapper permissionMapper;
+    WordUserRoleRelationDao userRoleRelationDao;
 
     @Autowired
     PasswordEncoder passwordEncoder;
