@@ -11,6 +11,7 @@ import com.simon.boot.word.eumn.UserStatus;
 import com.simon.boot.word.framework.annotation.BeanValid;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.kits.JwtHelper;
+import com.simon.boot.word.framework.kits.JwtTokenUtil;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordPermissionExample;
 import com.simon.boot.word.pojo.WordUser;
@@ -20,6 +21,8 @@ import com.simon.boot.word.qc.UserQC;
 import com.simon.boot.word.service.WordUserService;
 import com.simon.boot.word.vo.LoginVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -34,6 +37,9 @@ import java.util.List;
 @Service
 public class WordUserServiceImpl implements WordUserService {
 
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
+
     @Autowired
     WordUserMapper mapper;
 
@@ -42,6 +48,12 @@ public class WordUserServiceImpl implements WordUserService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    UserDetailsService userDetailsService;
 
     @Override
     @BeanValid
@@ -108,18 +120,35 @@ public class WordUserServiceImpl implements WordUserService {
             throw new BusinessException(BusinessExceptionMessage.ADMIN_USER_IS_NOT_USE.getValue(), BusinessExceptionMessage.ADMIN_USER_IS_NOT_USE.getName());
         }
         UserLoginDTO dto = new UserLoginDTO();
-        dto.setToken(JwtHelper.createJWT(users.get(0)));
+        dto.setToken(jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(users.get(0).getLoginName())));
+        dto.setTokenHead(tokenHead);
         return ReturnValue.success().setData(dto).setMessage("登录成功");
     }
 
     @Override
-    public ReturnValue info(String token) throws BusinessException {
-        return ReturnValue.success().setData(JwtHelper.parseJWT(token));
+    public ReturnValue info() throws BusinessException {
+        WordUserExample example = new WordUserExample();
+        WordUserExample.Criteria criteria = example.createCriteria();
+        criteria.andLoginNameEqualTo("simon");
+        List<WordUser> users = mapper.selectByExample(example);
+        return ReturnValue.success().setData(users.get(0));
     }
 
     @Override
     public ReturnValue logout() throws BusinessException {
         return ReturnValue.success().setMessage("登出成功");
+    }
+
+    @Override
+    public WordUser findByUsername(String username) throws BusinessException {
+        WordUserExample example = new WordUserExample();
+        WordUserExample.Criteria criteria = example.createCriteria();
+        criteria.andLoginNameEqualTo("simon");
+        List<WordUser> users = mapper.selectByExample(example);
+        if(CollectionUtils.isEmpty(users)){
+            return null;
+        }
+        return users.get(0);
     }
 
     @Override

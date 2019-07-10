@@ -4,6 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.simon.boot.word.framework.web.ReturnValue;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import java.io.IOException;
 /**
  * @author simon.wei
  */
+@Component
 public class RestfulAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override

@@ -22,9 +22,11 @@ public interface WordUserService {
 
     ReturnValue login(LoginVO vo) throws BusinessException;
 
-    ReturnValue info(String token) throws BusinessException;
+    ReturnValue info() throws BusinessException;
 
     ReturnValue logout() throws BusinessException;
 
     ReturnValue getPermissions(Long id) throws BusinessException;
+
+    WordUser findByUsername(String username) throws BusinessException;
 }

@@ -14,8 +14,6 @@ import java.util.Arrays;
 /**
  * @author simon.wei
  */
-@Configuration
-@EnableWebSecurity
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Bean
