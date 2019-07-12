@@ -2,6 +2,7 @@ package com.simon.boot.word.framework.abstracts;
 
 import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.kits.LeafConstant;
+import com.simon.boot.word.framework.kits.UserUtil;
 import com.simon.boot.word.pojo.OaUser;
 import com.simon.boot.word.pojo.WordUser;
 import io.micrometer.core.instrument.util.StringUtils;
@@ -39,8 +40,7 @@ public class BaseController {
      * @return
      */
     public WordUser getWordUser(){
-        String session = (String)request.getSession().getAttribute(LeafConstant.SESSION_USER);
-        return StringUtils.isBlank(session) ? null : JsonUtil.toBean(session, WordUser.class);
+        return (WordUser) UserUtil.get();
     }
 
     /**

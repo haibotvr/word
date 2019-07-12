@@ -3,6 +3,7 @@ package com.simon.boot.word.framework.config;
 import com.simon.boot.word.framework.exception.RestAuthenticationEntryPoint;
 import com.simon.boot.word.framework.exception.RestfulAccessDeniedHandler;
 import com.simon.boot.word.framework.filter.JwtAuthenticationTokenFilter;
+import com.simon.boot.word.framework.kits.UserUtil;
 import com.simon.boot.word.pojo.WordPermission;
 import com.simon.boot.word.pojo.WordUser;
 import com.simon.boot.word.pojo.manual.WordUserDetails;
@@ -97,6 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return username -> {
             WordUser user = wordUserService.findByUsername(username);
             if(user != null){
+                UserUtil.set(user);
                 List<WordPermission> permissions = (List<WordPermission>) wordUserService.getPermissions(user.getId()).getData();
                 return new WordUserDetails(user, permissions);
             }
