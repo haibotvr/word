@@ -7,6 +7,16 @@ public class UserLoginDTO {
 
     private String token;
 
+    private String tokenHead;
+
+    public String getTokenHead() {
+        return tokenHead;
+    }
+
+    public void setTokenHead(String tokenHead) {
+        this.tokenHead = tokenHead;
+    }
+
     public String getToken() {
         return token;
     }

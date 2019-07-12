@@ -31,7 +31,7 @@ public class WordUserStudyLogServiceImpl implements WordUserStudyLogService {
         WordUserStudyLogExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(user.getId());
         example.setOrderByClause("create_time desc");
-        PageInfo<WordUserStudyLog> info = new PageInfo<>(mapper.selectByExample(example));
+        PageInfo<WordUserStudyLog> info = new PageInfo<>(mapper.selectByExampleWithBLOBs(example));
         return ReturnValue.success().setData(info);
     }
 

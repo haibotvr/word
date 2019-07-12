@@ -6,12 +6,16 @@ import com.simon.boot.word.framework.filter.JwtAuthenticationTokenFilter;
 import com.simon.boot.word.pojo.WordPermission;
 import com.simon.boot.word.pojo.WordUser;
 import com.simon.boot.word.pojo.manual.WordUserDetails;
+import com.simon.boot.word.service.WordUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +29,9 @@ import java.util.List;
 /**
  * @author simon.wei
  */
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -32,6 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
+    @Autowired
+    private WordUserService wordUserService;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -52,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs/**"
                 )
                 .permitAll()
-                .antMatchers("/admin/login")// 对登录注册要允许匿名访问
+                .antMatchers("/user/login")// 对登录注册要允许匿名访问
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
@@ -85,9 +95,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService(){
         return username -> {
-            WordUser user = new WordUser();
+            WordUser user = wordUserService.findByUsername(username);
             if(user != null){
-                List<WordPermission> permissions = new ArrayList<>();
+                List<WordPermission> permissions = (List<WordPermission>) wordUserService.getPermissions(user.getId()).getData();
                 return new WordUserDetails(user, permissions);
             }
             return null;

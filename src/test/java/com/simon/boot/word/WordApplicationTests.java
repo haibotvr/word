@@ -11,6 +11,13 @@ public class WordApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		try {
+			//TODO
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+
+
 
 }
