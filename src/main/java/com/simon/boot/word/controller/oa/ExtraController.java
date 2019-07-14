@@ -29,19 +29,19 @@ public class ExtraController extends BaseController{
     private ExtraService service;
 
     @PostMapping("login")
-    public ReturnValue login(LoginVO vo) {
+    public ReturnValue login(@RequestBody LoginVO vo) {
         return service.login(vo);
     }
 
-    @GetMapping("info")
+    @PostMapping("info")
     public ReturnValue info() {
         log.info("extra-info-获取个人信息:{}", JsonUtil.toString(getOaUser()));
         return ReturnValue.success().setData(getOaUser());
     }
 
-    @GetMapping("findUsers")
+    @PostMapping("findUsers")
     public ReturnValue findUsers() {
-        return service.findUsers(getOaUser());
+        return service.findUsers();
     }
 
     @PostMapping("sendEmail")

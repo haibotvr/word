@@ -20,7 +20,7 @@
                     LEFT JOIN word_permission p ON pr.permission_id = p.id
                 WHERE
                     pr.type = - 1
-                    AND pr.user_id = #{userId}
+                    AND pr.user_id = #{id}
             )
         UNION
         SELECT
@@ -41,5 +41,13 @@
         WHERE
             r.ew_status = 1
             AND urr.user_id = #{userId}
+    </select>
+    <select id="getRoleIds" resultType="Long">
+        SELECT
+            urr.role_id
+        FROM
+            word_user_role_relation urr
+        WHERE
+            urr.user_id = #{id}
     </select>
 </mapper>

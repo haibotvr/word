@@ -1,20 +1,19 @@
 package com.simon.boot.word.framework.abstracts;
 
 import com.simon.boot.word.framework.kits.JsonUtil;
+import com.simon.boot.word.framework.kits.JwtHelper;
 import com.simon.boot.word.framework.kits.LeafConstant;
 import com.simon.boot.word.framework.kits.UserUtil;
 import com.simon.boot.word.pojo.OaUser;
 import com.simon.boot.word.pojo.WordUser;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.LinkedHashMap;
 
 /**
  * @author simon.wei
@@ -48,7 +47,8 @@ public class BaseController {
      * @return
      */
     public OaUser getOaUser(){
-        String session = (String)request.getSession().getAttribute(LeafConstant.SESSION_USER);
-        return StringUtils.isBlank(session) ? null : JsonUtil.toBean(session, OaUser.class);
+        String token = request.getHeader("token");
+        token = JsonUtil.toString(JwtHelper.parseJWT(token).get(LeafConstant.SESSION_USER, LinkedHashMap.class));
+        return StringUtils.isBlank(token) ? null : JsonUtil.toBean(token, OaUser.class);
     }
 }

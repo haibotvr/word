@@ -6,15 +6,16 @@ import com.simon.boot.word.pojo.WordUser;
 import com.simon.boot.word.qc.PageQC;
 import com.simon.boot.word.qc.UserQC;
 import com.simon.boot.word.vo.LoginVO;
+import com.simon.boot.word.vo.WordUserCopyVO;
 
 /**
  * @author simon.wei
  */
 public interface WordUserService {
 
-    ReturnValue add(WordUser record) throws BusinessException;
+    ReturnValue add(WordUserCopyVO record) throws BusinessException;
 
-    ReturnValue edit(WordUser record) throws BusinessException;
+    ReturnValue edit(WordUserCopyVO record) throws BusinessException;
 
     ReturnValue del(Long id) throws BusinessException;
 

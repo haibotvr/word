@@ -104,6 +104,11 @@ public class ExtraServiceImpl implements ExtraService {
             email.setRecipientId(Long.valueOf(recipientId));
             email.setSenderName(oaUser.getRealName());
 
+            OaUser recipient = mapper.selectByPrimaryKey(Long.valueOf(recipientId));
+            if(recipient != null){
+                email.setRecipientName(recipient.getRealName());
+            }
+
             oaEmailMapper.insertSelective(email);
 
         }
@@ -158,6 +163,11 @@ public class ExtraServiceImpl implements ExtraService {
     public ReturnValue findEmail(OaUser oaUser, OaEmail record) throws BusinessException {
 
         log.info("请求参数:{}", JsonUtil.toString(record));
+
+        OaEmail email = new OaEmail();
+        email.setId(record.getId());
+        email.setIsCheck(CheckStatus.YES.getValue());
+        oaEmailMapper.updateByPrimaryKeySelective(email);
 
         return ReturnValue.success().setData(oaEmailMapper.selectByPrimaryKey(record.getId()));
     }
@@ -221,7 +231,7 @@ public class ExtraServiceImpl implements ExtraService {
     }
 
     @Override
-    public ReturnValue findUsers(OaUser oaUser) {
+    public ReturnValue findUsers() {
         OaUserExample example = new OaUserExample();
         OaUserExample.Criteria criteria = example.createCriteria();
         criteria.andOaStatusEqualTo(UserStatus.AVAILABLE.getValue());
@@ -274,6 +284,10 @@ public class ExtraServiceImpl implements ExtraService {
             email.setSenderId(oaUser.getId());
             email.setRecipientId(Long.valueOf(recipientId));
             email.setSenderName(oaUser.getRealName());
+            OaUser recipient = mapper.selectByPrimaryKey(Long.valueOf(recipientId));
+            if(recipient != null){
+                email.setRecipientName(recipient.getRealName());
+            }
 
             oaEmailMapper.insertSelective(email);
 

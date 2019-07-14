@@ -6,6 +6,7 @@ import com.simon.boot.word.pojo.WordUser;
 import com.simon.boot.word.qc.UserQC;
 import com.simon.boot.word.service.WordUserService;
 import com.simon.boot.word.vo.LoginVO;
+import com.simon.boot.word.vo.WordUserCopyVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,13 @@ public class WordUserController extends BaseController {
 
     @ApiOperation("添加用户")
     @PostMapping("add")
-    public ReturnValue add(@RequestBody WordUser record){
+    public ReturnValue add(@RequestBody WordUserCopyVO record){
         return service.add(record);
     }
 
     @ApiOperation("修改用户")
     @PostMapping("edit")
-    public ReturnValue edit(@RequestBody WordUser record){
+    public ReturnValue edit(@RequestBody WordUserCopyVO record){
         return service.edit(record);
     }
 

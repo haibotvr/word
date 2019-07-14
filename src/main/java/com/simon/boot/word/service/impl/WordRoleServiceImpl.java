@@ -14,8 +14,10 @@ import com.simon.boot.word.service.WordRoleService;
 import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author simon.wei
@@ -28,6 +30,16 @@ public class WordRoleServiceImpl implements WordRoleService {
 
     @Override
     public ReturnValue add(WordRole record) throws BusinessException {
+        if(StringUtils.isBlank(record.getRoleCode())){
+            return ReturnValue.error().setMessage("ROLE_CODE不能为空");
+        }
+        WordRoleExample example = new WordRoleExample();
+        WordRoleExample.Criteria criteria = example.createCriteria();
+        criteria.andRoleCodeEqualTo(record.getRoleCode());
+        List<WordRole> wordRoles = mapper.selectByExample(example);
+        if(!CollectionUtils.isEmpty(wordRoles)){
+            return ReturnValue.error().setMessage("ROLE_CODE已存在");
+        }
         record.setCreateTime(new Date());
         record.setEwStatus(RoleStatus.AVAILABLE.getValue());
         return ReturnValue.success(mapper.insertSelective(record));
@@ -35,6 +47,17 @@ public class WordRoleServiceImpl implements WordRoleService {
 
     @Override
     public ReturnValue edit(WordRole record) throws BusinessException {
+        if(StringUtils.isBlank(record.getRoleCode())){
+            return ReturnValue.error().setMessage("ROLE_CODE不能为空");
+        }
+        WordRoleExample example = new WordRoleExample();
+        WordRoleExample.Criteria criteria = example.createCriteria();
+        criteria.andIdNotEqualTo(record.getId());
+        criteria.andRoleCodeEqualTo(record.getRoleCode());
+        List<WordRole> wordRoles = mapper.selectByExample(example);
+        if(!CollectionUtils.isEmpty(wordRoles)){
+            return ReturnValue.error().setMessage("ROLE_CODE已存在");
+        }
         record.setUpdateTime(new Date());
         return ReturnValue.success(mapper.updateByPrimaryKeySelective(record));
     }

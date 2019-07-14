@@ -108,23 +108,24 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.simon.boot.word.pojo.WordUser">
-    insert into word_user (id, login_name, real_name, 
-      login_password, create_time, update_time, 
-      ew_status, user_id_card, user_phone, 
-      user_email, user_avatar, school_id
-      )
-    values (#{id,jdbcType=BIGINT}, #{loginName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
-      #{loginPassword,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{ewStatus,jdbcType=INTEGER}, #{userIdCard,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
-      #{userEmail,jdbcType=VARCHAR}, #{userAvatar,jdbcType=VARCHAR}, #{schoolId,jdbcType=BIGINT}
-      )
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into word_user (login_name, real_name, login_password, 
+      create_time, update_time, ew_status, 
+      user_id_card, user_phone, user_email, 
+      user_avatar, school_id)
+    values (#{loginName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{loginPassword,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{ewStatus,jdbcType=INTEGER}, 
+      #{userIdCard,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{userAvatar,jdbcType=VARCHAR}, #{schoolId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.WordUser">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into word_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="loginName != null">
         login_name,
       </if>
@@ -160,9 +161,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="loginName != null">
         #{loginName,jdbcType=VARCHAR},
       </if>

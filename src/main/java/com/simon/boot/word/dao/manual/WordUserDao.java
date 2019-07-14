@@ -1,6 +1,7 @@
 package com.simon.boot.word.dao.manual;
 
-import com.simon.boot.word.pojo.WordPermission;
+import com.simon.boot.word.qc.UserQC;
+import com.simon.boot.word.vo.WordUserCopyVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +12,8 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface WordUserRoleRelationDao {
+public interface WordUserDao {
 
-    List<WordPermission> getPermissions(Long id);
+    List<WordUserCopyVO> getWordUsers(UserQC qc);
 
-    List<String> getRoles(Long id);
-
-    List<Long> getRoleIds(Long id);
 }

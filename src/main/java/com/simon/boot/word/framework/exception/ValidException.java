@@ -10,4 +10,12 @@ public class ValidException extends RuntimeException {
         this.message = message;
     }
 
+    public Integer getCode() {
+        return code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
 }

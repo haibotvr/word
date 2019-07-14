@@ -4,24 +4,26 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.WordPermissionMapper;
 import com.simon.boot.word.dao.WordUserMapper;
+import com.simon.boot.word.dao.WordUserRoleRelationMapper;
+import com.simon.boot.word.dao.manual.WordUserDao;
 import com.simon.boot.word.dao.manual.WordUserRoleRelationDao;
 import com.simon.boot.word.dto.UserLoginDTO;
 import com.simon.boot.word.eumn.BusinessExceptionMessage;
 import com.simon.boot.word.eumn.UserStatus;
 import com.simon.boot.word.framework.annotation.BeanValid;
 import com.simon.boot.word.framework.exception.BusinessException;
+import com.simon.boot.word.framework.kits.BeanProcessUtil;
 import com.simon.boot.word.framework.kits.JwtHelper;
 import com.simon.boot.word.framework.kits.JwtTokenUtil;
 import com.simon.boot.word.framework.kits.UserUtil;
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.WordPermissionExample;
-import com.simon.boot.word.pojo.WordRole;
-import com.simon.boot.word.pojo.WordUser;
-import com.simon.boot.word.pojo.WordUserExample;
+import com.simon.boot.word.pojo.*;
 import com.simon.boot.word.qc.PageQC;
 import com.simon.boot.word.qc.UserQC;
+import com.simon.boot.word.service.WordRoleService;
 import com.simon.boot.word.service.WordUserService;
 import com.simon.boot.word.vo.LoginVO;
+import com.simon.boot.word.vo.WordUserCopyVO;
 import com.simon.boot.word.vo.WordUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +33,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +50,9 @@ public class WordUserServiceImpl implements WordUserService {
     WordUserMapper mapper;
 
     @Autowired
+    WordUserDao dao;
+
+    @Autowired
     WordUserRoleRelationDao userRoleRelationDao;
 
     @Autowired
@@ -58,29 +64,56 @@ public class WordUserServiceImpl implements WordUserService {
     @Autowired
     UserDetailsService userDetailsService;
 
+    @Autowired
+    WordUserRoleRelationMapper userRoleRelationMapper;
+
     @Override
     @BeanValid
-    public ReturnValue add(WordUser record) throws BusinessException {
-        if(StringUtils.isEmpty(record.getLoginPassword())){
+    public ReturnValue add(WordUserCopyVO record) throws BusinessException {
+        WordUser user = new WordUser();
+        BeanProcessUtil.copy(record, user);
+        if(StringUtils.isEmpty(user.getLoginPassword())){
             return ReturnValue.error().setMessage("密码不能为空");
         }
         WordUserExample example = new WordUserExample();
         WordUserExample.Criteria criteria = example.createCriteria();
-        criteria.andLoginNameEqualTo(record.getLoginName());
+        criteria.andLoginNameEqualTo(user.getLoginName());
         List<WordUser> wordUsers = mapper.selectByExample(example);
         if(!CollectionUtils.isEmpty(wordUsers)){
             return ReturnValue.error().setMessage("用户名已存在");
         }
-        record.setCreateTime(new Date());
-        record.setLoginPassword(passwordEncoder.encode(record.getLoginPassword()));
-        record.setEwStatus(UserStatus.AVAILABLE.getValue());
-        return ReturnValue.success(mapper.insertSelective(record));
+        user.setCreateTime(new Date());
+        user.setLoginPassword(passwordEncoder.encode(record.getLoginPassword()));
+        user.setEwStatus(UserStatus.AVAILABLE.getValue());
+        mapper.insertSelective(user);
+        //添加角色
+        addUserRoleRelation(record.getRoleIds(), user.getId());
+        return ReturnValue.success();
+    }
+
+    private void addUserRoleRelation(List<Long> roleIds, Long userId){
+        for (Long roleId : roleIds) {
+            WordUserRoleRelation relation = new WordUserRoleRelation();
+            relation.setUserId(userId);
+            relation.setRoleId(roleId);
+            userRoleRelationMapper.insert(relation);
+        }
     }
 
     @Override
-    public ReturnValue edit(WordUser record) throws BusinessException {
+    public ReturnValue edit(WordUserCopyVO record) throws BusinessException {
+        WordUser user = new WordUser();
+        BeanProcessUtil.copy(record, user);
         record.setUpdateTime(new Date());
-        return ReturnValue.success(mapper.updateByPrimaryKeySelective(record));
+        mapper.updateByPrimaryKeySelective(user);
+        //删除角色
+        WordUserRoleRelationExample example = new WordUserRoleRelationExample();
+        WordUserRoleRelationExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(record.getId());
+        userRoleRelationMapper.deleteByExample(example);
+        //重新添加角色
+        addUserRoleRelation(record.getRoleIds(), record.getId());
+        return ReturnValue.success().setMessage("更新成功");
     }
 
     @Override
@@ -94,14 +127,19 @@ public class WordUserServiceImpl implements WordUserService {
     @Override
     public ReturnValue findByPage(UserQC qc, WordUser user) throws BusinessException {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
-        WordUserExample example = new WordUserExample();
-        WordUserExample.Criteria criteria = example.createCriteria();
-        criteria.andEwStatusEqualTo(UserStatus.AVAILABLE.getValue());
-        criteria.andSchoolIdEqualTo(qc.getSchoolId());
-        if(!StringUtils.isEmpty(qc.getRealName())){
-            criteria.andRealNameLike("%" + qc.getRealName() + "%");
+        List<WordUserCopyVO> users = dao.getWordUsers(qc);
+        if(!CollectionUtils.isEmpty(users)){
+            users.forEach(vo -> {
+                StringBuffer roleName = new StringBuffer();
+                for (String str : vo.getRoleNames()) {
+                    roleName.append("-" + str);
+                }
+                if(roleName.length() > 1){
+                    vo.setRoleName(roleName.toString().substring(1));
+                }
+            });
         }
-        PageInfo<WordUser> info = new PageInfo<>(mapper.selectByExample(example));
+        PageInfo<WordUserCopyVO> info = new PageInfo<>(users);
         return ReturnValue.success().setData(info);
     }
 
