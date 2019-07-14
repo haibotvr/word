@@ -22,7 +22,7 @@ public interface WordUserService {
 
     ReturnValue login(LoginVO vo) throws BusinessException;
 
-    ReturnValue info() throws BusinessException;
+    ReturnValue info(String username) throws BusinessException;
 
     ReturnValue logout() throws BusinessException;
 

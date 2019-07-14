@@ -1,5 +1,6 @@
 package com.simon.boot.word.controller.word;
 
+import com.simon.boot.word.framework.abstracts.BaseController;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordRole;
 import com.simon.boot.word.qc.RoleQC;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "WordRoleController", description = "角色管理")
 @RestController
 @RequestMapping("role")
-public class WordRoleController {
+public class WordRoleController extends BaseController {
 
     @Autowired
     private WordRoleService service;
@@ -42,6 +43,12 @@ public class WordRoleController {
     @PostMapping("findByPage")
     public ReturnValue findByPage(@RequestBody RoleQC qc){
         return service.findByPage(qc);
+    }
+
+    @ApiOperation("查询所有角色")
+    @PostMapping("findRoles")
+    public ReturnValue findRoles(){
+        return service.findRoles(getWordUser());
     }
 
 }

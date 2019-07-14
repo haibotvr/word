@@ -15,4 +15,6 @@ public interface WordUserRoleRelationDao {
 
     List<WordPermission> getPermissions(Long id);
 
+    List<String> getRoles(Long id);
+
 }

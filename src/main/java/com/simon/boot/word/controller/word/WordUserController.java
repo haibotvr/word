@@ -55,7 +55,7 @@ public class WordUserController extends BaseController {
     @ApiOperation("获取个人信息")
     @PostMapping("info")
     public ReturnValue info(){
-        return service.info();
+        return service.info(getWordUser().getLoginName());
     }
 
     @ApiOperation("登出")

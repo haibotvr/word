@@ -32,4 +32,14 @@
             pr.type = 1
             AND pr.user_id = #{id}
     </select>
+    <select id="getRoles" resultType="String">
+        SELECT
+	        r.role_code
+        FROM
+            word_user_role_relation urr
+            JOIN word_role r ON urr.role_id = r.id
+        WHERE
+            r.ew_status = 1
+            AND urr.user_id = #{userId}
+    </select>
 </mapper>

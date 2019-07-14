@@ -12,14 +12,17 @@ import com.simon.boot.word.framework.annotation.BeanValid;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.kits.JwtHelper;
 import com.simon.boot.word.framework.kits.JwtTokenUtil;
+import com.simon.boot.word.framework.kits.UserUtil;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordPermissionExample;
+import com.simon.boot.word.pojo.WordRole;
 import com.simon.boot.word.pojo.WordUser;
 import com.simon.boot.word.pojo.WordUserExample;
 import com.simon.boot.word.qc.PageQC;
 import com.simon.boot.word.qc.UserQC;
 import com.simon.boot.word.service.WordUserService;
 import com.simon.boot.word.vo.LoginVO;
+import com.simon.boot.word.vo.WordUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -126,12 +129,20 @@ public class WordUserServiceImpl implements WordUserService {
     }
 
     @Override
-    public ReturnValue info() throws BusinessException {
+    public ReturnValue info(String username) throws BusinessException {
         WordUserExample example = new WordUserExample();
         WordUserExample.Criteria criteria = example.createCriteria();
-        criteria.andLoginNameEqualTo("simon");
+        criteria.andLoginNameEqualTo(username);
         List<WordUser> users = mapper.selectByExample(example);
-        return ReturnValue.success().setData(users.get(0));
+        if(CollectionUtils.isEmpty(users)){
+            return ReturnValue.error().setMessage("用户不存在");
+        }
+        WordUser user = users.get(0);
+        WordUserVO vo = new WordUserVO();
+        vo.setRealName(user.getRealName());
+        vo.setUserAvatar(user.getUserAvatar());
+        vo.setRoles(userRoleRelationDao.getRoles(user.getId()));
+        return ReturnValue.success().setData(vo);
     }
 
     @Override
@@ -143,7 +154,7 @@ public class WordUserServiceImpl implements WordUserService {
     public WordUser findByUsername(String username) throws BusinessException {
         WordUserExample example = new WordUserExample();
         WordUserExample.Criteria criteria = example.createCriteria();
-        criteria.andLoginNameEqualTo("simon");
+        criteria.andLoginNameEqualTo(username);
         List<WordUser> users = mapper.selectByExample(example);
         if(CollectionUtils.isEmpty(users)){
             return null;

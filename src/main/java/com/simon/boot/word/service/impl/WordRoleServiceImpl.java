@@ -8,6 +8,7 @@ import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordRole;
 import com.simon.boot.word.pojo.WordRoleExample;
+import com.simon.boot.word.pojo.WordUser;
 import com.simon.boot.word.qc.RoleQC;
 import com.simon.boot.word.service.WordRoleService;
 import io.micrometer.core.instrument.util.StringUtils;
@@ -58,5 +59,14 @@ public class WordRoleServiceImpl implements WordRoleService {
         }
         PageInfo<WordRole> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
+    }
+
+    @Override
+    public ReturnValue findRoles(WordUser user) throws BusinessException {
+        WordRoleExample example = new WordRoleExample();
+        WordRoleExample.Criteria criteria = example.createCriteria();
+        criteria.andEwStatusEqualTo(RoleStatus.AVAILABLE.getValue());
+        example.setOrderByClause("create_time desc");
+        return ReturnValue.success().setData(mapper.selectByExample(example));
     }
 }
