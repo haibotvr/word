@@ -85,6 +85,7 @@ public class WordUserServiceImpl implements WordUserService {
         user.setCreateTime(new Date());
         user.setLoginPassword(passwordEncoder.encode(record.getLoginPassword()));
         user.setEwStatus(UserStatus.AVAILABLE.getValue());
+        user.setUserAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
         mapper.insertSelective(user);
         //添加角色
         addUserRoleRelation(record.getRoleIds(), user.getId());
