@@ -1,6 +1,5 @@
 package com.simon.boot.word.framework.aop;
 
-import cn.hutool.Hutool;
 import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.web.WebLog;
 import io.micrometer.core.instrument.util.StringUtils;
@@ -61,7 +60,7 @@ public class WebLogAspect {
         Method method = methodSignature.getMethod();
         long endTime = System.currentTimeMillis();
         String urlStr = request.getRequestURL().toString();
-        String uriStr = request.getRequestURI().toString();
+        String uriStr = request.getRequestURI();
         String methodPackage = method.getDeclaringClass() + "." + method.getName();
         if(method.isAnnotationPresent(ApiOperation.class)){
             ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
