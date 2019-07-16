@@ -151,9 +151,9 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<proc>none</proc>
+					<skip>true</skip>
 				</configuration>
 			</plugin>
 		</plugins>
