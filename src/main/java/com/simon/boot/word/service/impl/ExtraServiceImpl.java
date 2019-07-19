@@ -83,11 +83,11 @@ public class ExtraServiceImpl implements ExtraService {
             return ReturnValue.error().setMessage("请填写收件人");
         }
 
-        if(vo.getRecipientIds().endsWith(",")){
-            vo.setRecipientIds(vo.getRecipientIds() + oaUser.getId());
-        }else{
-            vo.setRecipientIds(vo.getRecipientIds() + "," + oaUser.getId());
-        }
+//        if(vo.getRecipientIds().endsWith(",")){
+//            vo.setRecipientIds(vo.getRecipientIds() + oaUser.getId());
+//        }else{
+//            vo.setRecipientIds(vo.getRecipientIds() + "," + oaUser.getId());
+//        }
 
         String[] recipientIds = vo.getRecipientIds().split(",");
 

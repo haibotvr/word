@@ -2,6 +2,7 @@ package com.simon.boot.word.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.simon.boot.word.dao.*;
 import com.simon.boot.word.eumn.ChapterStatus;
 import com.simon.boot.word.eumn.DetailStatus;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -125,7 +127,14 @@ public class WordUserStudyServiceImpl implements WordUserStudyService {
             }
         }
         //查询章节单词
-        return ReturnValue.success().setData(selectWordDetail(chapterId));
+        List<WordDetail> details = selectWordDetail(chapterId);
+        //复制三份并乱序
+        List<WordDetail> result = Lists.newArrayList();
+        for(int i = 0; i < 3; i++){
+            details.addAll(result);
+        }
+        Collections.shuffle(result);
+        return ReturnValue.success().setData(result);
     }
 
     @Override
