@@ -131,7 +131,7 @@ public class WordUserStudyServiceImpl implements WordUserStudyService {
         //复制三份并乱序
         List<WordDetail> result = Lists.newArrayList();
         for(int i = 0; i < 3; i++){
-            details.addAll(result);
+            result.addAll(details);
         }
         Collections.shuffle(result);
         return ReturnValue.success().setData(result);

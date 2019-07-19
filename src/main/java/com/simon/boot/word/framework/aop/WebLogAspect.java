@@ -1,7 +1,9 @@
 package com.simon.boot.word.framework.aop;
 
 import com.simon.boot.word.framework.kits.JsonUtil;
+import com.simon.boot.word.framework.kits.UserUtil;
 import com.simon.boot.word.framework.web.WebLog;
+import com.simon.boot.word.pojo.WordUser;
 import io.micrometer.core.instrument.util.StringUtils;
 import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.JoinPoint;
@@ -66,6 +68,7 @@ public class WebLogAspect {
             ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
             webLog.setDescription(apiOperation.value());
         }
+        webLog.setUsername(UserUtil.get() == null ? "default" : ((WordUser)UserUtil.get()).getLoginName());
         webLog.setBasePath(urlStr.replace(uriStr, ""));
         webLog.setIp(request.getRemoteAddr());
         webLog.setMethod(request.getMethod());
