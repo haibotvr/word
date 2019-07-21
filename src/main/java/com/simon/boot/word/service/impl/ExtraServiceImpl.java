@@ -83,13 +83,15 @@ public class ExtraServiceImpl implements ExtraService {
             return ReturnValue.error().setMessage("请填写收件人");
         }
 
-        if(vo.getRecipientIds().endsWith(",")){
-            vo.setRecipientIds(vo.getRecipientIds() + oaUser.getId());
-        }else{
-            vo.setRecipientIds(vo.getRecipientIds() + "," + oaUser.getId());
-        }
+//        if(vo.getRecipientIds().endsWith(",")){
+//            vo.setRecipientIds(vo.getRecipientIds() + oaUser.getId());
+//        }else{
+//            vo.setRecipientIds(vo.getRecipientIds() + "," + oaUser.getId());
+//        }
 
         String[] recipientIds = vo.getRecipientIds().split(",");
+
+        String recipientName = "";
 
         for (String recipientId : recipientIds) {
 
@@ -103,15 +105,29 @@ public class ExtraServiceImpl implements ExtraService {
             email.setSenderId(oaUser.getId());
             email.setRecipientId(Long.valueOf(recipientId));
             email.setSenderName(oaUser.getRealName());
-
             OaUser recipient = mapper.selectByPrimaryKey(Long.valueOf(recipientId));
             if(recipient != null){
                 email.setRecipientName(recipient.getRealName());
+                recipientName += "," + recipient.getRealName();
             }
 
             oaEmailMapper.insertSelective(email);
 
         }
+
+        //发送邮件到发件箱
+        OaEmail ownMail = new OaEmail();
+        ownMail.setCreateTime(new Date());
+        ownMail.setIsCheck(CheckStatus.NO.getValue());
+        ownMail.setIsDraft(DraftStatus.NO.getValue());
+        ownMail.setOaStatus(EmailStatus.USE.getValue());
+        ownMail.setMailContent(vo.getMailContent());
+        ownMail.setMailTitle(vo.getMailTitle());
+        ownMail.setSenderId(oaUser.getId());
+        ownMail.setRecipientId(oaUser.getId());
+        ownMail.setSenderName(oaUser.getRealName());
+        ownMail.setRecipientName(recipientName.length() > 1 ? recipientName.substring(1) : recipientName);
+        oaEmailMapper.insertSelective(ownMail);
 
         return ReturnValue.success().setMessage("发送成功");
 
