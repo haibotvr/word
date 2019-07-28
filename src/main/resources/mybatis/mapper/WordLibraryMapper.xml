@@ -11,9 +11,7 @@
     <result column="present_progressive" jdbcType="VARCHAR" property="presentProgressive" />
     <result column="complex_deformation" jdbcType="VARCHAR" property="complexDeformation" />
     <result column="name_ch" jdbcType="VARCHAR" property="nameCh" />
-    <result column="
-example_sentence" jdbcType="VARCHAR" property="
-exampleSentence" />
+    <result column="example_sentence" jdbcType="VARCHAR" property="exampleSentence" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,8 +73,7 @@ exampleSentence" />
   </sql>
   <sql id="Base_Column_List">
     id, name_english, voice_uk, voice_us, present, past, present_progressive, complex_deformation, 
-    name_ch, 
-example_sentence
+    name_ch, example_sentence
   </sql>
   <select id="selectByExample" parameterType="com.simon.boot.word.pojo.WordLibraryExample" resultMap="BaseResultMap">
     select
@@ -114,13 +111,11 @@ example_sentence
     </selectKey>
     insert into word_library (name_english, voice_uk, voice_us, 
       present, past, present_progressive, 
-      complex_deformation, name_ch, 
-example_sentence
+      complex_deformation, name_ch, example_sentence
       )
     values (#{nameEnglish,jdbcType=VARCHAR}, #{voiceUk,jdbcType=VARCHAR}, #{voiceUs,jdbcType=VARCHAR}, 
       #{present,jdbcType=VARCHAR}, #{past,jdbcType=VARCHAR}, #{presentProgressive,jdbcType=VARCHAR}, 
-      #{complexDeformation,jdbcType=VARCHAR}, #{nameCh,jdbcType=VARCHAR}, #{
-exampleSentence,jdbcType=VARCHAR}
+      #{complexDeformation,jdbcType=VARCHAR}, #{nameCh,jdbcType=VARCHAR}, #{exampleSentence,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.WordLibrary">
@@ -153,10 +148,8 @@ exampleSentence,jdbcType=VARCHAR}
       <if test="nameCh != null">
         name_ch,
       </if>
-      <if test="
-exampleSentence != null">
-        
-example_sentence,
+      <if test="exampleSentence != null">
+        example_sentence,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -184,10 +177,8 @@ example_sentence,
       <if test="nameCh != null">
         #{nameCh,jdbcType=VARCHAR},
       </if>
-      <if test="
-exampleSentence != null">
-        #{
-exampleSentence,jdbcType=VARCHAR},
+      <if test="exampleSentence != null">
+        #{exampleSentence,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -227,11 +218,8 @@ exampleSentence,jdbcType=VARCHAR},
       <if test="record.nameCh != null">
         name_ch = #{record.nameCh,jdbcType=VARCHAR},
       </if>
-      <if test="record.
-exampleSentence != null">
-        
-example_sentence = #{record.
-exampleSentence,jdbcType=VARCHAR},
+      <if test="record.exampleSentence != null">
+        example_sentence = #{record.exampleSentence,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -249,9 +237,7 @@ exampleSentence,jdbcType=VARCHAR},
       present_progressive = #{record.presentProgressive,jdbcType=VARCHAR},
       complex_deformation = #{record.complexDeformation,jdbcType=VARCHAR},
       name_ch = #{record.nameCh,jdbcType=VARCHAR},
-      
-example_sentence = #{record.
-exampleSentence,jdbcType=VARCHAR}
+      example_sentence = #{record.exampleSentence,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -283,11 +269,8 @@ exampleSentence,jdbcType=VARCHAR}
       <if test="nameCh != null">
         name_ch = #{nameCh,jdbcType=VARCHAR},
       </if>
-      <if test="
-exampleSentence != null">
-        
-example_sentence = #{
-exampleSentence,jdbcType=VARCHAR},
+      <if test="exampleSentence != null">
+        example_sentence = #{exampleSentence,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -302,9 +285,7 @@ exampleSentence,jdbcType=VARCHAR},
       present_progressive = #{presentProgressive,jdbcType=VARCHAR},
       complex_deformation = #{complexDeformation,jdbcType=VARCHAR},
       name_ch = #{nameCh,jdbcType=VARCHAR},
-      
-example_sentence = #{
-exampleSentence,jdbcType=VARCHAR}
+      example_sentence = #{exampleSentence,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

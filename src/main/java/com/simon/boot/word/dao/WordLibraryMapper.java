@@ -3,8 +3,13 @@ package com.simon.boot.word.dao;
 import com.simon.boot.word.pojo.WordLibrary;
 import com.simon.boot.word.pojo.WordLibraryExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+@Mapper
+@Repository
 public interface WordLibraryMapper {
     long countByExample(WordLibraryExample example);
 

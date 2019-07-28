@@ -724,113 +724,73 @@ public class WordLibraryExample {
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceIsNull() {
-            addCriterion("
-example_sentence is null");
+        public Criteria andExampleSentenceIsNull() {
+            addCriterion("example_sentence is null");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceIsNotNull() {
-            addCriterion("
-example_sentence is not null");
+        public Criteria andExampleSentenceIsNotNull() {
+            addCriterion("example_sentence is not null");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceEqualTo(String value) {
-            addCriterion("
-example_sentence =", value, "
-exampleSentence");
+        public Criteria andExampleSentenceEqualTo(String value) {
+            addCriterion("example_sentence =", value, "exampleSentence");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceNotEqualTo(String value) {
-            addCriterion("
-example_sentence <>", value, "
-exampleSentence");
+        public Criteria andExampleSentenceNotEqualTo(String value) {
+            addCriterion("example_sentence <>", value, "exampleSentence");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceGreaterThan(String value) {
-            addCriterion("
-example_sentence >", value, "
-exampleSentence");
+        public Criteria andExampleSentenceGreaterThan(String value) {
+            addCriterion("example_sentence >", value, "exampleSentence");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceGreaterThanOrEqualTo(String value) {
-            addCriterion("
-example_sentence >=", value, "
-exampleSentence");
+        public Criteria andExampleSentenceGreaterThanOrEqualTo(String value) {
+            addCriterion("example_sentence >=", value, "exampleSentence");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceLessThan(String value) {
-            addCriterion("
-example_sentence <", value, "
-exampleSentence");
+        public Criteria andExampleSentenceLessThan(String value) {
+            addCriterion("example_sentence <", value, "exampleSentence");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceLessThanOrEqualTo(String value) {
-            addCriterion("
-example_sentence <=", value, "
-exampleSentence");
+        public Criteria andExampleSentenceLessThanOrEqualTo(String value) {
+            addCriterion("example_sentence <=", value, "exampleSentence");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceLike(String value) {
-            addCriterion("
-example_sentence like", value, "
-exampleSentence");
+        public Criteria andExampleSentenceLike(String value) {
+            addCriterion("example_sentence like", value, "exampleSentence");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceNotLike(String value) {
-            addCriterion("
-example_sentence not like", value, "
-exampleSentence");
+        public Criteria andExampleSentenceNotLike(String value) {
+            addCriterion("example_sentence not like", value, "exampleSentence");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceIn(List<String> values) {
-            addCriterion("
-example_sentence in", values, "
-exampleSentence");
+        public Criteria andExampleSentenceIn(List<String> values) {
+            addCriterion("example_sentence in", values, "exampleSentence");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceNotIn(List<String> values) {
-            addCriterion("
-example_sentence not in", values, "
-exampleSentence");
+        public Criteria andExampleSentenceNotIn(List<String> values) {
+            addCriterion("example_sentence not in", values, "exampleSentence");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceBetween(String value1, String value2) {
-            addCriterion("
-example_sentence between", value1, value2, "
-exampleSentence");
+        public Criteria andExampleSentenceBetween(String value1, String value2) {
+            addCriterion("example_sentence between", value1, value2, "exampleSentence");
             return (Criteria) this;
         }
 
-        public Criteria and
-exampleSentenceNotBetween(String value1, String value2) {
-            addCriterion("
-example_sentence not between", value1, value2, "
-exampleSentence");
+        public Criteria andExampleSentenceNotBetween(String value1, String value2) {
+            addCriterion("example_sentence not between", value1, value2, "exampleSentence");
             return (Criteria) this;
         }
     }
