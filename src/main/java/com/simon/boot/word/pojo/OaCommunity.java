@@ -2,6 +2,7 @@ package com.simon.boot.word.pojo;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.Date;
 
 public class OaCommunity implements Serializable {
     /**
@@ -27,6 +28,22 @@ public class OaCommunity implements Serializable {
      */
     @ApiModelProperty(value = "发布人")
     private Long userId;
+
+    /**
+     * 创建时间
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
+
+    /**
+     * 修改时间
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "修改时间")
+    private Date updateTime;
 
     /**
      * 内容
@@ -62,6 +79,22 @@ public class OaCommunity implements Serializable {
         this.userId = userId;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     public String getContent() {
         return content;
     }
@@ -79,6 +112,8 @@ public class OaCommunity implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", title=").append(title);
         sb.append(", userId=").append(userId);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", updateTime=").append(updateTime);
         sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
