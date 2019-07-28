@@ -82,8 +82,7 @@ public class WordLibrary implements Serializable {
      * @mbg.generated
      */
     @ApiModelProperty(value = "例句")
-    private String 
-exampleSentence;
+    private String exampleSentence;
 
     private static final long serialVersionUID = 1L;
 
@@ -159,19 +158,12 @@ exampleSentence;
         this.nameCh = nameCh == null ? null : nameCh.trim();
     }
 
-    public String get
-exampleSentence() {
-        return 
-exampleSentence;
+    public String getExampleSentence() {
+        return exampleSentence;
     }
 
-    public void set
-exampleSentence(String 
-exampleSentence) {
-        this.
-exampleSentence = 
-exampleSentence == null ? null : 
-exampleSentence.trim();
+    public void setExampleSentence(String exampleSentence) {
+        this.exampleSentence = exampleSentence == null ? null : exampleSentence.trim();
     }
 
     @Override
@@ -189,9 +181,7 @@ exampleSentence.trim();
         sb.append(", presentProgressive=").append(presentProgressive);
         sb.append(", complexDeformation=").append(complexDeformation);
         sb.append(", nameCh=").append(nameCh);
-        sb.append(", 
-exampleSentence=").append(
-exampleSentence);
+        sb.append(", exampleSentence=").append(exampleSentence);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

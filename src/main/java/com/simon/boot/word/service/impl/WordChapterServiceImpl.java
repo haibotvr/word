@@ -60,4 +60,5 @@ public class WordChapterServiceImpl implements WordChapterService {
         PageInfo<WordChapter> info = new PageInfo<>(mapper.selectByExample(example));
         return ReturnValue.success().setData(info);
     }
+
 }

@@ -4,6 +4,7 @@ import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordDetail;
 import com.simon.boot.word.qc.DetailQC;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author simon.wei
@@ -17,5 +18,7 @@ public interface WordDetailService {
     ReturnValue del(Long id) throws BusinessException;
 
     ReturnValue findByPage(DetailQC qc) throws BusinessException;
+
+    ReturnValue readExcel(MultipartFile file, Long chapterId) throws BusinessException;
 
 }

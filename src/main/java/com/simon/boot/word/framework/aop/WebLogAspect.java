@@ -102,7 +102,11 @@ public class WebLogAspect {
                 if(StringUtils.isNotBlank(requestParam.value())){
                     key = requestParam.value();
                 }
-                map.put(key, args[i]);
+                if("file".equals(key)){
+                    map.put(key, "文件");
+                }else{
+                    map.put(key, args[i]);
+                }
                 argList.add(map);
             }
         }

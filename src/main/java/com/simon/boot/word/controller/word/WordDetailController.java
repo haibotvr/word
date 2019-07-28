@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author simon.wei
@@ -44,4 +45,9 @@ public class WordDetailController {
         return service.findByPage(qc);
     }
 
+    @ApiOperation("导入章节单词")
+    @PostMapping("readExcel/{chapterId}")
+    public ReturnValue readExcel(@RequestParam(value="file", required = false) MultipartFile file, @PathVariable Long chapterId){
+        return service.readExcel(file, chapterId);
+    }
 }
