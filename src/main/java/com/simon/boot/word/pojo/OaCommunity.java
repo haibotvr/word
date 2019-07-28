@@ -3,6 +3,7 @@ package com.simon.boot.word.pojo;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class OaCommunity implements Serializable {
     /**
@@ -53,7 +54,17 @@ public class OaCommunity implements Serializable {
     @ApiModelProperty(value = "内容")
     private String content;
 
+    private List<OaCommunityComment> comments;
+
     private static final long serialVersionUID = 1L;
+
+    public List<OaCommunityComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<OaCommunityComment> comments) {
+        this.comments = comments;
+    }
 
     public Long getId() {
         return id;

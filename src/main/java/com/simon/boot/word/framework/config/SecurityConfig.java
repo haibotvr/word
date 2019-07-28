@@ -68,6 +68,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.POST,"/notice/**")
                 .permitAll()
+                .antMatchers(HttpMethod.POST,"/community/**")
+                .permitAll()
+                .antMatchers(HttpMethod.POST,"/communityComment/**")
+                .permitAll()
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
 //                .antMatchers("/**")//测试时全部运行访问
