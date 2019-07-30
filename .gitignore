@@ -38,5 +38,6 @@ mvnw
 target
 .DS_Store
 src/main/resources/mybatis/mybatis-generator.xml
-src/main/java/com/simon/boot/word/framework/MybatisGenerator.java
-src/main/resources/druid.properties
+src/main/resources/application-dev.properties
+src/main/resources/application-prod.properties
+src/test/java/com/simon/boot/word/RsaEncryptAndDecodeUtil.java
