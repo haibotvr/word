@@ -103,19 +103,20 @@ public class WordDetailServiceImpl implements WordDetailService {
             WordLibraryExample.Criteria criteria = example.createCriteria();
             criteria.andNameEnglishEqualTo(wordEn.trim());
             List<WordLibrary> libraries = libraryMapper.selectByExample(example);
+            WordDetail detail = new WordDetail();
+            detail.setWordEn(wordEn.trim());
+            detail.setChapterId(chapterId);
+            List<WordDetailChVO> detailChVOS = Lists.newArrayList();
+            t3++;
             if(CollectionUtils.isNotEmpty(libraries)){
-                WordDetail detail = new WordDetail();
-                detail.setWordEn(wordEn.trim());
-                detail.setChapterId(chapterId);
                 WordLibrary library = libraries.get(0);
                 detail.setWordPhoneticSymbol("[" + library.getVoiceUk().trim() + "]");
                 String nameCh = library.getNameCh();
                 nameCh = nameCh.replaceAll("\r|\n", "");
                 String[] nameChV1 = nameCh.split("<br>");
-                List<WordDetailChVO> detailChVOS = Lists.newArrayList();
-                t3++;
                 try {
                     for (String str : nameChV1) {
+                        t3++;
                         WordDetailChVO detailChVO = new WordDetailChVO();
                         if(str.indexOf(". ") != -1){
                             String[] nameChV2 = str.split(". ");
@@ -132,12 +133,18 @@ public class WordDetailServiceImpl implements WordDetailService {
                     log.error("导入单词错误,word:{},message:{}", wordEn, e);
                     continue;
                 }
-                detail.setWordCh(JsonUtil.toString(detailChVOS));
-                this.add(detail);
-                log.info("导入单词,word:{},message:{}", wordEn, JsonUtil.toString(detail));
             }else{
+                detail.setWordPhoneticSymbol("[unknown]");
+                WordDetailChVO detailChVO = new WordDetailChVO();
+                detailChVO.setPos("unknown");
+                detailChVO.setMeaning(tmChapterExcelVO.getWordCh().trim());
+                detailChVO.setKey(t2 + t3);
+                detailChVOS.add(detailChVO);
                 log.info("Excel中的单词在单词库中不存在,word:{},message:{}", wordEn, JsonUtil.toString(tmChapterExcelVO));
             }
+            detail.setWordCh(JsonUtil.toString(detailChVOS));
+            this.add(detail);
+            log.info("导入单词,word:{},message:{}", wordEn, JsonUtil.toString(detail));
         }
         return ReturnValue.success().setMessage("导入完成");
     }

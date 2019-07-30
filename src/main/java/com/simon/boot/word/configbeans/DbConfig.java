@@ -1,9 +1,6 @@
 package com.simon.boot.word.configbeans;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import lombok.Data;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,7 +17,7 @@ import java.sql.SQLException;
  */
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource")
-@PropertySource(value = {"classpath:druid.properties"})
+@PropertySource(value = {"classpath:application-prod.properties"})
 public class DbConfig {
 
     Logger log = LoggerFactory.getLogger(DbConfig.class);
