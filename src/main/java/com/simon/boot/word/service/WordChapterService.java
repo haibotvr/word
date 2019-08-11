@@ -4,6 +4,7 @@ import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordChapter;
 import com.simon.boot.word.qc.ChapterQC;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author simon.wei
@@ -18,4 +19,5 @@ public interface WordChapterService {
 
     ReturnValue findByPage(ChapterQC qc) throws BusinessException;
 
+    ReturnValue readExcel(MultipartFile file) throws BusinessException;
 }

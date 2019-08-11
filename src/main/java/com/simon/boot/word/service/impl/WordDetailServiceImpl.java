@@ -7,6 +7,7 @@ import com.simon.boot.word.dao.WordChapterMapper;
 import com.simon.boot.word.dao.WordDetailMapper;
 import com.simon.boot.word.dao.WordLibraryMapper;
 import com.simon.boot.word.dao.WordTeachMaterialMapper;
+import com.simon.boot.word.eumn.BusinessExceptionMessage;
 import com.simon.boot.word.eumn.DetailStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.kits.ExcelUtils;
@@ -16,6 +17,7 @@ import com.simon.boot.word.pojo.*;
 import com.simon.boot.word.qc.DetailQC;
 import com.simon.boot.word.service.WordDetailService;
 import com.simon.boot.word.vo.TmChapterExcelVO;
+import com.simon.boot.word.vo.TmExcelVO;
 import com.simon.boot.word.vo.WordDetailChVO;
 import io.micrometer.core.instrument.util.StringUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -27,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author simon.wei
@@ -90,22 +93,51 @@ public class WordDetailServiceImpl implements WordDetailService {
     public ReturnValue readExcel(MultipartFile file, Long chapterId) throws BusinessException {
         long t1 = System.currentTimeMillis();
         List<TmChapterExcelVO> list = ExcelUtils.readExcel("", TmChapterExcelVO.class, file);
+        List<TmExcelVO> tmExcelVOS = Lists.newArrayList();
         long t2 = System.currentTimeMillis();
-        System.out.println(String.format("read over! cost:%sms", (t2 - t1)));
-        long t3 = 1L;
+        log.info(String.format("read over! cost:%sms", (t2 - t1)));
+        if(Objects.isNull(chapterId)){
+            throw new BusinessException(BusinessExceptionMessage.VALIDATION_FAIL.getValue(), "空的章节ID");
+        }
         for (TmChapterExcelVO tmChapterExcelVO : list) {
-            String wordEn = tmChapterExcelVO.getWordEn();
-            if(StringUtils.isBlank(wordEn)){
-                log.info("Excel中存在空的单词,message:{}", JsonUtil.toString(tmChapterExcelVO));
-                continue;
+            TmExcelVO vo = new TmExcelVO();
+            vo.setWordCh(tmChapterExcelVO.getWordCh());
+            vo.setWordEn(tmChapterExcelVO.getWordEn());
+            vo.setChapterId(chapterId);
+            vo.setWordPhoneticSymbol(tmChapterExcelVO.getWordPhoneticSymbol());
+            tmExcelVOS.add(vo);
+        }
+        this.dealWithExcel(t2, tmExcelVOS);
+        return ReturnValue.success().setMessage("导入完成");
+    }
+
+    @Override
+    public void dealWithExcel(Long t2, List<TmExcelVO> tmExcelVOS) throws BusinessException {
+        //统一校验
+        if(CollectionUtils.isEmpty(tmExcelVOS)){
+            throw new BusinessException(BusinessExceptionMessage.EXCEL_IS_NULL.getValue(), BusinessExceptionMessage.EXCEL_IS_NULL.getName());
+        }
+        for (TmExcelVO tmExcelVO : tmExcelVOS) {
+            if(Objects.isNull(tmExcelVO.getChapterId())){
+                throw new BusinessException(BusinessExceptionMessage.VALIDATION_FAIL.getValue(), "空的章节ID");
             }
+            if(StringUtils.isBlank(tmExcelVO.getWordEn())){
+                throw new BusinessException(BusinessExceptionMessage.VALIDATION_FAIL.getValue(), "空的英文单词");
+            }
+            if(StringUtils.isBlank(tmExcelVO.getWordCh())){
+                throw new BusinessException(BusinessExceptionMessage.VALIDATION_FAIL.getValue(), "空的中文解释");
+            }
+        }
+        long t3 = 1L;
+        for (TmExcelVO tmExcelVO : tmExcelVOS) {
+            String wordEn = tmExcelVO.getWordEn();
             WordLibraryExample example = new WordLibraryExample();
             WordLibraryExample.Criteria criteria = example.createCriteria();
             criteria.andNameEnglishEqualTo(wordEn.trim());
             List<WordLibrary> libraries = libraryMapper.selectByExample(example);
             WordDetail detail = new WordDetail();
             detail.setWordEn(wordEn.trim());
-            detail.setChapterId(chapterId);
+            detail.setChapterId(tmExcelVO.getChapterId());
             List<WordDetailChVO> detailChVOS = Lists.newArrayList();
             t3++;
             if(CollectionUtils.isNotEmpty(libraries)){
@@ -137,16 +169,15 @@ public class WordDetailServiceImpl implements WordDetailService {
                 detail.setWordPhoneticSymbol("[unknown]");
                 WordDetailChVO detailChVO = new WordDetailChVO();
                 detailChVO.setPos("unknown");
-                detailChVO.setMeaning(tmChapterExcelVO.getWordCh().trim());
+                detailChVO.setMeaning(tmExcelVO.getWordCh().trim());
                 detailChVO.setKey(t2 + t3);
                 detailChVOS.add(detailChVO);
-                log.info("Excel中的单词在单词库中不存在,word:{},message:{}", wordEn, JsonUtil.toString(tmChapterExcelVO));
+                log.info("Excel中的单词在单词库中不存在,word:{},message:{}", wordEn, JsonUtil.toString(tmExcelVO));
             }
             detail.setWordCh(JsonUtil.toString(detailChVOS));
             this.add(detail);
             log.info("导入单词,word:{},message:{}", wordEn, JsonUtil.toString(detail));
         }
-        return ReturnValue.success().setMessage("导入完成");
     }
 
 }

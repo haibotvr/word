@@ -7,6 +7,7 @@ import com.simon.boot.word.service.WordDetailService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,6 +48,7 @@ public class WordDetailController {
 
     @ApiOperation("导入章节单词")
     @PostMapping("readExcel/{chapterId}")
+    @PreAuthorize("hasAuthority('word:detail:import')")
     public ReturnValue readExcel(@RequestParam(value="file", required = false) MultipartFile file, @PathVariable Long chapterId){
         return service.readExcel(file, chapterId);
     }

@@ -52,8 +52,9 @@ public class WordTeachMaterialServiceImpl implements WordTeachMaterialService {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         WordTeachMaterialExample example = new WordTeachMaterialExample();
         example.setOrderByClause("create_time desc");
+        WordTeachMaterialExample.Criteria criteria = example.createCriteria();
+        criteria.andEwStatusEqualTo(TeachMaterialStatus.AVAILABLE.getValue());
         if(StringUtils.isNotBlank(qc.getTmName())){
-            WordTeachMaterialExample.Criteria criteria = example.createCriteria();
             criteria.andTmNameLike("%" + qc.getTmName() + "%");
         }
         PageInfo<WordTeachMaterial> info = new PageInfo<>(mapper.selectByExample(example));

@@ -11,7 +11,8 @@ public enum BusinessExceptionMessage {
     STORE_ID_IS_NOT_EXIST("店铺ID不存在", 1003),
     ADMIN_USER_IS_NOT_USE("用户已冻结", 1004),
     LOGIN_NAME_IS_EXIST("用户名已存在", 1005),
-    VALIDATION_FAIL("校验失败", 50009);
+    VALIDATION_FAIL("校验失败", 50009),
+    EXCEL_IS_NULL("空的excel文件", 50009);
 
     private String name;
     private Integer value;

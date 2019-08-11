@@ -5,16 +5,23 @@ import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.WordChapterMapper;
 import com.simon.boot.word.eumn.ChapterStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
+import com.simon.boot.word.framework.kits.ExcelUtils;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.WordChapter;
 import com.simon.boot.word.pojo.WordChapterExample;
 import com.simon.boot.word.qc.ChapterQC;
 import com.simon.boot.word.service.WordChapterService;
+import com.simon.boot.word.service.WordDetailService;
+import com.simon.boot.word.vo.TmExcelVO;
 import io.micrometer.core.instrument.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author simon.wei
@@ -22,8 +29,13 @@ import java.util.Date;
 @Service
 public class WordChapterServiceImpl implements WordChapterService {
 
+    private static Logger log = LoggerFactory.getLogger(WordChapterServiceImpl.class);
+
     @Autowired
     WordChapterMapper mapper;
+
+    @Autowired
+    WordDetailService detailService;
 
     @Override
     public ReturnValue add(WordChapter record) throws BusinessException {
@@ -61,4 +73,13 @@ public class WordChapterServiceImpl implements WordChapterService {
         return ReturnValue.success().setData(info);
     }
 
+    @Override
+    public ReturnValue readExcel(MultipartFile file) throws BusinessException {
+        long t1 = System.currentTimeMillis();
+        List<TmExcelVO> tmExcelVOS = ExcelUtils.readExcel("", TmExcelVO.class, file);
+        long t2 = System.currentTimeMillis();
+        log.info(String.format("read over! cost:%sms", (t2 - t1)));
+        detailService.dealWithExcel(t2, tmExcelVOS);
+        return ReturnValue.success().setMessage("导入完成");
+    }
 }
