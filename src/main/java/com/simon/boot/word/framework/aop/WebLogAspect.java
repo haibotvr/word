@@ -70,6 +70,8 @@ public class WebLogAspect {
         }
         webLog.setUsername(UserUtil.get() == null ? "default" : ((WordUser)UserUtil.get()).getLoginName());
         webLog.setBasePath(urlStr.replace(uriStr, ""));
+        log.info("{},{}", "X-Real-IP", request.getHeader("X-Real-IP"));
+        log.info("{},{}", "X-Forwarded-For", request.getHeader("X-Forwarded-For"));
         webLog.setIp(request.getRemoteAddr());
         webLog.setMethod(request.getMethod());
         webLog.setParameter(getParameter(method, joinPoint.getArgs()));
