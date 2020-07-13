@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.simon.boot.word.dao.WordUserPermissionRelationMapper">
-  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.WordUserPermissionRelation">
+<mapper namespace="com.simon.boot.word.dao.word.WordUserPermissionRelationMapper">
+  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.word.WordUserPermissionRelation">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="permission_id" jdbcType="BIGINT" property="permissionId" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List">
     id, user_id, permission_id, type
   </sql>
-  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.WordUserPermissionRelationExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.word.WordUserPermissionRelationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -92,19 +92,19 @@
     delete from word_user_permission_relation
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.WordUserPermissionRelationExample">
+  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.word.WordUserPermissionRelationExample">
     delete from word_user_permission_relation
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.simon.boot.word.pojo.WordUserPermissionRelation">
+  <insert id="insert" parameterType="com.simon.boot.word.pojo.word.WordUserPermissionRelation">
     insert into word_user_permission_relation (id, user_id, permission_id, 
       type)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT}, 
       #{type,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.WordUserPermissionRelation">
+  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.word.WordUserPermissionRelation">
     insert into word_user_permission_relation
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -135,7 +135,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.simon.boot.word.pojo.WordUserPermissionRelationExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.simon.boot.word.pojo.word.WordUserPermissionRelationExample" resultType="java.lang.Long">
     select count(*) from word_user_permission_relation
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -171,7 +171,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.WordUserPermissionRelation">
+  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.word.WordUserPermissionRelation">
     update word_user_permission_relation
     <set>
       <if test="userId != null">
@@ -186,7 +186,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.WordUserPermissionRelation">
+  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.word.WordUserPermissionRelation">
     update word_user_permission_relation
     set user_id = #{userId,jdbcType=BIGINT},
       permission_id = #{permissionId,jdbcType=BIGINT},

@@ -1,13 +1,12 @@
 package com.simon.boot.word.controller.word;
 
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.WordChapter;
+import com.simon.boot.word.pojo.word.WordChapter;
 import com.simon.boot.word.qc.ChapterQC;
-import com.simon.boot.word.service.WordChapterService;
+import com.simon.boot.word.service.word.WordChapterService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

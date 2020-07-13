@@ -2,9 +2,9 @@ package com.simon.boot.word.controller.oa;
 
 import com.simon.boot.word.framework.abstracts.BaseController;
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.OaCommunity;
+import com.simon.boot.word.pojo.oa.OaCommunity;
 import com.simon.boot.word.qc.PageQC;
-import com.simon.boot.word.service.OaCommunityService;
+import com.simon.boot.word.service.oa.OaCommunityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

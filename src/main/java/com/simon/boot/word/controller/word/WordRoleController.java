@@ -2,9 +2,9 @@ package com.simon.boot.word.controller.word;
 
 import com.simon.boot.word.framework.abstracts.BaseController;
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.WordRole;
+import com.simon.boot.word.pojo.word.WordRole;
 import com.simon.boot.word.qc.RoleQC;
-import com.simon.boot.word.service.WordRoleService;
+import com.simon.boot.word.service.word.WordRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

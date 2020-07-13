@@ -1,8 +1,8 @@
 package com.simon.boot.word.pojo.manual;
 
 import com.simon.boot.word.eumn.UserStatus;
-import com.simon.boot.word.pojo.WordPermission;
-import com.simon.boot.word.pojo.WordUser;
+import com.simon.boot.word.pojo.word.WordPermission;
+import com.simon.boot.word.pojo.word.WordUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

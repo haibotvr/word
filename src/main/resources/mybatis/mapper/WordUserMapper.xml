@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.simon.boot.word.dao.WordUserMapper">
-  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.WordUser">
+<mapper namespace="com.simon.boot.word.dao.word.WordUserMapper">
+  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.word.WordUser">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
@@ -77,7 +77,7 @@
     id, login_name, real_name, login_password, create_time, update_time, ew_status, user_id_card, 
     user_phone, user_email, user_avatar, school_id
   </sql>
-  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.WordUserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.word.WordUserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -101,13 +101,13 @@
     delete from word_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.WordUserExample">
+  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.word.WordUserExample">
     delete from word_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.simon.boot.word.pojo.WordUser">
+  <insert id="insert" parameterType="com.simon.boot.word.pojo.word.WordUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -120,7 +120,7 @@
       #{userIdCard,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
       #{userAvatar,jdbcType=VARCHAR}, #{schoolId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.WordUser">
+  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.word.WordUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -196,7 +196,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.simon.boot.word.pojo.WordUserExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.simon.boot.word.pojo.word.WordUserExample" resultType="java.lang.Long">
     select count(*) from word_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -264,7 +264,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.WordUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.word.WordUser">
     update word_user
     <set>
       <if test="loginName != null">
@@ -303,7 +303,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.WordUser">
+  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.word.WordUser">
     update word_user
     set login_name = #{loginName,jdbcType=VARCHAR},
       real_name = #{realName,jdbcType=VARCHAR},

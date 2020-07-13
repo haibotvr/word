@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.simon.boot.word.dao.manual.WordUserDao">
+<mapper namespace="com.simon.boot.word.dao.manual.word.WordUserDao">
     <resultMap id="BaseResultMap" type="com.simon.boot.word.vo.WordUserCopyVO">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="login_name" jdbcType="VARCHAR" property="loginName" />

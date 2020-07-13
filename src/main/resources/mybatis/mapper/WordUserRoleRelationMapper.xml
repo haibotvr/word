@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.simon.boot.word.dao.WordUserRoleRelationMapper">
-  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.WordUserRoleRelation">
+<mapper namespace="com.simon.boot.word.dao.word.WordUserRoleRelationMapper">
+  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.word.WordUserRoleRelation">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="role_id" jdbcType="BIGINT" property="roleId" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List">
     id, user_id, role_id
   </sql>
-  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.WordUserRoleRelationExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.word.WordUserRoleRelationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -91,19 +91,19 @@
     delete from word_user_role_relation
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.WordUserRoleRelationExample">
+  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.word.WordUserRoleRelationExample">
     delete from word_user_role_relation
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.simon.boot.word.pojo.WordUserRoleRelation">
+  <insert id="insert" parameterType="com.simon.boot.word.pojo.word.WordUserRoleRelation">
     insert into word_user_role_relation (id, user_id, role_id
       )
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.WordUserRoleRelation">
+  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.word.WordUserRoleRelation">
     insert into word_user_role_relation
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -128,7 +128,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.simon.boot.word.pojo.WordUserRoleRelationExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.simon.boot.word.pojo.word.WordUserRoleRelationExample" resultType="java.lang.Long">
     select count(*) from word_user_role_relation
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -160,7 +160,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.WordUserRoleRelation">
+  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.word.WordUserRoleRelation">
     update word_user_role_relation
     <set>
       <if test="userId != null">
@@ -172,7 +172,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.WordUserRoleRelation">
+  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.word.WordUserRoleRelation">
     update word_user_role_relation
     set user_id = #{userId,jdbcType=BIGINT},
       role_id = #{roleId,jdbcType=BIGINT}

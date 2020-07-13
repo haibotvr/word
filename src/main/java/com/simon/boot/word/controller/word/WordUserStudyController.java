@@ -2,10 +2,10 @@ package com.simon.boot.word.controller.word;
 
 import com.simon.boot.word.framework.abstracts.BaseController;
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.WordUserStudy;
-import com.simon.boot.word.pojo.WordUserStudyLog;
+import com.simon.boot.word.pojo.word.WordUserStudy;
+import com.simon.boot.word.pojo.word.WordUserStudyLog;
 import com.simon.boot.word.qc.StudyQC;
-import com.simon.boot.word.service.WordUserStudyService;
+import com.simon.boot.word.service.word.WordUserStudyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

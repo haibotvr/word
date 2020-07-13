@@ -3,18 +3,15 @@ package com.simon.boot.word.controller.oa;
 import com.simon.boot.word.framework.abstracts.BaseController;
 import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.OaEmail;
+import com.simon.boot.word.pojo.oa.OaEmail;
 import com.simon.boot.word.qc.EmailQC;
-import com.simon.boot.word.service.ExtraService;
+import com.simon.boot.word.service.oa.ExtraService;
 import com.simon.boot.word.vo.EmailVO;
 import com.simon.boot.word.vo.LoginVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author simon.wei

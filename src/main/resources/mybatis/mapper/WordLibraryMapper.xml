@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.simon.boot.word.dao.WordLibraryMapper">
-  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.WordLibrary">
+<mapper namespace="com.simon.boot.word.dao.word.WordLibraryMapper">
+  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.word.WordLibrary">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name_english" jdbcType="VARCHAR" property="nameEnglish" />
     <result column="voice_uk" jdbcType="VARCHAR" property="voiceUk" />
@@ -75,7 +75,7 @@
     id, name_english, voice_uk, voice_us, present, past, present_progressive, complex_deformation, 
     name_ch, example_sentence
   </sql>
-  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.WordLibraryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.word.WordLibraryExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -99,13 +99,13 @@
     delete from word_library
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.WordLibraryExample">
+  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.word.WordLibraryExample">
     delete from word_library
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.simon.boot.word.pojo.WordLibrary">
+  <insert id="insert" parameterType="com.simon.boot.word.pojo.word.WordLibrary">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -118,7 +118,7 @@
       #{complexDeformation,jdbcType=VARCHAR}, #{nameCh,jdbcType=VARCHAR}, #{exampleSentence,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.WordLibrary">
+  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.word.WordLibrary">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -182,7 +182,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.simon.boot.word.pojo.WordLibraryExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.simon.boot.word.pojo.word.WordLibraryExample" resultType="java.lang.Long">
     select count(*) from word_library
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -242,7 +242,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.WordLibrary">
+  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.word.WordLibrary">
     update word_library
     <set>
       <if test="nameEnglish != null">
@@ -275,7 +275,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.WordLibrary">
+  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.word.WordLibrary">
     update word_library
     set name_english = #{nameEnglish,jdbcType=VARCHAR},
       voice_uk = #{voiceUk,jdbcType=VARCHAR},

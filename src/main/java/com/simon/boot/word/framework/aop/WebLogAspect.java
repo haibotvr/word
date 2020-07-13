@@ -3,7 +3,7 @@ package com.simon.boot.word.framework.aop;
 import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.kits.UserUtil;
 import com.simon.boot.word.framework.web.WebLog;
-import com.simon.boot.word.pojo.WordUser;
+import com.simon.boot.word.pojo.word.WordUser;
 import io.micrometer.core.instrument.util.StringUtils;
 import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.JoinPoint;

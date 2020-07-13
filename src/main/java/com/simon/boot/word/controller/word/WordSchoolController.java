@@ -1,9 +1,9 @@
 package com.simon.boot.word.controller.word;
 
 import com.simon.boot.word.framework.web.ReturnValue;
-import com.simon.boot.word.pojo.WordSchool;
+import com.simon.boot.word.pojo.word.WordSchool;
 import com.simon.boot.word.qc.SchoolQC;
-import com.simon.boot.word.service.WordSchoolService;
+import com.simon.boot.word.service.word.WordSchoolService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.simon.boot.word.dao.WordPermissionMapper">
-  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.WordPermission">
+<mapper namespace="com.simon.boot.word.dao.word.WordPermissionMapper">
+  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.word.WordPermission">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="pid" jdbcType="BIGINT" property="pid" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -75,7 +75,7 @@
   <sql id="Base_Column_List">
     id, pid, name, value, icon, type, uri, ew_status, create_time, sort, update_time
   </sql>
-  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.WordPermissionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.word.WordPermissionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -99,13 +99,13 @@
     delete from word_permission
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.WordPermissionExample">
+  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.word.WordPermissionExample">
     delete from word_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.simon.boot.word.pojo.WordPermission">
+  <insert id="insert" parameterType="com.simon.boot.word.pojo.word.WordPermission">
     insert into word_permission (id, pid, name, 
       value, icon, type, 
       uri, ew_status, create_time, 
@@ -115,7 +115,7 @@
       #{uri,jdbcType=VARCHAR}, #{ewStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{sort,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.WordPermission">
+  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.word.WordPermission">
     insert into word_permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -188,7 +188,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.simon.boot.word.pojo.WordPermissionExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.simon.boot.word.pojo.word.WordPermissionExample" resultType="java.lang.Long">
     select count(*) from word_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -252,7 +252,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.WordPermission">
+  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.word.WordPermission">
     update word_permission
     <set>
       <if test="pid != null">
@@ -288,7 +288,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.WordPermission">
+  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.word.WordPermission">
     update word_permission
     set pid = #{pid,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},

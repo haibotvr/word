@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.simon.boot.word.dao.OaEmailMapper">
-  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.OaEmail">
+<mapper namespace="com.simon.boot.word.dao.oa.OaEmailMapper">
+  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.oa.OaEmail">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="recipient_id" jdbcType="BIGINT" property="recipientId" />
     <result column="sender_id" jdbcType="BIGINT" property="senderId" />
@@ -15,7 +15,7 @@
     <result column="recipient_ids" jdbcType="VARCHAR" property="recipientIds" />
     <result column="recipient_name" jdbcType="VARCHAR" property="recipientName" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.simon.boot.word.pojo.OaEmail">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.simon.boot.word.pojo.oa.OaEmail">
     <result column="mail_content" jdbcType="LONGVARCHAR" property="mailContent" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -83,7 +83,7 @@
   <sql id="Blob_Column_List">
     mail_content
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.simon.boot.word.pojo.OaEmailExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.simon.boot.word.pojo.oa.OaEmailExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -99,7 +99,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.OaEmailExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.oa.OaEmailExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -125,13 +125,13 @@
     delete from oa_email
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.OaEmailExample">
+  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.oa.OaEmailExample">
     delete from oa_email
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.simon.boot.word.pojo.OaEmail">
+  <insert id="insert" parameterType="com.simon.boot.word.pojo.oa.OaEmail">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -146,7 +146,7 @@
       #{recipientIds,jdbcType=VARCHAR}, #{recipientName,jdbcType=VARCHAR}, #{mailContent,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.OaEmail">
+  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.oa.OaEmail">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -228,7 +228,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.simon.boot.word.pojo.OaEmailExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.simon.boot.word.pojo.oa.OaEmailExample" resultType="java.lang.Long">
     select count(*) from oa_email
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -318,7 +318,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.OaEmail">
+  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.oa.OaEmail">
     update oa_email
     <set>
       <if test="recipientId != null">
@@ -360,7 +360,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.simon.boot.word.pojo.OaEmail">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.simon.boot.word.pojo.oa.OaEmail">
     update oa_email
     set recipient_id = #{recipientId,jdbcType=BIGINT},
       sender_id = #{senderId,jdbcType=BIGINT},
@@ -376,7 +376,7 @@
       mail_content = #{mailContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.OaEmail">
+  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.oa.OaEmail">
     update oa_email
     set recipient_id = #{recipientId,jdbcType=BIGINT},
       sender_id = #{senderId,jdbcType=BIGINT},
