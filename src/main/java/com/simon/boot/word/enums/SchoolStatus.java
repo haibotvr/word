@@ -1,17 +1,17 @@
-package com.simon.boot.word.eumn;
+package com.simon.boot.word.enums;
 
 /**
  * @author simon.wei
  */
-public enum StudyLogStatus {
+public enum SchoolStatus {
 
-    UNAVAILABLE("未学习", 0),
-    AVAILABLE("已学习", 1);
+    UNAVAILABLE("不可用", 0),
+    AVAILABLE("可用", 1);
 
     private String name;
     private Integer value;
 
-    StudyLogStatus(String name, Integer value){
+    SchoolStatus(String name, Integer value){
         this.name = name;
         this.value = value;
     }

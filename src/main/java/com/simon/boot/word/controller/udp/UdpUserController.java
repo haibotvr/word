@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @author simon.wei
  */
-@Api(tags = "UdpUserController", description = "用户相关")
+@Api(tags = "[统一开发管理平台]用户", description = "用户相关接口")
 @RestController
 @RequestMapping("/udp/user")
 public class UdpUserController extends BaseController {

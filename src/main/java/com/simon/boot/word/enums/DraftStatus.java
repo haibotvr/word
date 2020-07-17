@@ -1,17 +1,17 @@
-package com.simon.boot.word.eumn;
+package com.simon.boot.word.enums;
 
 /**
  * @author simon.wei
  */
-public enum RoleStatus {
+public enum DraftStatus {
 
-    UNAVAILABLE("不可用", 0),
-    AVAILABLE("可用", 1);
+    YES("草稿", 1),
+    NO("非草稿", 0);
 
     private String name;
     private Integer value;
 
-    RoleStatus(String name, Integer value){
+    DraftStatus(String name, Integer value){
         this.name = name;
         this.value = value;
     }

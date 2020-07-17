@@ -1,7 +1,7 @@
 package com.simon.boot.word.framework.exception;
 
 import cn.hutool.json.JSONUtil;
-import com.simon.boot.word.eumn.BusinessExceptionMessage;
+import com.simon.boot.word.enums.BusinessExceptionMessage;
 import com.simon.boot.word.framework.web.ReturnValue;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

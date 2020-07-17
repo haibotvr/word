@@ -3,7 +3,7 @@ package com.simon.boot.word.service.word.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.word.WordRoleMapper;
-import com.simon.boot.word.eumn.RoleStatus;
+import com.simon.boot.word.enums.RoleStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.word.WordRole;

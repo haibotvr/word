@@ -1,9 +1,9 @@
-package com.simon.boot.word.eumn;
+package com.simon.boot.word.enums;
 
 /**
  * @author simon.wei
  */
-public enum SchoolStatus {
+public enum TeachMaterialStatus {
 
     UNAVAILABLE("不可用", 0),
     AVAILABLE("可用", 1);
@@ -11,7 +11,7 @@ public enum SchoolStatus {
     private String name;
     private Integer value;
 
-    SchoolStatus(String name, Integer value){
+    TeachMaterialStatus(String name, Integer value){
         this.name = name;
         this.value = value;
     }

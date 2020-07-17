@@ -3,7 +3,7 @@ package com.simon.boot.word.service.word.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.word.WordTeachMaterialMapper;
-import com.simon.boot.word.eumn.TeachMaterialStatus;
+import com.simon.boot.word.enums.TeachMaterialStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.word.WordTeachMaterial;

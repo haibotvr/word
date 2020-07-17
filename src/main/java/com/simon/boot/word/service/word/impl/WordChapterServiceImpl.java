@@ -3,7 +3,7 @@ package com.simon.boot.word.service.word.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.word.WordChapterMapper;
-import com.simon.boot.word.eumn.ChapterStatus;
+import com.simon.boot.word.enums.ChapterStatus;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.kits.ExcelUtils;
 import com.simon.boot.word.framework.web.ReturnValue;

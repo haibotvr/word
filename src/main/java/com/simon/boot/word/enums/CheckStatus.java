@@ -1,17 +1,17 @@
-package com.simon.boot.word.eumn;
+package com.simon.boot.word.enums;
 
 /**
  * @author simon.wei
  */
-public enum ChapterStatus {
+public enum CheckStatus {
 
-    UNAVAILABLE("不可用", 0),
-    AVAILABLE("可用", 1);
+    YES("已查看", 1),
+    NO("未查看", 0);
 
     private String name;
     private Integer value;
 
-    ChapterStatus(String name, Integer value){
+    CheckStatus(String name, Integer value){
         this.name = name;
         this.value = value;
     }

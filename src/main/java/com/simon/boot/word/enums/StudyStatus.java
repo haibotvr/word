@@ -1,4 +1,4 @@
-package com.simon.boot.word.eumn;
+package com.simon.boot.word.enums;
 
 /**
  * @author simon.wei

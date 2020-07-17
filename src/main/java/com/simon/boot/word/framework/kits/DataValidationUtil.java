@@ -1,6 +1,6 @@
 package com.simon.boot.word.framework.kits;
 
-import com.simon.boot.word.eumn.BusinessExceptionMessage;
+import com.simon.boot.word.enums.BusinessExceptionMessage;
 import com.simon.boot.word.framework.exception.ValidException;
 import org.springframework.util.StringUtils;
 

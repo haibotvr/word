@@ -1,6 +1,6 @@
 package com.simon.boot.word.framework.kits;
 
-import com.simon.boot.word.eumn.BusinessExceptionMessage;
+import com.simon.boot.word.enums.BusinessExceptionMessage;
 import com.simon.boot.word.framework.abstracts.AbstractUser;
 import com.simon.boot.word.framework.exception.AuthenticationException;
 import io.jsonwebtoken.Claims;

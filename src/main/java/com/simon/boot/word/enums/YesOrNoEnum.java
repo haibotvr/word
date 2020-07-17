@@ -1,17 +1,17 @@
-package com.simon.boot.word.eumn;
+package com.simon.boot.word.enums;
 
 /**
  * @author simon.wei
  */
-public enum DraftStatus {
+public enum YesOrNoEnum {
 
-    YES("草稿", 1),
-    NO("非草稿", 0);
+    YES("是", 1),
+    NO("否", 0);
 
     private String name;
     private Integer value;
 
-    DraftStatus(String name, Integer value){
+    YesOrNoEnum(String name, Integer value){
         this.name = name;
         this.value = value;
     }

@@ -29,7 +29,7 @@ public class Swagger2Config {
                 .apiInfo(apiInfo())
                 .select()
                 //为当前包下controller生成API文档
-                .apis(RequestHandlerSelectors.basePackage("com.simon.boot.word.controller.word"))
+                .apis(RequestHandlerSelectors.basePackage("com.simon.boot.word.controller.udp"))
                 //为有@Api注解的Controller生成API文档
 //                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 //为有@ApiOperation注解的方法生成API文档
@@ -74,7 +74,7 @@ public class Swagger2Config {
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
                 .title("SwaggerUI")
-                .description("爱酷酷英语教学")
+                .description("统一开发平台")
                 .contact(new Contact("simon", "#", "554040883@qq.com"))
                 .version("1.0")
                 .build();

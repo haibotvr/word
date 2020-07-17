@@ -1,17 +1,17 @@
-package com.simon.boot.word.eumn;
+package com.simon.boot.word.enums;
 
 /**
  * @author simon.wei
  */
-public enum YesOrNoEnum {
+public enum EmailStatus {
 
-    YES("是", 1),
-    NO("否", 0);
+    USE("未删除", 1),
+    DELETE("已删除", 0);
 
     private String name;
     private Integer value;
 
-    YesOrNoEnum(String name, Integer value){
+    EmailStatus(String name, Integer value){
         this.name = name;
         this.value = value;
     }

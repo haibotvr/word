@@ -1,6 +1,6 @@
 package com.simon.boot.word.pojo.manual;
 
-import com.simon.boot.word.eumn.UserStatus;
+import com.simon.boot.word.enums.UserStatus;
 import com.simon.boot.word.framework.kits.LeafConstant;
 import com.simon.boot.word.pojo.word.WordPermission;
 import com.simon.boot.word.pojo.word.WordUser;

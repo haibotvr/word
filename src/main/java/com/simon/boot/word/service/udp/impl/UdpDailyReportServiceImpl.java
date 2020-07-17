@@ -12,6 +12,8 @@ import com.simon.boot.word.service.udp.UdpDailyReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * @author simon.wei
  */
@@ -47,7 +49,7 @@ public class UdpDailyReportServiceImpl implements UdpDailyReportService {
     public ReturnValue findByPage(PageQC qc, UdpUser user) {
         PageHelper.startPage(qc.getPageNum(), qc.getPageSize());
         UdpDailyReportExample example = new UdpDailyReportExample();
-        example.setOrderByClause("create_time desc");
+        example.setOrderByClause("report_time desc");
         UdpDailyReportExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(user.getId());
         PageInfo<UdpDailyReport> info = new PageInfo<>(mapper.selectByExample(example));
