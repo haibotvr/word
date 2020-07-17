@@ -13,6 +13,7 @@ import com.simon.boot.word.framework.annotation.BeanValid;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.kits.BeanProcessUtil;
 import com.simon.boot.word.framework.kits.JwtTokenUtil;
+import com.simon.boot.word.framework.kits.LeafConstant;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.word.WordUser;
 import com.simon.boot.word.pojo.word.WordUserExample;
@@ -159,7 +160,7 @@ public class WordUserServiceImpl implements WordUserService {
             throw new BusinessException(BusinessExceptionMessage.ADMIN_USER_IS_NOT_USE.getValue(), BusinessExceptionMessage.ADMIN_USER_IS_NOT_USE.getName());
         }
         UserLoginDTO dto = new UserLoginDTO();
-        dto.setToken(jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(users.get(0).getLoginName())));
+        dto.setToken(jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(users.get(0).getId().toString().concat(LeafConstant.PROJECT_WORD))));
         dto.setTokenHead(tokenHead);
         return ReturnValue.success().setData(dto).setMessage("登录成功");
     }

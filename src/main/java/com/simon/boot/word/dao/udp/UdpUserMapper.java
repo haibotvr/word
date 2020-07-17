@@ -3,9 +3,15 @@ package com.simon.boot.word.dao.udp;
 import com.simon.boot.word.pojo.udp.UdpUser;
 import com.simon.boot.word.pojo.udp.UdpUserExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+@Mapper
+@Repository
 public interface UdpUserMapper {
+
     long countByExample(UdpUserExample example);
 
     int deleteByExample(UdpUserExample example);

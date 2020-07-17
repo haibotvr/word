@@ -1,10 +1,11 @@
 package com.simon.boot.word.pojo.udp;
 
+import com.simon.boot.word.framework.abstracts.AbstractUser;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UdpUser implements Serializable {
+public class UdpUser extends AbstractUser implements Serializable {
     /**
      * 主键
      *

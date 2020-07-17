@@ -1,6 +1,9 @@
 package com.simon.boot.word.framework.kits;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,6 +60,8 @@ public class JwtTokenUtil {
                     .setSigningKey(secret)
                     .parseClaimsJws(token)
                     .getBody();
+        } catch (ExpiredJwtException e) {
+            log.info("JWT过期:{}", e.getMessage());
         } catch (Exception e) {
             log.info("JWT格式验证失败:{}", token);
         }
@@ -91,7 +96,7 @@ public class JwtTokenUtil {
     /**
      * 判断token是否过期
      */
-    private boolean isTokenExpired(String token){
+    public boolean isTokenExpired(String token){
         Date expiredDate = getExpiredDateFromToken(token);
         return expiredDate.before(new Date());
     }

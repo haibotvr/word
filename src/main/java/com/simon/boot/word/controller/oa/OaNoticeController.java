@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @author simon.wei
  */
 @RestController
-@RequestMapping("notice")
+@RequestMapping("/oa/notice")
 public class OaNoticeController extends BaseController{
 
     private static Logger log = LoggerFactory.getLogger(OaNoticeController.class);

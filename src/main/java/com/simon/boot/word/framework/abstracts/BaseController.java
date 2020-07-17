@@ -5,6 +5,7 @@ import com.simon.boot.word.framework.kits.JwtHelper;
 import com.simon.boot.word.framework.kits.LeafConstant;
 import com.simon.boot.word.framework.kits.UserUtil;
 import com.simon.boot.word.pojo.oa.OaUser;
+import com.simon.boot.word.pojo.udp.UdpUser;
 import com.simon.boot.word.pojo.word.WordUser;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -47,8 +48,14 @@ public class BaseController {
      * @return
      */
     public OaUser getOaUser(){
-        String token = request.getHeader("token");
-        token = JsonUtil.toString(JwtHelper.parseJWT(token).get(LeafConstant.SESSION_USER, LinkedHashMap.class));
-        return StringUtils.isBlank(token) ? null : JsonUtil.toBean(token, OaUser.class);
+        return (OaUser) UserUtil.get();
+    }
+
+    /**
+     * 获取UDP用户
+     * @return
+     */
+    public UdpUser getUdpUser(){
+        return (UdpUser) UserUtil.get();
     }
 }

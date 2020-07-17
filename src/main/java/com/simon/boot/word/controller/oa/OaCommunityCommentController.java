@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @author simon.wei
  */
 @RestController
-@RequestMapping("communityComment")
+@RequestMapping("/oa/communityComment")
 public class OaCommunityCommentController extends BaseController{
 
     private static Logger log = LoggerFactory.getLogger(OaCommunityCommentController.class);

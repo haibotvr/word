@@ -11,6 +11,8 @@ import com.simon.boot.word.framework.annotation.BeanValid;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.kits.JsonUtil;
 import com.simon.boot.word.framework.kits.JwtHelper;
+import com.simon.boot.word.framework.kits.JwtTokenUtil;
+import com.simon.boot.word.framework.kits.LeafConstant;
 import com.simon.boot.word.framework.web.ReturnValue;
 import com.simon.boot.word.pojo.oa.OaEmail;
 import com.simon.boot.word.pojo.oa.OaEmailExample;
@@ -24,6 +26,8 @@ import io.micrometer.core.instrument.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -40,6 +44,9 @@ public class ExtraServiceImpl implements ExtraService {
 
     private static Logger log = LoggerFactory.getLogger(ExtraServiceImpl.class);
 
+    @Value("${jwt.oaHead}")
+    private String tokenHead;
+
     @Autowired
     OaUserMapper mapper;
 
@@ -48,6 +55,12 @@ public class ExtraServiceImpl implements ExtraService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    UserDetailsService userDetailsService;
 
     @Override
     @BeanValid
@@ -70,8 +83,8 @@ public class ExtraServiceImpl implements ExtraService {
             throw new BusinessException(BusinessExceptionMessage.ADMIN_USER_IS_NOT_USE.getValue(), BusinessExceptionMessage.ADMIN_USER_IS_NOT_USE.getName());
         }
         UserLoginDTO dto = new UserLoginDTO();
-        dto.setToken(JwtHelper.createJWT(users.get(0)));
-
+        dto.setToken(jwtTokenUtil.generateToken(userDetailsService.loadUserByUsername(users.get(0).getId().toString().concat(LeafConstant.PROJECT_OA))));
+        dto.setTokenHead(tokenHead);
         log.info("返回数据:{}", JsonUtil.toString(dto));
 
         return ReturnValue.success().setData(dto).setMessage("登录成功");
@@ -316,5 +329,10 @@ public class ExtraServiceImpl implements ExtraService {
         oaEmailMapper.updateByPrimaryKeySelective(record);
 
         return ReturnValue.success().setMessage("发送成功");
+    }
+
+    @Override
+    public OaUser findUserById(Long id) {
+        return mapper.selectByPrimaryKey(id);
     }
 }

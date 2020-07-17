@@ -3,9 +3,15 @@ package com.simon.boot.word.dao.udp;
 import com.simon.boot.word.pojo.udp.UdpDailyReport;
 import com.simon.boot.word.pojo.udp.UdpDailyReportExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+@Mapper
+@Repository
 public interface UdpDailyReportMapper {
+
     long countByExample(UdpDailyReportExample example);
 
     int deleteByExample(UdpDailyReportExample example);

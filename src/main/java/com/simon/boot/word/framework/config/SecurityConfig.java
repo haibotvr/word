@@ -3,10 +3,17 @@ package com.simon.boot.word.framework.config;
 import com.simon.boot.word.framework.exception.RestAuthenticationEntryPoint;
 import com.simon.boot.word.framework.exception.RestfulAccessDeniedHandler;
 import com.simon.boot.word.framework.filter.JwtAuthenticationTokenFilter;
+import com.simon.boot.word.framework.kits.LeafConstant;
 import com.simon.boot.word.framework.kits.UserUtil;
+import com.simon.boot.word.pojo.manual.OaUserDetails;
+import com.simon.boot.word.pojo.manual.UdpUserDetails;
+import com.simon.boot.word.pojo.oa.OaUser;
+import com.simon.boot.word.pojo.udp.UdpUser;
 import com.simon.boot.word.pojo.word.WordPermission;
 import com.simon.boot.word.pojo.word.WordUser;
 import com.simon.boot.word.pojo.manual.WordUserDetails;
+import com.simon.boot.word.service.oa.ExtraService;
+import com.simon.boot.word.service.udp.UdpUserService;
 import com.simon.boot.word.service.word.WordUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +32,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author simon.wei
@@ -43,6 +51,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private WordUserService wordUserService;
 
+    @Autowired
+    private ExtraService oaUserService;
+
+    @Autowired
+    private UdpUserService udpUserService;
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf()// 由于使用的是JWT，我们这里不需要csrf
@@ -51,7 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,// 允许对于网站静态资源的无授权访问
+                // 允许对于网站静态资源的无授权访问
+                .antMatchers(HttpMethod.GET,
                         "/",
                         "/*.html",
                         "/favicon.ico",
@@ -62,15 +77,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs/**"
                 )
                 .permitAll()
-                .antMatchers("/user/login")// 对登录注册要允许匿名访问
+                // 对登录注册要允许匿名访问
+                .antMatchers("/user/login")
                 .permitAll()
-                .antMatchers(HttpMethod.POST,"/extra/**")
+                .antMatchers(HttpMethod.POST,"/udp/user/add")
                 .permitAll()
-                .antMatchers(HttpMethod.POST,"/notice/**")
-                .permitAll()
-                .antMatchers(HttpMethod.POST,"/community/**")
-                .permitAll()
-                .antMatchers(HttpMethod.POST,"/communityComment/**")
+                .antMatchers(HttpMethod.POST,"/udp/user/login")
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
@@ -101,13 +113,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    @Override
     public UserDetailsService userDetailsService(){
         return username -> {
-            WordUser user = wordUserService.findByUsername(username);
-            if(user != null){
-                UserUtil.set(user);
-                List<WordPermission> permissions = (List<WordPermission>) wordUserService.getPermissions(user.getId()).getData();
-                return new WordUserDetails(user, permissions);
+            //参数不为空
+            if(Objects.isNull(username)) {
+                return null;
+            }
+            String[] names = username.split(LeafConstant.PROJECT_CONCAT_MARK);
+            if(username.endsWith(LeafConstant.PROJECT_OA)) {
+                OaUser user = oaUserService.findUserById(Long.valueOf(names[0]));
+                if(Objects.nonNull(user)) {
+                    UserUtil.set(user);
+                    return new OaUserDetails(user);
+                }
+            }
+            if(username.endsWith(LeafConstant.PROJECT_UDP)) {
+                UdpUser user = udpUserService.findById(Long.valueOf(names[0]));
+                if(Objects.nonNull(user)) {
+                    UserUtil.set(user);
+                    return new UdpUserDetails(user);
+                }
+            }
+            if(username.endsWith(LeafConstant.PROJECT_WORD)) {
+                WordUser user = wordUserService.findByUsername(names[0]);
+                if(Objects.nonNull(user)) {
+                    UserUtil.set(user);
+                    List<WordPermission> permissions = (List<WordPermission>) wordUserService.getPermissions(user.getId()).getData();
+                    return new WordUserDetails(user, permissions);
+                }
             }
             return null;
         };

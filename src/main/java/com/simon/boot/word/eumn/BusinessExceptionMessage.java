@@ -12,6 +12,7 @@ public enum BusinessExceptionMessage {
     ADMIN_USER_IS_NOT_USE("用户已冻结", 1004),
     LOGIN_NAME_IS_EXIST("用户名已存在", 1005),
     VALIDATION_FAIL("校验失败", 50009),
+    TOKEN_IS_EXPIRED("token过期", 50009),
     EXCEL_IS_NULL("空的excel文件", 50009);
 
     private String name;

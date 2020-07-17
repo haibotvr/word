@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @author simon.wei
  */
 @RestController
-@RequestMapping("extra")
+@RequestMapping("/oa/extra")
 public class ExtraController extends BaseController{
 
     private static Logger log = LoggerFactory.getLogger(ExtraController.class);

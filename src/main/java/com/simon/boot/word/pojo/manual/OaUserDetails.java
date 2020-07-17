@@ -1,38 +1,27 @@
 package com.simon.boot.word.pojo.manual;
 
-import com.simon.boot.word.eumn.UserStatus;
 import com.simon.boot.word.framework.kits.LeafConstant;
-import com.simon.boot.word.pojo.word.WordPermission;
-import com.simon.boot.word.pojo.word.WordUser;
+import com.simon.boot.word.pojo.oa.OaUser;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author simon.wei
  */
-public class WordUserDetails implements UserDetails {
+public class OaUserDetails implements UserDetails {
 
-    private WordUser user;
+    private OaUser user;
 
-    private List<WordPermission> permissions;
-
-    public WordUserDetails(WordUser user, List<WordPermission> permissions) {
+    public OaUserDetails(OaUser user) {
         this.user = user;
-        this.permissions = permissions;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //返回当前用户的权限集合
-        return permissions.stream()
-                .filter(permission -> permission.getValue() != null)
-                .map(permission -> new SimpleGrantedAuthority(permission.getValue()))
-                .collect(Collectors.toList());
+        return null;
     }
 
     @Override
@@ -42,7 +31,7 @@ public class WordUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getId().toString().concat(LeafConstant.PROJECT_WORD);
+        return user.getId().toString().concat(LeafConstant.PROJECT_OA);
     }
 
     @Override
@@ -62,6 +51,6 @@ public class WordUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getEwStatus().equals(UserStatus.AVAILABLE.getValue());
+        return true;
     }
 }
