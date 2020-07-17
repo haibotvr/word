@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @author simon.wei
  */
-@Api(tags = "[统一开发管理平台]-日报", description = "日报相关接口")
+@Api(tags = "[统一开发管理平台]日报", description = "日报相关接口")
 @RestController
 @RequestMapping("/udp/daily/report")
 public class UdpDailyReportController extends BaseController {

@@ -73,6 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
+                        "/**/*.png",
+                        "/**/*.gif",
                         "/swagger-resources/**",
                         "/v2/api-docs/**"
                 )

@@ -27,6 +27,7 @@
 		<poi.version>3.13</poi.version>
 		<poi-ooxml.version>3.13</poi-ooxml.version>
 		<commons-lang3.version>3.9</commons-lang3.version>
+		<skipTests>true</skipTests>
 	</properties>
 
 	<dependencies>
