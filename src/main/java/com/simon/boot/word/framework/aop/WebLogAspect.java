@@ -6,6 +6,7 @@ import com.simon.boot.word.framework.web.WebLog;
 import com.simon.boot.word.pojo.word.WordUser;
 import io.micrometer.core.instrument.util.StringUtils;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -35,9 +36,8 @@ import java.util.Map;
 @Aspect
 @Component
 @Order(1)
+@Slf4j(topic = "WebLogAspect")
 public class WebLogAspect {
-
-    private static final Logger log = LoggerFactory.getLogger(WebLogAspect.class);
 
     @Pointcut("execution(public * com.simon.boot.word.controller.word.*.*(..))")
     public void webLog(){}

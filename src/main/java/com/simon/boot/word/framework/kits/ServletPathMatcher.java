@@ -15,6 +15,7 @@ public class ServletPathMatcher implements PatternMatcher {
         return INSTANCE;
     }
 
+    @Override
     public boolean matches(String pattern, String source) {
 
         if (pattern != null && source != null) {
