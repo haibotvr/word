@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simon.boot.word.dao.word.CallContactsMapper">
+  <resultMap id="BaseResultMap" type="com.simon.boot.word.pojo.word.CallContacts">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="real_sex" jdbcType="VARCHAR" property="realSex" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="job" jdbcType="VARCHAR" property="job" />
+    <result column="job_category" jdbcType="VARCHAR" property="jobCategory" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="extension_number" jdbcType="VARCHAR" property="extensionNumber" />
+    <result column="area_code2" jdbcType="VARCHAR" property="areaCode2" />
+    <result column="telephone2" jdbcType="VARCHAR" property="telephone2" />
+    <result column="extension_number2" jdbcType="VARCHAR" property="extensionNumber2" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="phone2" jdbcType="VARCHAR" property="phone2" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="industry_new" jdbcType="VARCHAR" property="industryNew" />
+    <result column="industry_detail" jdbcType="VARCHAR" property="industryDetail" />
+    <result column="company_nature" jdbcType="VARCHAR" property="companyNature" />
+    <result column="company_person_number" jdbcType="INTEGER" property="companyPersonNumber" />
+    <result column="pc_number" jdbcType="INTEGER" property="pcNumber" />
+    <result column="annual_turnover" jdbcType="VARCHAR" property="annualTurnover" />
+    <result column="fax1" jdbcType="VARCHAR" property="fax1" />
+    <result column="fax2" jdbcType="VARCHAR" property="fax2" />
+    <result column="data_time" jdbcType="TIMESTAMP" property="dataTime" />
+    <result column="from_person" jdbcType="VARCHAR" property="fromPerson" />
+    <result column="data_from" jdbcType="VARCHAR" property="dataFrom" />
+    <result column="data_status" jdbcType="VARCHAR" property="dataStatus" />
+    <result column="email1" jdbcType="VARCHAR" property="email1" />
+    <result column="email2" jdbcType="VARCHAR" property="email2" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, real_name, real_sex, department, job, job_category, area_code, telephone, extension_number, 
+    area_code2, telephone2, extension_number2, phone, phone2, company_name, keywords, 
+    province, city, address, post_code, industry, industry_new, industry_detail, company_nature, 
+    company_person_number, pc_number, annual_turnover, fax1, fax2, data_time, from_person, 
+    data_from, data_status, email1, email2, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.simon.boot.word.pojo.word.CallContactsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cc_contacts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cc_contacts
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cc_contacts
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.simon.boot.word.pojo.word.CallContactsExample">
+    delete from cc_contacts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.simon.boot.word.pojo.word.CallContacts">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cc_contacts (real_name, real_sex, department, 
+      job, job_category, area_code, 
+      telephone, extension_number, area_code2, 
+      telephone2, extension_number2, phone, 
+      phone2, company_name, keywords, 
+      province, city, address, 
+      post_code, industry, industry_new, 
+      industry_detail, company_nature, company_person_number, 
+      pc_number, annual_turnover, fax1, 
+      fax2, data_time, from_person, 
+      data_from, data_status, email1, 
+      email2, remark)
+    values (#{realName,jdbcType=VARCHAR}, #{realSex,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{job,jdbcType=VARCHAR}, #{jobCategory,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{extensionNumber,jdbcType=VARCHAR}, #{areaCode2,jdbcType=VARCHAR}, 
+      #{telephone2,jdbcType=VARCHAR}, #{extensionNumber2,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{phone2,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{postCode,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, #{industryNew,jdbcType=VARCHAR}, 
+      #{industryDetail,jdbcType=VARCHAR}, #{companyNature,jdbcType=VARCHAR}, #{companyPersonNumber,jdbcType=INTEGER}, 
+      #{pcNumber,jdbcType=INTEGER}, #{annualTurnover,jdbcType=VARCHAR}, #{fax1,jdbcType=VARCHAR}, 
+      #{fax2,jdbcType=VARCHAR}, #{dataTime,jdbcType=TIMESTAMP}, #{fromPerson,jdbcType=VARCHAR}, 
+      #{dataFrom,jdbcType=VARCHAR}, #{dataStatus,jdbcType=VARCHAR}, #{email1,jdbcType=VARCHAR}, 
+      #{email2,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.word.CallContacts">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into cc_contacts
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="realSex != null">
+        real_sex,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="job != null">
+        job,
+      </if>
+      <if test="jobCategory != null">
+        job_category,
+      </if>
+      <if test="areaCode != null">
+        area_code,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="extensionNumber != null">
+        extension_number,
+      </if>
+      <if test="areaCode2 != null">
+        area_code2,
+      </if>
+      <if test="telephone2 != null">
+        telephone2,
+      </if>
+      <if test="extensionNumber2 != null">
+        extension_number2,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="phone2 != null">
+        phone2,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="keywords != null">
+        keywords,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="industry != null">
+        industry,
+      </if>
+      <if test="industryNew != null">
+        industry_new,
+      </if>
+      <if test="industryDetail != null">
+        industry_detail,
+      </if>
+      <if test="companyNature != null">
+        company_nature,
+      </if>
+      <if test="companyPersonNumber != null">
+        company_person_number,
+      </if>
+      <if test="pcNumber != null">
+        pc_number,
+      </if>
+      <if test="annualTurnover != null">
+        annual_turnover,
+      </if>
+      <if test="fax1 != null">
+        fax1,
+      </if>
+      <if test="fax2 != null">
+        fax2,
+      </if>
+      <if test="dataTime != null">
+        data_time,
+      </if>
+      <if test="fromPerson != null">
+        from_person,
+      </if>
+      <if test="dataFrom != null">
+        data_from,
+      </if>
+      <if test="dataStatus != null">
+        data_status,
+      </if>
+      <if test="email1 != null">
+        email1,
+      </if>
+      <if test="email2 != null">
+        email2,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="realSex != null">
+        #{realSex,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCategory != null">
+        #{jobCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="extensionNumber != null">
+        #{extensionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode2 != null">
+        #{areaCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone2 != null">
+        #{telephone2,jdbcType=VARCHAR},
+      </if>
+      <if test="extensionNumber2 != null">
+        #{extensionNumber2,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phone2 != null">
+        #{phone2,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="industryNew != null">
+        #{industryNew,jdbcType=VARCHAR},
+      </if>
+      <if test="industryDetail != null">
+        #{industryDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNature != null">
+        #{companyNature,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPersonNumber != null">
+        #{companyPersonNumber,jdbcType=INTEGER},
+      </if>
+      <if test="pcNumber != null">
+        #{pcNumber,jdbcType=INTEGER},
+      </if>
+      <if test="annualTurnover != null">
+        #{annualTurnover,jdbcType=VARCHAR},
+      </if>
+      <if test="fax1 != null">
+        #{fax1,jdbcType=VARCHAR},
+      </if>
+      <if test="fax2 != null">
+        #{fax2,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTime != null">
+        #{dataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromPerson != null">
+        #{fromPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="dataFrom != null">
+        #{dataFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="dataStatus != null">
+        #{dataStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="email1 != null">
+        #{email1,jdbcType=VARCHAR},
+      </if>
+      <if test="email2 != null">
+        #{email2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.simon.boot.word.pojo.word.CallContactsExample" resultType="java.lang.Long">
+    select count(*) from cc_contacts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cc_contacts
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.realName != null">
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realSex != null">
+        real_sex = #{record.realSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null">
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.job != null">
+        job = #{record.job,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobCategory != null">
+        job_category = #{record.jobCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaCode != null">
+        area_code = #{record.areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null">
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extensionNumber != null">
+        extension_number = #{record.extensionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaCode2 != null">
+        area_code2 = #{record.areaCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone2 != null">
+        telephone2 = #{record.telephone2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extensionNumber2 != null">
+        extension_number2 = #{record.extensionNumber2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone2 != null">
+        phone2 = #{record.phone2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null">
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keywords != null">
+        keywords = #{record.keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postCode != null">
+        post_code = #{record.postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industry != null">
+        industry = #{record.industry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryNew != null">
+        industry_new = #{record.industryNew,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryDetail != null">
+        industry_detail = #{record.industryDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyNature != null">
+        company_nature = #{record.companyNature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyPersonNumber != null">
+        company_person_number = #{record.companyPersonNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.pcNumber != null">
+        pc_number = #{record.pcNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.annualTurnover != null">
+        annual_turnover = #{record.annualTurnover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax1 != null">
+        fax1 = #{record.fax1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax2 != null">
+        fax2 = #{record.fax2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataTime != null">
+        data_time = #{record.dataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fromPerson != null">
+        from_person = #{record.fromPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataFrom != null">
+        data_from = #{record.dataFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataStatus != null">
+        data_status = #{record.dataStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email1 != null">
+        email1 = #{record.email1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email2 != null">
+        email2 = #{record.email2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cc_contacts
+    set id = #{record.id,jdbcType=BIGINT},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      real_sex = #{record.realSex,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      job = #{record.job,jdbcType=VARCHAR},
+      job_category = #{record.jobCategory,jdbcType=VARCHAR},
+      area_code = #{record.areaCode,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      extension_number = #{record.extensionNumber,jdbcType=VARCHAR},
+      area_code2 = #{record.areaCode2,jdbcType=VARCHAR},
+      telephone2 = #{record.telephone2,jdbcType=VARCHAR},
+      extension_number2 = #{record.extensionNumber2,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      phone2 = #{record.phone2,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      post_code = #{record.postCode,jdbcType=VARCHAR},
+      industry = #{record.industry,jdbcType=VARCHAR},
+      industry_new = #{record.industryNew,jdbcType=VARCHAR},
+      industry_detail = #{record.industryDetail,jdbcType=VARCHAR},
+      company_nature = #{record.companyNature,jdbcType=VARCHAR},
+      company_person_number = #{record.companyPersonNumber,jdbcType=INTEGER},
+      pc_number = #{record.pcNumber,jdbcType=INTEGER},
+      annual_turnover = #{record.annualTurnover,jdbcType=VARCHAR},
+      fax1 = #{record.fax1,jdbcType=VARCHAR},
+      fax2 = #{record.fax2,jdbcType=VARCHAR},
+      data_time = #{record.dataTime,jdbcType=TIMESTAMP},
+      from_person = #{record.fromPerson,jdbcType=VARCHAR},
+      data_from = #{record.dataFrom,jdbcType=VARCHAR},
+      data_status = #{record.dataStatus,jdbcType=VARCHAR},
+      email1 = #{record.email1,jdbcType=VARCHAR},
+      email2 = #{record.email2,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.simon.boot.word.pojo.word.CallContacts">
+    update cc_contacts
+    <set>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="realSex != null">
+        real_sex = #{realSex,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="jobCategory != null">
+        job_category = #{jobCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="extensionNumber != null">
+        extension_number = #{extensionNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode2 != null">
+        area_code2 = #{areaCode2,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone2 != null">
+        telephone2 = #{telephone2,jdbcType=VARCHAR},
+      </if>
+      <if test="extensionNumber2 != null">
+        extension_number2 = #{extensionNumber2,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phone2 != null">
+        phone2 = #{phone2,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null">
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="industryNew != null">
+        industry_new = #{industryNew,jdbcType=VARCHAR},
+      </if>
+      <if test="industryDetail != null">
+        industry_detail = #{industryDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="companyNature != null">
+        company_nature = #{companyNature,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPersonNumber != null">
+        company_person_number = #{companyPersonNumber,jdbcType=INTEGER},
+      </if>
+      <if test="pcNumber != null">
+        pc_number = #{pcNumber,jdbcType=INTEGER},
+      </if>
+      <if test="annualTurnover != null">
+        annual_turnover = #{annualTurnover,jdbcType=VARCHAR},
+      </if>
+      <if test="fax1 != null">
+        fax1 = #{fax1,jdbcType=VARCHAR},
+      </if>
+      <if test="fax2 != null">
+        fax2 = #{fax2,jdbcType=VARCHAR},
+      </if>
+      <if test="dataTime != null">
+        data_time = #{dataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fromPerson != null">
+        from_person = #{fromPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="dataFrom != null">
+        data_from = #{dataFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="dataStatus != null">
+        data_status = #{dataStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="email1 != null">
+        email1 = #{email1,jdbcType=VARCHAR},
+      </if>
+      <if test="email2 != null">
+        email2 = #{email2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.simon.boot.word.pojo.word.CallContacts">
+    update cc_contacts
+    set real_name = #{realName,jdbcType=VARCHAR},
+      real_sex = #{realSex,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      job_category = #{jobCategory,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      extension_number = #{extensionNumber,jdbcType=VARCHAR},
+      area_code2 = #{areaCode2,jdbcType=VARCHAR},
+      telephone2 = #{telephone2,jdbcType=VARCHAR},
+      extension_number2 = #{extensionNumber2,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      phone2 = #{phone2,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      industry_new = #{industryNew,jdbcType=VARCHAR},
+      industry_detail = #{industryDetail,jdbcType=VARCHAR},
+      company_nature = #{companyNature,jdbcType=VARCHAR},
+      company_person_number = #{companyPersonNumber,jdbcType=INTEGER},
+      pc_number = #{pcNumber,jdbcType=INTEGER},
+      annual_turnover = #{annualTurnover,jdbcType=VARCHAR},
+      fax1 = #{fax1,jdbcType=VARCHAR},
+      fax2 = #{fax2,jdbcType=VARCHAR},
+      data_time = #{dataTime,jdbcType=TIMESTAMP},
+      from_person = #{fromPerson,jdbcType=VARCHAR},
+      data_from = #{dataFrom,jdbcType=VARCHAR},
+      data_status = #{dataStatus,jdbcType=VARCHAR},
+      email1 = #{email1,jdbcType=VARCHAR},
+      email2 = #{email2,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -11,7 +11,7 @@ public class GeneratePwd {
 
     public static void main(String[] args) throws Exception {
         //密码明文
-        String password = "123456";
+        String password = "CIM8wgaq^gI$*90OHgv!";
 
         log.info("密码[" + password + "]的加密信息如下：\n");
 
