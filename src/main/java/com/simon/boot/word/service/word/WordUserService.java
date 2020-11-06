@@ -29,4 +29,6 @@ public interface WordUserService {
     ReturnValue getPermissions(Long id) throws BusinessException;
 
     WordUser findByUsername(String username) throws BusinessException;
+
+    WordUser findById(Long id) throws BusinessException;
 }

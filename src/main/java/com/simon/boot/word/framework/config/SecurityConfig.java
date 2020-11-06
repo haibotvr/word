@@ -142,7 +142,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 }
             }
             if(username.endsWith(LeafConstant.PROJECT_WORD)) {
-                WordUser user = wordUserService.findByUsername(names[0]);
+                WordUser user = wordUserService.findById(Long.valueOf(names[0]));
                 if(Objects.nonNull(user)) {
                     UserUtil.set(user);
                     List<WordPermission> permissions = (List<WordPermission>) wordUserService.getPermissions(user.getId()).getData();

@@ -2,10 +2,10 @@ package com.simon.boot.word.service.word.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.simon.boot.word.dao.word.WordUserMapper;
-import com.simon.boot.word.dao.word.WordUserRoleRelationMapper;
 import com.simon.boot.word.dao.manual.word.WordUserDao;
 import com.simon.boot.word.dao.manual.word.WordUserRoleRelationDao;
+import com.simon.boot.word.dao.word.WordUserMapper;
+import com.simon.boot.word.dao.word.WordUserRoleRelationMapper;
 import com.simon.boot.word.dto.UserLoginDTO;
 import com.simon.boot.word.enums.BusinessExceptionMessage;
 import com.simon.boot.word.enums.UserStatus;
@@ -202,5 +202,10 @@ public class WordUserServiceImpl implements WordUserService {
     @Override
     public ReturnValue getPermissions(Long id) throws BusinessException {
         return ReturnValue.success().setData(userRoleRelationDao.getPermissions(id));
+    }
+
+    @Override
+    public WordUser findById(Long id) throws BusinessException {
+        return mapper.selectByPrimaryKey(id);
     }
 }
