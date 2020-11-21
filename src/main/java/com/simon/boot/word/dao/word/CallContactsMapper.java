@@ -3,8 +3,13 @@ package com.simon.boot.word.dao.word;
 import com.simon.boot.word.pojo.word.CallContacts;
 import com.simon.boot.word.pojo.word.CallContactsExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+@Mapper
+@Repository
 public interface CallContactsMapper {
     long countByExample(CallContactsExample example);
 
