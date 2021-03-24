@@ -17,4 +17,6 @@ public class LeafConstant {
 
     public static final String PROJECT_CONCAT_MARK = "_";
 
+    public static final Integer RECORDS_1000 = 1000;
+
 }

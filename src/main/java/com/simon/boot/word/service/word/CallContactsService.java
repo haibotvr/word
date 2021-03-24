@@ -6,6 +6,7 @@ import com.simon.boot.word.pojo.word.CallContacts;
 import com.simon.boot.word.pojo.word.WordSchool;
 import com.simon.boot.word.qc.CallContactsQC;
 import com.simon.boot.word.qc.SchoolQC;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author simon.wei
@@ -20,4 +21,9 @@ public interface CallContactsService {
 
     ReturnValue findByPage(CallContactsQC qc) throws BusinessException;
 
+    ReturnValue importContacts(MultipartFile file) throws BusinessException;
+
+    ReturnValue exportContacts(CallContactsQC qc) throws BusinessException;
+
+    ReturnValue exportTargetContacts(MultipartFile file) throws BusinessException;
 }
