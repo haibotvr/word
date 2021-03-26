@@ -31,7 +31,7 @@
     <result column="annual_turnover" jdbcType="VARCHAR" property="annualTurnover" />
     <result column="fax1" jdbcType="VARCHAR" property="fax1" />
     <result column="fax2" jdbcType="VARCHAR" property="fax2" />
-    <result column="data_time" jdbcType="TIMESTAMP" property="dataTime" />
+    <result column="data_time" jdbcType="VARCHAR" property="dataTime" />
     <result column="from_person" jdbcType="VARCHAR" property="fromPerson" />
     <result column="data_from" jdbcType="VARCHAR" property="dataFrom" />
     <result column="data_status" jdbcType="VARCHAR" property="dataStatus" />
@@ -159,7 +159,7 @@
       #{postCode,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, #{industryNew,jdbcType=VARCHAR}, 
       #{industryDetail,jdbcType=VARCHAR}, #{companyNature,jdbcType=VARCHAR}, #{companyPersonNumber,jdbcType=INTEGER}, 
       #{pcNumber,jdbcType=INTEGER}, #{annualTurnover,jdbcType=VARCHAR}, #{fax1,jdbcType=VARCHAR}, 
-      #{fax2,jdbcType=VARCHAR}, #{dataTime,jdbcType=TIMESTAMP}, #{fromPerson,jdbcType=VARCHAR}, 
+      #{fax2,jdbcType=VARCHAR}, #{dataTime,jdbcType=VARCHAR}, #{fromPerson,jdbcType=VARCHAR}, 
       #{dataFrom,jdbcType=VARCHAR}, #{dataStatus,jdbcType=VARCHAR}, #{email1,jdbcType=VARCHAR}, 
       #{email2,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
   </insert>
@@ -361,7 +361,7 @@
         #{fax2,jdbcType=VARCHAR},
       </if>
       <if test="dataTime != null">
-        #{dataTime,jdbcType=TIMESTAMP},
+        #{dataTime,jdbcType=VARCHAR},
       </if>
       <if test="fromPerson != null">
         #{fromPerson,jdbcType=VARCHAR},
@@ -480,7 +480,7 @@
         fax2 = #{record.fax2,jdbcType=VARCHAR},
       </if>
       <if test="record.dataTime != null">
-        data_time = #{record.dataTime,jdbcType=TIMESTAMP},
+        data_time = #{record.dataTime,jdbcType=VARCHAR},
       </if>
       <if test="record.fromPerson != null">
         from_person = #{record.fromPerson,jdbcType=VARCHAR},
@@ -536,7 +536,7 @@
       annual_turnover = #{record.annualTurnover,jdbcType=VARCHAR},
       fax1 = #{record.fax1,jdbcType=VARCHAR},
       fax2 = #{record.fax2,jdbcType=VARCHAR},
-      data_time = #{record.dataTime,jdbcType=TIMESTAMP},
+      data_time = #{record.dataTime,jdbcType=VARCHAR},
       from_person = #{record.fromPerson,jdbcType=VARCHAR},
       data_from = #{record.dataFrom,jdbcType=VARCHAR},
       data_status = #{record.dataStatus,jdbcType=VARCHAR},
@@ -635,7 +635,7 @@
         fax2 = #{fax2,jdbcType=VARCHAR},
       </if>
       <if test="dataTime != null">
-        data_time = #{dataTime,jdbcType=TIMESTAMP},
+        data_time = #{dataTime,jdbcType=VARCHAR},
       </if>
       <if test="fromPerson != null">
         from_person = #{fromPerson,jdbcType=VARCHAR},
@@ -688,7 +688,7 @@
       annual_turnover = #{annualTurnover,jdbcType=VARCHAR},
       fax1 = #{fax1,jdbcType=VARCHAR},
       fax2 = #{fax2,jdbcType=VARCHAR},
-      data_time = #{dataTime,jdbcType=TIMESTAMP},
+      data_time = #{dataTime,jdbcType=VARCHAR},
       from_person = #{fromPerson,jdbcType=VARCHAR},
       data_from = #{dataFrom,jdbcType=VARCHAR},
       data_status = #{dataStatus,jdbcType=VARCHAR},

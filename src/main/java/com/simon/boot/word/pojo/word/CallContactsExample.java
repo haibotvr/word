@@ -1,7 +1,6 @@
 package com.simon.boot.word.pojo.word;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class CallContactsExample {
@@ -2115,52 +2114,62 @@ public class CallContactsExample {
             return (Criteria) this;
         }
 
-        public Criteria andDataTimeEqualTo(Date value) {
+        public Criteria andDataTimeEqualTo(String value) {
             addCriterion("data_time =", value, "dataTime");
             return (Criteria) this;
         }
 
-        public Criteria andDataTimeNotEqualTo(Date value) {
+        public Criteria andDataTimeNotEqualTo(String value) {
             addCriterion("data_time <>", value, "dataTime");
             return (Criteria) this;
         }
 
-        public Criteria andDataTimeGreaterThan(Date value) {
+        public Criteria andDataTimeGreaterThan(String value) {
             addCriterion("data_time >", value, "dataTime");
             return (Criteria) this;
         }
 
-        public Criteria andDataTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andDataTimeGreaterThanOrEqualTo(String value) {
             addCriterion("data_time >=", value, "dataTime");
             return (Criteria) this;
         }
 
-        public Criteria andDataTimeLessThan(Date value) {
+        public Criteria andDataTimeLessThan(String value) {
             addCriterion("data_time <", value, "dataTime");
             return (Criteria) this;
         }
 
-        public Criteria andDataTimeLessThanOrEqualTo(Date value) {
+        public Criteria andDataTimeLessThanOrEqualTo(String value) {
             addCriterion("data_time <=", value, "dataTime");
             return (Criteria) this;
         }
 
-        public Criteria andDataTimeIn(List<Date> values) {
+        public Criteria andDataTimeLike(String value) {
+            addCriterion("data_time like", value, "dataTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTimeNotLike(String value) {
+            addCriterion("data_time not like", value, "dataTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataTimeIn(List<String> values) {
             addCriterion("data_time in", values, "dataTime");
             return (Criteria) this;
         }
 
-        public Criteria andDataTimeNotIn(List<Date> values) {
+        public Criteria andDataTimeNotIn(List<String> values) {
             addCriterion("data_time not in", values, "dataTime");
             return (Criteria) this;
         }
 
-        public Criteria andDataTimeBetween(Date value1, Date value2) {
+        public Criteria andDataTimeBetween(String value1, String value2) {
             addCriterion("data_time between", value1, value2, "dataTime");
             return (Criteria) this;
         }
 
-        public Criteria andDataTimeNotBetween(Date value1, Date value2) {
+        public Criteria andDataTimeNotBetween(String value1, String value2) {
             addCriterion("data_time not between", value1, value2, "dataTime");
             return (Criteria) this;
         }

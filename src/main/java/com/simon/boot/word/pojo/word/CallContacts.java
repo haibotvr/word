@@ -2,7 +2,6 @@ package com.simon.boot.word.pojo.word;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import java.util.Date;
 
 public class CallContacts implements Serializable {
     /**
@@ -243,7 +242,7 @@ public class CallContacts implements Serializable {
      * @mbg.generated
      */
     @ApiModelProperty(value = "数据日期")
-    private Date dataTime;
+    private String dataTime;
 
     /**
      * 来源人
@@ -527,12 +526,12 @@ public class CallContacts implements Serializable {
         this.fax2 = fax2 == null ? null : fax2.trim();
     }
 
-    public Date getDataTime() {
+    public String getDataTime() {
         return dataTime;
     }
 
-    public void setDataTime(Date dataTime) {
-        this.dataTime = dataTime;
+    public void setDataTime(String dataTime) {
+        this.dataTime = dataTime == null ? null : dataTime.trim();
     }
 
     public String getFromPerson() {

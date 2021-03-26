@@ -14,6 +14,7 @@ import com.simon.boot.word.service.word.CallContactsService;
 import com.simon.boot.word.vo.CompanyNameExcelVO;
 import com.simon.boot.word.vo.ContactExcelVO;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -37,7 +38,7 @@ public class CallContactsServiceImpl implements CallContactsService {
 
     @Override
     public ReturnValue add(CallContacts record) throws BusinessException {
-        record.setDataTime(new Date());
+        record.setDataTime(DateFormatUtils.format(new Date(), LeafConstant.DATETIME_FORMAT));
         return ReturnValue.success(callContactsMapper.insertSelective(record));
     }
 
@@ -105,6 +106,9 @@ public class CallContactsServiceImpl implements CallContactsService {
             BeanUtils.copyProperties(contactVO, record);
             if(CollectionUtils.isEmpty(callContacts)) {
                 //新增
+                if(StringUtils.isBlank(record.getDataTime())) {
+                    record.setDataTime(DateFormatUtils.format(new Date(), LeafConstant.DATETIME_FORMAT));
+                }
                 callContactsMapper.insertSelective(record);
             } else {
                 //更新

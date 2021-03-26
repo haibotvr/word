@@ -19,4 +19,6 @@ public class LeafConstant {
 
     public static final Integer RECORDS_1000 = 1000;
 
+    public static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
 }
