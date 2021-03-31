@@ -17,7 +17,6 @@ import java.sql.SQLException;
  */
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource")
-@PropertySource(value = {"classpath:application-prod.properties"})
 public class DbConfig {
 
     Logger log = LoggerFactory.getLogger(DbConfig.class);

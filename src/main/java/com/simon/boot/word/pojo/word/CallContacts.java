@@ -292,6 +292,30 @@ public class CallContacts implements Serializable {
     @ApiModelProperty(value = "备注")
     private String remark;
 
+    /**
+     * 数据更新日期
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "数据更新日期")
+    private String updateTime;
+
+    /**
+     * 企业邮箱
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "企业邮箱")
+    private String officeEmail;
+
+    /**
+     * 是否AI行业
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "是否AI行业")
+    private String industryAi;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -582,6 +606,30 @@ public class CallContacts implements Serializable {
         this.remark = remark == null ? null : remark.trim();
     }
 
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime == null ? null : updateTime.trim();
+    }
+
+    public String getOfficeEmail() {
+        return officeEmail;
+    }
+
+    public void setOfficeEmail(String officeEmail) {
+        this.officeEmail = officeEmail == null ? null : officeEmail.trim();
+    }
+
+    public String getIndustryAi() {
+        return industryAi;
+    }
+
+    public void setIndustryAi(String industryAi) {
+        this.industryAi = industryAi == null ? null : industryAi.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -624,6 +672,9 @@ public class CallContacts implements Serializable {
         sb.append(", email1=").append(email1);
         sb.append(", email2=").append(email2);
         sb.append(", remark=").append(remark);
+        sb.append(", updateTime=").append(updateTime);
+        sb.append(", officeEmail=").append(officeEmail);
+        sb.append(", industryAi=").append(industryAi);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

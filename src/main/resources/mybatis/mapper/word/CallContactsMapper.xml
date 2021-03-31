@@ -38,6 +38,9 @@
     <result column="email1" jdbcType="VARCHAR" property="email1" />
     <result column="email2" jdbcType="VARCHAR" property="email2" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="office_email" jdbcType="VARCHAR" property="officeEmail" />
+    <result column="industry_ai" jdbcType="VARCHAR" property="industryAi" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -102,7 +105,7 @@
     area_code2, telephone2, extension_number2, phone, phone2, company_name, keywords, 
     province, city, address, post_code, industry, industry_new, industry_detail, company_nature, 
     company_person_number, pc_number, annual_turnover, fax1, fax2, data_time, from_person, 
-    data_from, data_status, email1, email2, remark
+    data_from, data_status, email1, email2, remark, update_time, office_email, industry_ai
   </sql>
   <select id="selectByExample" parameterType="com.simon.boot.word.pojo.word.CallContactsExample" resultMap="BaseResultMap">
     select
@@ -149,7 +152,8 @@
       pc_number, annual_turnover, fax1, 
       fax2, data_time, from_person, 
       data_from, data_status, email1, 
-      email2, remark)
+      email2, remark, update_time, 
+      office_email, industry_ai)
     values (#{realName,jdbcType=VARCHAR}, #{realSex,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
       #{job,jdbcType=VARCHAR}, #{jobCategory,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{extensionNumber,jdbcType=VARCHAR}, #{areaCode2,jdbcType=VARCHAR}, 
@@ -161,7 +165,8 @@
       #{pcNumber,jdbcType=INTEGER}, #{annualTurnover,jdbcType=VARCHAR}, #{fax1,jdbcType=VARCHAR}, 
       #{fax2,jdbcType=VARCHAR}, #{dataTime,jdbcType=VARCHAR}, #{fromPerson,jdbcType=VARCHAR}, 
       #{dataFrom,jdbcType=VARCHAR}, #{dataStatus,jdbcType=VARCHAR}, #{email1,jdbcType=VARCHAR}, 
-      #{email2,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+      #{email2,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
+      #{officeEmail,jdbcType=VARCHAR}, #{industryAi,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.word.CallContacts">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -274,6 +279,15 @@
       <if test="remark != null">
         remark,
       </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="officeEmail != null">
+        office_email,
+      </if>
+      <if test="industryAi != null">
+        industry_ai,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="realName != null">
@@ -380,6 +394,15 @@
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="officeEmail != null">
+        #{officeEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="industryAi != null">
+        #{industryAi,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -500,6 +523,15 @@
       <if test="record.remark != null">
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officeEmail != null">
+        office_email = #{record.officeEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryAi != null">
+        industry_ai = #{record.industryAi,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -542,7 +574,10 @@
       data_status = #{record.dataStatus,jdbcType=VARCHAR},
       email1 = #{record.email1,jdbcType=VARCHAR},
       email2 = #{record.email2,jdbcType=VARCHAR},
-      remark = #{record.remark,jdbcType=VARCHAR}
+      remark = #{record.remark,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=VARCHAR},
+      office_email = #{record.officeEmail,jdbcType=VARCHAR},
+      industry_ai = #{record.industryAi,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -655,6 +690,15 @@
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="officeEmail != null">
+        office_email = #{officeEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="industryAi != null">
+        industry_ai = #{industryAi,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -694,7 +738,10 @@
       data_status = #{dataStatus,jdbcType=VARCHAR},
       email1 = #{email1,jdbcType=VARCHAR},
       email2 = #{email2,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      office_email = #{officeEmail,jdbcType=VARCHAR},
+      industry_ai = #{industryAi,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

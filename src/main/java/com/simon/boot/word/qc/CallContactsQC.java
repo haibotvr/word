@@ -36,6 +36,12 @@ public class CallContactsQC extends PageQC {
 
     private String remark;
 
+    private String industryAi;
+
+    private String officeEmail;
+
+    private String updateTime;
+
     public String getJob() {
         return job;
     }
@@ -170,5 +176,29 @@ public class CallContactsQC extends PageQC {
 
     public String getRealName() {
         return realName;
+    }
+
+    public String getIndustryAi() {
+        return industryAi;
+    }
+
+    public void setIndustryAi(String industryAi) {
+        this.industryAi = industryAi;
+    }
+
+    public String getOfficeEmail() {
+        return officeEmail;
+    }
+
+    public void setOfficeEmail(String officeEmail) {
+        this.officeEmail = officeEmail;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }

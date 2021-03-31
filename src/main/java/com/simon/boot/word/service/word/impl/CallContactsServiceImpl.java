@@ -39,11 +39,13 @@ public class CallContactsServiceImpl implements CallContactsService {
     @Override
     public ReturnValue add(CallContacts record) throws BusinessException {
         record.setDataTime(DateFormatUtils.format(new Date(), LeafConstant.DATETIME_FORMAT));
+        record.setUpdateTime(DateFormatUtils.format(new Date(), LeafConstant.DATETIME_FORMAT));
         return ReturnValue.success(callContactsMapper.insertSelective(record));
     }
 
     @Override
     public ReturnValue edit(CallContacts record) throws BusinessException {
+        record.setUpdateTime(DateFormatUtils.format(new Date(), LeafConstant.DATETIME_FORMAT));
         return ReturnValue.success(callContactsMapper.updateByPrimaryKeySelective(record));
     }
 
@@ -109,10 +111,16 @@ public class CallContactsServiceImpl implements CallContactsService {
                 if(StringUtils.isBlank(record.getDataTime())) {
                     record.setDataTime(DateFormatUtils.format(new Date(), LeafConstant.DATETIME_FORMAT));
                 }
+                if(StringUtils.isBlank(record.getUpdateTime())) {
+                    record.setUpdateTime(DateFormatUtils.format(new Date(), LeafConstant.DATETIME_FORMAT));
+                }
                 callContactsMapper.insertSelective(record);
             } else {
                 //更新
                 record.setId(callContacts.get(0).getId());
+                if(StringUtils.isBlank(record.getUpdateTime())) {
+                    record.setUpdateTime(DateFormatUtils.format(new Date(), LeafConstant.DATETIME_FORMAT));
+                }
                 callContactsMapper.updateByPrimaryKeySelective(record);
             }
         }
@@ -199,6 +207,12 @@ public class CallContactsServiceImpl implements CallContactsService {
         }
         if(StringUtils.isNotBlank(qc.getIndustryNew())){
             criteria.andIndustryNewLike("%" + qc.getIndustryNew() + "%");
+        }
+        if(StringUtils.isNotBlank(qc.getIndustryAi())){
+            criteria.andIndustryAiLike("%" + qc.getIndustryAi() + "%");
+        }
+        if(StringUtils.isNotBlank(qc.getOfficeEmail())){
+            criteria.andOfficeEmailLike("%" + qc.getOfficeEmail() + "%");
         }
         return callContactsMapper.selectByExample(example);
     }

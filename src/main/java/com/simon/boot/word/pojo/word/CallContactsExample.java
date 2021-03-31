@@ -2593,6 +2593,216 @@ public class CallContactsExample {
             addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
+
+        public Criteria andUpdateTimeIsNull() {
+            addCriterion("update_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeIsNotNull() {
+            addCriterion("update_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeEqualTo(String value) {
+            addCriterion("update_time =", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotEqualTo(String value) {
+            addCriterion("update_time <>", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeGreaterThan(String value) {
+            addCriterion("update_time >", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("update_time >=", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeLessThan(String value) {
+            addCriterion("update_time <", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeLessThanOrEqualTo(String value) {
+            addCriterion("update_time <=", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeLike(String value) {
+            addCriterion("update_time like", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotLike(String value) {
+            addCriterion("update_time not like", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeIn(List<String> values) {
+            addCriterion("update_time in", values, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotIn(List<String> values) {
+            addCriterion("update_time not in", values, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeBetween(String value1, String value2) {
+            addCriterion("update_time between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotBetween(String value1, String value2) {
+            addCriterion("update_time not between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailIsNull() {
+            addCriterion("office_email is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailIsNotNull() {
+            addCriterion("office_email is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailEqualTo(String value) {
+            addCriterion("office_email =", value, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailNotEqualTo(String value) {
+            addCriterion("office_email <>", value, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailGreaterThan(String value) {
+            addCriterion("office_email >", value, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailGreaterThanOrEqualTo(String value) {
+            addCriterion("office_email >=", value, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailLessThan(String value) {
+            addCriterion("office_email <", value, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailLessThanOrEqualTo(String value) {
+            addCriterion("office_email <=", value, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailLike(String value) {
+            addCriterion("office_email like", value, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailNotLike(String value) {
+            addCriterion("office_email not like", value, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailIn(List<String> values) {
+            addCriterion("office_email in", values, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailNotIn(List<String> values) {
+            addCriterion("office_email not in", values, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailBetween(String value1, String value2) {
+            addCriterion("office_email between", value1, value2, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andOfficeEmailNotBetween(String value1, String value2) {
+            addCriterion("office_email not between", value1, value2, "officeEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiIsNull() {
+            addCriterion("industry_ai is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiIsNotNull() {
+            addCriterion("industry_ai is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiEqualTo(String value) {
+            addCriterion("industry_ai =", value, "industryAi");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiNotEqualTo(String value) {
+            addCriterion("industry_ai <>", value, "industryAi");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiGreaterThan(String value) {
+            addCriterion("industry_ai >", value, "industryAi");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiGreaterThanOrEqualTo(String value) {
+            addCriterion("industry_ai >=", value, "industryAi");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiLessThan(String value) {
+            addCriterion("industry_ai <", value, "industryAi");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiLessThanOrEqualTo(String value) {
+            addCriterion("industry_ai <=", value, "industryAi");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiLike(String value) {
+            addCriterion("industry_ai like", value, "industryAi");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiNotLike(String value) {
+            addCriterion("industry_ai not like", value, "industryAi");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiIn(List<String> values) {
+            addCriterion("industry_ai in", values, "industryAi");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiNotIn(List<String> values) {
+            addCriterion("industry_ai not in", values, "industryAi");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiBetween(String value1, String value2) {
+            addCriterion("industry_ai between", value1, value2, "industryAi");
+            return (Criteria) this;
+        }
+
+        public Criteria andIndustryAiNotBetween(String value1, String value2) {
+            addCriterion("industry_ai not between", value1, value2, "industryAi");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

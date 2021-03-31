@@ -114,4 +114,12 @@ public class ContactExcelVO {
     @ExcelColumn(value = "备注", col = 35)
     private String remark;
 
+    @ExcelColumn(value = "是否AI行业", col = 36)
+    private String industryAi;
+
+    @ExcelColumn(value = "企业邮箱", col = 37)
+    private String officeEmail;
+
+    @ExcelColumn(value = "数据更新时间", col = 38)
+    private String updateTime;
 }

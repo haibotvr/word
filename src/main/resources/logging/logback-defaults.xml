@@ -92,39 +92,11 @@
         </filter>
     </appender>
 
-    <!-- Kafka的appender -->
-    <!--<appender name="KAFKA" class="com.github.danielwegener.logback.kafka.KafkaAppender">-->
-        <!--<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
-            <!--<pattern>${FILE_LOG_PATTERN}</pattern>-->
-        <!--</encoder>-->
-        <!--<topic>${kafka_env}applog_${spring_application_name}</topic>-->
-        <!--<keyingStrategy class="com.github.danielwegener.logback.kafka.keying.HostNameKeyingStrategy" />-->
-        <!--<deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy" />-->
-        <!--<producerConfig>bootstrap.servers=${kafka_broker}</producerConfig>-->
-        <!--&lt;!&ndash; don't wait for a broker to ack the reception of a batch.  &ndash;&gt;-->
-        <!--<producerConfig>acks=0</producerConfig>-->
-        <!--&lt;!&ndash; wait up to 1000ms and collect log messages before sending them as a batch &ndash;&gt;-->
-        <!--<producerConfig>linger.ms=1000</producerConfig>-->
-        <!--&lt;!&ndash; even if the producer buffer runs full, do not block the application but start to drop messages &ndash;&gt;-->
-        <!--<producerConfig>max.block.ms=0</producerConfig>-->
-        <!--&lt;!&ndash; Optional parameter to use a fixed partition &ndash;&gt;-->
-        <!--<partition>8</partition>-->
-    <!--</appender>-->
-
-    <!--<appender name="KAFKA_ASYNC" class="ch.qos.logback.classic.AsyncAppender">-->
-        <!--<appender-ref ref="KAFKA" />-->
-    <!--</appender>-->
-
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="INFO_FILE"/>
         <appender-ref ref="WARN_FILE"/>
         <appender-ref ref="ERROR_FILE"/>
-        <!--<if condition='"true".equals(property("kafka_enabled"))'>-->
-            <!--<then>-->
-                <!--<appender-ref ref="KAFKA_ASYNC"/>-->
-            <!--</then>-->
-        <!--</if>-->
     </root>
 
 </included>
