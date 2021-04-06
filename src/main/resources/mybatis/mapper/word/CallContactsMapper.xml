@@ -41,6 +41,7 @@
     <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
     <result column="office_email" jdbcType="VARCHAR" property="officeEmail" />
     <result column="industry_ai" jdbcType="VARCHAR" property="industryAi" />
+    <result column="reg_capital" jdbcType="INTEGER" property="regCapital" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -105,7 +106,8 @@
     area_code2, telephone2, extension_number2, phone, phone2, company_name, keywords, 
     province, city, address, post_code, industry, industry_new, industry_detail, company_nature, 
     company_person_number, pc_number, annual_turnover, fax1, fax2, data_time, from_person, 
-    data_from, data_status, email1, email2, remark, update_time, office_email, industry_ai
+    data_from, data_status, email1, email2, remark, update_time, office_email, industry_ai, 
+    reg_capital
   </sql>
   <select id="selectByExample" parameterType="com.simon.boot.word.pojo.word.CallContactsExample" resultMap="BaseResultMap">
     select
@@ -153,7 +155,8 @@
       fax2, data_time, from_person, 
       data_from, data_status, email1, 
       email2, remark, update_time, 
-      office_email, industry_ai)
+      office_email, industry_ai, reg_capital
+      )
     values (#{realName,jdbcType=VARCHAR}, #{realSex,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
       #{job,jdbcType=VARCHAR}, #{jobCategory,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{extensionNumber,jdbcType=VARCHAR}, #{areaCode2,jdbcType=VARCHAR}, 
@@ -166,7 +169,8 @@
       #{fax2,jdbcType=VARCHAR}, #{dataTime,jdbcType=VARCHAR}, #{fromPerson,jdbcType=VARCHAR}, 
       #{dataFrom,jdbcType=VARCHAR}, #{dataStatus,jdbcType=VARCHAR}, #{email1,jdbcType=VARCHAR}, 
       #{email2,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
-      #{officeEmail,jdbcType=VARCHAR}, #{industryAi,jdbcType=VARCHAR})
+      #{officeEmail,jdbcType=VARCHAR}, #{industryAi,jdbcType=VARCHAR}, #{regCapital,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.simon.boot.word.pojo.word.CallContacts">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -288,6 +292,9 @@
       <if test="industryAi != null">
         industry_ai,
       </if>
+      <if test="regCapital != null">
+        reg_capital,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="realName != null">
@@ -403,6 +410,9 @@
       </if>
       <if test="industryAi != null">
         #{industryAi,jdbcType=VARCHAR},
+      </if>
+      <if test="regCapital != null">
+        #{regCapital,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -532,6 +542,9 @@
       <if test="record.industryAi != null">
         industry_ai = #{record.industryAi,jdbcType=VARCHAR},
       </if>
+      <if test="record.regCapital != null">
+        reg_capital = #{record.regCapital,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -577,7 +590,8 @@
       remark = #{record.remark,jdbcType=VARCHAR},
       update_time = #{record.updateTime,jdbcType=VARCHAR},
       office_email = #{record.officeEmail,jdbcType=VARCHAR},
-      industry_ai = #{record.industryAi,jdbcType=VARCHAR}
+      industry_ai = #{record.industryAi,jdbcType=VARCHAR},
+      reg_capital = #{record.regCapital,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -699,6 +713,9 @@
       <if test="industryAi != null">
         industry_ai = #{industryAi,jdbcType=VARCHAR},
       </if>
+      <if test="regCapital != null">
+        reg_capital = #{regCapital,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -741,7 +758,8 @@
       remark = #{remark,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=VARCHAR},
       office_email = #{officeEmail,jdbcType=VARCHAR},
-      industry_ai = #{industryAi,jdbcType=VARCHAR}
+      industry_ai = #{industryAi,jdbcType=VARCHAR},
+      reg_capital = #{regCapital,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

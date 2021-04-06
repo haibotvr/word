@@ -42,6 +42,16 @@ public class CallContactsQC extends PageQC {
 
     private String updateTime;
 
+    private String department;
+
+    private Integer companyPersonNumber;
+
+    private Integer pcNumber;
+
+    private String annualTurnover;
+
+    private Integer regCapital;
+
     public String getJob() {
         return job;
     }
@@ -200,5 +210,45 @@ public class CallContactsQC extends PageQC {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public Integer getCompanyPersonNumber() {
+        return companyPersonNumber;
+    }
+
+    public void setCompanyPersonNumber(Integer companyPersonNumber) {
+        this.companyPersonNumber = companyPersonNumber;
+    }
+
+    public Integer getPcNumber() {
+        return pcNumber;
+    }
+
+    public void setPcNumber(Integer pcNumber) {
+        this.pcNumber = pcNumber;
+    }
+
+    public String getAnnualTurnover() {
+        return annualTurnover;
+    }
+
+    public void setAnnualTurnover(String annualTurnover) {
+        this.annualTurnover = annualTurnover;
+    }
+
+    public Integer getRegCapital() {
+        return regCapital;
+    }
+
+    public void setRegCapital(Integer regCapital) {
+        this.regCapital = regCapital;
     }
 }

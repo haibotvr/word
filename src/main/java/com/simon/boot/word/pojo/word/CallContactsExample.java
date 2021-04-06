@@ -2803,6 +2803,66 @@ public class CallContactsExample {
             addCriterion("industry_ai not between", value1, value2, "industryAi");
             return (Criteria) this;
         }
+
+        public Criteria andRegCapitalIsNull() {
+            addCriterion("reg_capital is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegCapitalIsNotNull() {
+            addCriterion("reg_capital is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegCapitalEqualTo(Integer value) {
+            addCriterion("reg_capital =", value, "regCapital");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegCapitalNotEqualTo(Integer value) {
+            addCriterion("reg_capital <>", value, "regCapital");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegCapitalGreaterThan(Integer value) {
+            addCriterion("reg_capital >", value, "regCapital");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegCapitalGreaterThanOrEqualTo(Integer value) {
+            addCriterion("reg_capital >=", value, "regCapital");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegCapitalLessThan(Integer value) {
+            addCriterion("reg_capital <", value, "regCapital");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegCapitalLessThanOrEqualTo(Integer value) {
+            addCriterion("reg_capital <=", value, "regCapital");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegCapitalIn(List<Integer> values) {
+            addCriterion("reg_capital in", values, "regCapital");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegCapitalNotIn(List<Integer> values) {
+            addCriterion("reg_capital not in", values, "regCapital");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegCapitalBetween(Integer value1, Integer value2) {
+            addCriterion("reg_capital between", value1, value2, "regCapital");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegCapitalNotBetween(Integer value1, Integer value2) {
+            addCriterion("reg_capital not between", value1, value2, "regCapital");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

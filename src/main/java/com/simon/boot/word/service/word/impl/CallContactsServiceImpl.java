@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -213,6 +214,21 @@ public class CallContactsServiceImpl implements CallContactsService {
         }
         if(StringUtils.isNotBlank(qc.getOfficeEmail())){
             criteria.andOfficeEmailLike("%" + qc.getOfficeEmail() + "%");
+        }
+        if(StringUtils.isNotBlank(qc.getDepartment())){
+            criteria.andDepartmentLike("%" + qc.getDepartment() + "%");
+        }
+        if(Objects.nonNull(qc.getPcNumber())){
+            criteria.andPcNumberGreaterThan(qc.getPcNumber());
+        }
+        if(Objects.nonNull(qc.getCompanyPersonNumber())){
+            criteria.andCompanyPersonNumberGreaterThan(qc.getCompanyPersonNumber());
+        }
+        if(StringUtils.isNotBlank(qc.getAnnualTurnover())){
+            criteria.andAnnualTurnoverGreaterThan(qc.getAnnualTurnover());
+        }
+        if(Objects.nonNull(qc.getRegCapital())){
+            criteria.andRegCapitalGreaterThan(qc.getRegCapital());
         }
         return callContactsMapper.selectByExample(example);
     }

@@ -316,6 +316,14 @@ public class CallContacts implements Serializable {
     @ApiModelProperty(value = "是否AI行业")
     private String industryAi;
 
+    /**
+     * 注册资本
+     *
+     * @mbg.generated
+     */
+    @ApiModelProperty(value = "注册资本")
+    private Integer regCapital;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -630,6 +638,14 @@ public class CallContacts implements Serializable {
         this.industryAi = industryAi == null ? null : industryAi.trim();
     }
 
+    public Integer getRegCapital() {
+        return regCapital;
+    }
+
+    public void setRegCapital(Integer regCapital) {
+        this.regCapital = regCapital;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -675,6 +691,7 @@ public class CallContacts implements Serializable {
         sb.append(", updateTime=").append(updateTime);
         sb.append(", officeEmail=").append(officeEmail);
         sb.append(", industryAi=").append(industryAi);
+        sb.append(", regCapital=").append(regCapital);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
