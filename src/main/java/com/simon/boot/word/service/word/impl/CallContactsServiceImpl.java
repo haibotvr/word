@@ -225,7 +225,7 @@ public class CallContactsServiceImpl implements CallContactsService {
             criteria.andCompanyPersonNumberGreaterThan(qc.getCompanyPersonNumber());
         }
         if(StringUtils.isNotBlank(qc.getAnnualTurnover())){
-            criteria.andAnnualTurnoverGreaterThan(qc.getAnnualTurnover());
+            criteria.andAnnualTurnoverLike("%" + qc.getAnnualTurnover() + "%");
         }
         if(Objects.nonNull(qc.getRegCapital())){
             criteria.andRegCapitalGreaterThan(qc.getRegCapital());
