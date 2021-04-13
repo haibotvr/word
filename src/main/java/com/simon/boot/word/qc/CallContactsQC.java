@@ -52,6 +52,8 @@ public class CallContactsQC extends PageQC {
 
     private Integer regCapital;
 
+    private String haveOfficeEmail;
+
     public String getJob() {
         return job;
     }
@@ -250,5 +252,13 @@ public class CallContactsQC extends PageQC {
 
     public void setRegCapital(Integer regCapital) {
         this.regCapital = regCapital;
+    }
+
+    public String getHaveOfficeEmail() {
+        return haveOfficeEmail;
+    }
+
+    public void setHaveOfficeEmail(String haveOfficeEmail) {
+        this.haveOfficeEmail = haveOfficeEmail;
     }
 }

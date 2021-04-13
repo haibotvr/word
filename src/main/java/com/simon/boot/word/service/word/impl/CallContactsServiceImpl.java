@@ -3,6 +3,8 @@ package com.simon.boot.word.service.word.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.simon.boot.word.dao.word.CallContactsMapper;
+import com.simon.boot.word.enums.YesOrNoEnum;
+import com.simon.boot.word.enums.YesOrNoStrEnum;
 import com.simon.boot.word.framework.exception.BusinessException;
 import com.simon.boot.word.framework.kits.ExcelUtils;
 import com.simon.boot.word.framework.kits.LeafConstant;
@@ -77,7 +79,7 @@ public class CallContactsServiceImpl implements CallContactsService {
         if(CollectionUtils.isEmpty(contactVOS)) {
             return ReturnValue.error().setMessage("没有数据");
         }
-        if(contactVOS.size() > LeafConstant.RECORDS_1000) {
+        if(contactVOS.size() > LeafConstant.RECORDS_2000) {
             return ReturnValue.error().setMessage("Excel中大于1000条数据");
         }
         CallContactsExample example = new CallContactsExample();
@@ -229,6 +231,13 @@ public class CallContactsServiceImpl implements CallContactsService {
         }
         if(Objects.nonNull(qc.getRegCapital())){
             criteria.andRegCapitalGreaterThan(qc.getRegCapital());
+        }
+        if(StringUtils.isNotBlank(qc.getHaveOfficeEmail())) {
+            if(YesOrNoStrEnum.YES.getValue().equals(qc.getHaveOfficeEmail())) {
+                criteria.andOfficeEmailIsNotNull();
+            } else if (YesOrNoStrEnum.NO.getValue().equals(qc.getHaveOfficeEmail())) {
+                criteria.andOfficeEmailIsNull();
+            }
         }
         return callContactsMapper.selectByExample(example);
     }
