@@ -24,7 +24,7 @@
 		<swagger.version>2.7.0</swagger.version>
 		<hutool.version>4.5.7</hutool.version>
 		<mybatis.version>2.0.1</mybatis.version>
-		<poi.version>3.13</poi.version>
+		<poi.version>4.1.1</poi.version>
 		<poi-ooxml.version>3.13</poi-ooxml.version>
 		<commons-lang3.version>3.9</commons-lang3.version>
 		<skipTests>true</skipTests>
